@@ -1,0 +1,35 @@
+@import '~stylus/colors'
+
+#fab
+    appearance none
+    -webkit-appearance none
+    -moz-appearance none
+    position fixed
+    z-index 100
+    bottom calc(7.5vh + 15px)
+    right calc(7.5vw + 15px)
+    display flex
+    justify-content center
+    align-items center
+    width 56px
+    height 56px
+    border 0
+    background-color primary
+    border-radius 28px
+    box-shadow 0 2px 4px rgba(0,0,0,.375)
+    transition box-shadow .25s ease-out
+    outline none
+    cursor pointer
+
+    &:hover,
+    &:focus
+        box-shadow 0 3px 7px rgba(0,0,0,.375)
+
+#fab-icon
+    width 32px
+    height 32px
+
+@media screen and (max-width 567.9px)
+    #fab
+        bottom 30px
+        right 20px

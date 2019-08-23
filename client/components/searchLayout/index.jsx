@@ -1,6 +1,8 @@
 import React, { Fragment } from "react"
 import Head from "next/head"
 
+import Fab from "components/fab"
+
 import "./search-layout.styl"
 
 const SearchLayout = props => {
@@ -12,6 +14,7 @@ const SearchLayout = props => {
 				<title>Search Maidreamin Menu</title>
 			</Head>
 			<div id="landing">
+				<Fab />
 				<div id="search">
 					<img
 						id="search-icon"
