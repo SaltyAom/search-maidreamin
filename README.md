@@ -6,16 +6,18 @@
 Using Apollo GraphQL to implement simple text search with [Maidreamin API](https://maidreamin.now.sh/menu).
 
 ### Serverless on now
-With serverless architecture deploy on now.sh, divided into 2 part
+With serverless architecture deploy on now.sh, divided into 2 part:
 * apollo
 * client
   
 #### Apollo Part
-Simple express server for request management on GraphQL link with Apollo
+Simple express server for request management on GraphQL link with Apollo.
   
 #### Client Part
 Simple Next.js client side for search, fire request to Apollo part to proceed the request and update.
-
+  
+Both two part has seperate server and URL, using CORs and add exception for client URL origin only solve the problem.
+  
 #### Offline support
 Actually, PWA support and service worker is added for caching request and app shell.
 
