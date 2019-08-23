@@ -1,0 +1,26 @@
+{
+    "version": 2,
+    "name": "Search Maidreamin Menu - Apollo",
+    "alias": "apollo-search-maidreamin.now.sh",
+    "builds": [
+        { 
+            "src": "index.js", 
+            "use": "@now/node-server"
+        }
+    ],
+    "routes": [
+        {
+            "src":"/.*",
+            "headers": { 
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept",
+                "x-now-cache": "HIT",
+                "cache-control": "immutable,max-age=31536000",
+                "Accept-Encoding": "br",
+                "Service-Worker-Allowed": "/"
+            } 
+        }
+    ],
+    "regions": ["all"]
+}

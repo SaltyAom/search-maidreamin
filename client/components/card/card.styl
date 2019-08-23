@@ -1,0 +1,112 @@
+@import '~stylus/colors'
+
+.card
+    display flex
+    flex-direction column
+    justify-content flex-start
+    align-items flex-start
+    width 100%
+    margin 15px 0
+    padding 30px 30px 0 30px
+    background-color root
+    border-radius 5px
+    box-shadow  0 2px 5px rgba(0,0,0,.05),
+                0 6px 15px rgba(0,0,0,.025)
+    transition box-shadow .2s ease-in-out, transform .2s ease-in-out, height .2s ease-in-out
+    animation card-in .2s ease-out 0s 1
+
+    @keyframes card-in
+        from
+            opacity 0
+            transform translateY(15px)
+
+    & > .body
+        display flex
+        flex-direction row
+        justify-content space-between
+        align-items center
+        width 100%
+        margin 0 0 15px 0
+
+        & > .name
+            display flex
+            flex 1
+            flex-direction column
+            justify-content flex-start
+            align-items flex-start
+            font-size 36px
+            text-align left
+            color primary-text
+            text-transform capitalize
+            margin 0
+            transition height .2s ease-in-out
+            padding 0 30px 0 0
+            cursor default
+
+        & > .price
+            display inline-block
+            color primary
+            font-size 24px
+            margin 0
+            cursor default
+
+    & > .footer
+        display block
+        width 100%
+        padding 10px 0 10px 0
+        font-size 16px
+        color secondary-text
+
+        & > .other
+            appearance none
+            -webkit-appearance none
+            -moz-appearance none
+            display inline-block
+            color secondary-text
+            border 0
+            background-color transparent
+            margin 5px 10px 5px 0
+            font-size 16px
+            font-weight lighter
+            text-transform capitalize
+            transition color .25s ease-out
+            outline none
+            cursor pointer
+
+            &:hover
+                color primary
+
+    &:hover,
+    &:focus
+        box-shadow  0 6px 12px rgba(0,0,0,.0725),
+            0 15px 35px rgba(0,0,0,.05)
+        transform: scale(1.05)
+
+.preload
+    display block
+    width 100%
+    height 16px
+    margin 0 auto
+    border-radius 2px
+    background-color preload
+
+    &.small
+        height 8px
+        margin-bottom 5px
+
+.preload-price
+    width 70px
+
+.preload-other
+    width 100px
+
+@media screen and (max-width 567.9px)
+    .card
+
+        & > .body
+            flex-direction column
+            align-items flex-start
+
+            & > .price
+                font-size 21px
+                margin-top 15px

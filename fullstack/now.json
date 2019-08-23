@@ -1,0 +1,50 @@
+{
+    "version": 2,
+    "name": "Search Maidreamin Menu",
+    "alias": "search-maidreamin.now.sh",
+    "builds": [
+        { 
+            "src": "index.js", 
+            "use": "@now/node-server"
+        },
+        {
+            "src": "static/**/*", 
+            "use": "@now/static" 
+        }
+    ],
+    "routes": [
+        {
+            "src":"/.*",
+            "headers": { 
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept",
+                "x-now-cache": "HIT",
+                "cache-control": "immutable,max-age=31536000",
+                "Accept-Encoding": "br",
+                "Service-Worker-Allowed": "/"
+            } 
+        },
+        { 
+            "src": "/_next/static/(?:[^/]+/pages|chunks|runtime)/.+", 
+            "headers": { 
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept",
+                "x-now-cache": "HIT",
+                "cache-control": "immutable,max-age=31536000",
+                "Accept-Encoding": "br",
+                "Service-Worker-Allowed": "/"
+            } 
+        },
+        {	
+            "src": "^/service-worker.js$",	
+            "dest": "/_next/static/service-worker.js",
+            "headers": {
+                "cache-control": "public, max-age=43200, immutable",
+                "Service-Worker-Allowed": "/"
+            }
+        }
+    ],
+    "regions": ["all"]
+}

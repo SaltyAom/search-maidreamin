@@ -1,0 +1,5 @@
+apollo/node_modules/*
+client/node_modules/*
+client/.next/*
+fullstack/node_modules/*
+fullstack/.next/*
