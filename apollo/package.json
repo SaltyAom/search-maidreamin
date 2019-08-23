@@ -3,20 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
-    "start": "micro",
-    "dev": "micro-dev"
-  },
   "dependencies": {
     "apollo-datasource-rest": "^0.6.1",
     "apollo-server-cache-memcached": "^0.6.1",
     "apollo-server-express": "^2.8.2",
-    "apollo-server-micro": "^2.8.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "graphql": "^14.5.0",
-    "micro": "^9.3.4",
-    "micro-cors": "^0.1.1",
-    "micro-dev": "^3.0.0"
+    "graphql": "^14.5.0"
   }
 }
