@@ -13,7 +13,6 @@
     box-shadow  0 2px 5px rgba(0,0,0,.05),
                 0 6px 15px rgba(0,0,0,.025)
     transition box-shadow .2s ease-in-out, transform .2s ease-in-out, height .2s ease-in-out
-    animation card-in .4s ease-out 0s 1
 
     @keyframes card-in
         from
@@ -130,3 +129,7 @@
 
     .preload
         background-color dark-preload
+
+  @supports (-webkit-overflow-scrolling touch)
+    .card
+        background-color dark-ios-card

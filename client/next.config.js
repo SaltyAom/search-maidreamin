@@ -26,7 +26,11 @@ module.exports = withBundleAnalyzer(
 				__dirname,
 				"components"
 			)
-			config.resolve.alias["static"] = path.join(__dirname, "static")
+			config.resolve.alias["static"] = path.join(
+				__dirname,
+				"static"
+			)
+			config.resolve.alias["libs"] = path.join(__dirname, "libs")
 
 			return config
 		}

@@ -97,17 +97,20 @@ const Maidreamin = () => {
 	}
 
 	if (loading && typeof data !== "undefined") {
-		return (
-			<SearchLayout
-				value={searchPlaceholder}
-				onChange={event => setSearchPlaceholder(event.target.value)}
-			>
-				<Card preload />
-				<Card preload />
-				<Card preload />
-				<Card preload />
-			</SearchLayout>
-		)
+		setTimeout(() => {
+			if (loading && typeof data !== "undefined")
+				return (
+					<SearchLayout
+						value={searchPlaceholder}
+						onChange={event => setSearchPlaceholder(event.target.value)}
+					>
+						<Card preload />
+						<Card preload />
+						<Card preload />
+						<Card preload />
+					</SearchLayout>
+				)
+		}, 350)
 	}
 
 	if (error) {
