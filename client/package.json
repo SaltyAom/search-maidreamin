@@ -6,10 +6,12 @@
 	"scripts": {
 		"dev": "next",
 		"build": "next build",
-		"start": "next start"
+		"start": "next start",
+		"analyze": "cross-env ANALYZE=true yarn build"
 	},
 	"dependencies": {
 		"@apollo/react-hooks": "^3.0.1",
+		"@next/bundle-analyzer": "^9.0.4",
 		"@zeit/next-stylus": "^1.0.1",
 		"apollo-cache-inmemory": "^1.6.3",
 		"apollo-client": "^2.6.4",
@@ -20,9 +22,15 @@
 		"next": "^9.0.4",
 		"next-apollo": "^3.0.3",
 		"node-fetch": "^2.6.0",
+		"preact": "^10.0.0-rc.1",
+		"preact-compat": "^3.19.0",
+		"preact-render-to-string": "^4.1.0",
+		"preact-ssr-prepass": "^1.0.0",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0",
 		"stylus": "^0.54.7"
 	},
-	"devDependencies": {}
+	"devDependencies": {
+		"cross-env": "^5.2.0"
+	}
 }
