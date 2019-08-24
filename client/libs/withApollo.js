@@ -4,8 +4,6 @@ import { InMemoryCache } from "apollo-cache-inmemory"
 import withApollo from 'next-with-apollo'
 import fetch from "node-fetch"
 
-import "stylus/init.styl"
-
 const dev = process.env.NODE_ENV !== "production"
 
 let link = dev

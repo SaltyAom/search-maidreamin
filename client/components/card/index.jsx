@@ -132,7 +132,7 @@ const Card = props => {
 				return (
 					<div className="card">
 						<div className="body">
-							<h2 className="name">TH</h2>
+							<h2 className="name">{th}</h2>
 							<p className="price">฿{price}</p>
 						</div>
 						<footer className="footer">
