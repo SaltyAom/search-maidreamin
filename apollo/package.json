@@ -3,12 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js"
+  },
   "dependencies": {
     "apollo-datasource-rest": "^0.6.1",
     "apollo-server-cache-memcached": "^0.6.1",
     "apollo-server-express": "^2.8.2",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "express": "^4.17.1",
     "graphql": "^14.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

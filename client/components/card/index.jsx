@@ -17,18 +17,26 @@ const Card = props => {
 			<div className="card">
 				<div className="body">
 					<h2 className="name">
-                        <p className="preload"></p>
-                    </h2>
+						<p className="preload" />
+					</h2>
 					<p className="price preload-price">
-                        <span className="preload"></span>
-                    </p>
+						<span className="preload" />
+					</p>
 				</div>
 				<footer className="footer">
-					<button className="other preload-other" onClick={() => setLanguage("en")}>
-                        <div className="preload small"></div>
+					<button
+						className="other preload-other"
+						name="loading-1"
+						onClick={() => setLanguage("en")}
+					>
+						<div className="preload small" />
 					</button>
-					<button className="other preload-other" onClick={() => setLanguage("jp")}>
-                        <div className="preload small"></div>
+					<button
+						className="other preload-other"
+						name="loading-2"
+						onClick={() => setLanguage("jp")}
+					>
+						<div className="preload small" />
 					</button>
 				</footer>
 			</div>
@@ -44,19 +52,21 @@ const Card = props => {
 					<div className="card">
 						<div className="body">
 							<h2 className="name">{th}</h2>
-							{ typeof price !== "undefined" ?
+							{typeof price !== "undefined" ? (
 								<p className="price">฿{price}</p>
-							: null }
+							) : null}
 						</div>
 						<footer className="footer">
 							<button
 								className="other"
+								name={en}
 								onClick={() => setLanguage("en")}
 							>
 								{en}
 							</button>
 							<button
 								className="other"
+								name={jp}
 								onClick={() => setLanguage("jp")}
 							>
 								{jp}
@@ -69,19 +79,21 @@ const Card = props => {
 					<div className="card">
 						<div className="body">
 							<h2 className="name">{en}</h2>
-							{ typeof price !== "undefined" ?
+							{typeof price !== "undefined" ? (
 								<p className="price">฿{price}</p>
-							: null }
+							) : null}
 						</div>
 						<footer className="footer">
 							<button
 								className="other"
+								name={th}
 								onClick={() => setLanguage("th")}
 							>
 								{th}
 							</button>
 							<button
 								className="other"
+								name={jp}
 								onClick={() => setLanguage("jp")}
 							>
 								{jp}
@@ -94,19 +106,21 @@ const Card = props => {
 					<div className="card">
 						<div className="body">
 							<h2 className="name">{jp}</h2>
-							{ typeof price !== "undefined" ?
+							{typeof price !== "undefined" ? (
 								<p className="price">฿{price}</p>
-							: null }
+							) : null}
 						</div>
 						<footer className="footer">
 							<button
 								className="other"
+								name={th}
 								onClick={() => setLanguage("th")}
 							>
 								{th}
 							</button>
 							<button
 								className="other"
+								name={en}
 								onClick={() => setLanguage("en")}
 							>
 								{en}
@@ -124,12 +138,14 @@ const Card = props => {
 						<footer className="footer">
 							<button
 								className="other"
+								name={en}
 								onClick={() => setLanguage("en")}
 							>
 								{en}
 							</button>
 							<button
 								className="other"
+								name={jp}
 								onClick={() => setLanguage("jp")}
 							>
 								{jp}
@@ -150,7 +166,11 @@ const Card = props => {
 					<p className="price">฿{price}</p>
 				</div>
 				<footer className="footer">
-					<button className="other" onClick={() => setSelected(1)}>
+					<button
+						className="other"
+						name={subMenu[1]}
+						onClick={() => setSelected(1)}
+					>
 						{subMenu[1]}
 					</button>
 				</footer>
@@ -163,7 +183,11 @@ const Card = props => {
 				<p className="price">฿{price}</p>
 			</div>
 			<footer className="footer">
-				<button className="other" onClick={() => setSelected(0)}>
+				<button
+					className="other"
+					name={subMenu[0]}
+					onClick={() => setSelected(0)}
+				>
 					{subMenu[0]}
 				</button>
 			</footer>

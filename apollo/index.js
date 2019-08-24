@@ -13,6 +13,9 @@ const resolvers = require("./graphql/resolvers")
 
 const MaidreaminAPI = require("./graphql/dataSources/maidreamin.js")
 
+/* Config */
+const dev = process.env.NODE_ENV !== "production"
+
 /* Apollo */
 const server = new ApolloServer({
 	typeDefs,
@@ -29,16 +32,22 @@ const server = new ApolloServer({
 	engine: {
 		apiKey: "service:maidreamin-search:ItERbd2CFwr_jd3ADIXuqQ"
 	},
-	introspection: false,
-	playground: false,
-	tracing: true,
+	introspection: dev,
+	playground: dev,
+	tracing: !dev,
 	cacheControl: true
 })
 
 /* Server config */
-let corsOptions = {
-	origin: "https://search-maidreamin.now.sh"
-}
+let corsOptions
+
+dev
+	? (corsOptions = {
+			origin: "*"
+	  })
+	: (corsOptions = {
+			origin: "https://search-maidreamin.now.sh"
+	  })
 
 app.use(cors(corsOptions))
 server.applyMiddleware({
@@ -48,5 +57,5 @@ server.applyMiddleware({
 })
 
 app.listen({ port: 8080 }, () => {
-	console.log(`Listen on port :8000 desu!`)
+	console.log(`Listen on port :8080 desu!`)
 })
