@@ -9,7 +9,7 @@ const Fab = () => {
 				id="fab-icon"
 				src="/static/img/expand_less.svg"
 				alt="Back to top"
-				ariaLabel="Back to top"
+				aria-label="Back to top"
 			/>
 		</button>
 	)

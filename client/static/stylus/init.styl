@@ -17,3 +17,11 @@ body
 
 #__next
   overflow-y hidden
+
+@media screen and (prefers-color-scheme: dark)
+  body
+    background-color dark-background
+
+  @supports (-webkit-overflow-scrolling touch)
+    body
+      background-color dark-ios-background

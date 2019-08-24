@@ -34,6 +34,20 @@ const SEARCH_MENU = gql`
 	}
 `
 
+const SEARCH_PRICE = gql`
+	query getMenuBy($price: Int) {
+		getMenuBy(price: $price) {
+			name {
+				th
+				en
+				jp
+			}
+			subMenu
+			price
+		}
+	}
+`
+
 const Maidreamin = () => {
 	let [search, setSearch] = useState(""),
 		[searchPlaceholder, setSearchPlaceholder] = useState("")
@@ -41,19 +55,21 @@ const Maidreamin = () => {
 	let searchRef = useRef("")
 
 	useEffect(() => {
-        if ('serviceWorker' in navigator) {
-            window.onload = () => {
-                navigator.serviceWorker.register('/static/service-worker.js', {
-                    scope: "/"
-                })
-                .then(registration => {
-                    console.info('Registered:', registration);
-                }).catch(err => {
-                    console.error('Registration failed: ', err);
-                });
-            }
-        }
-    }, []);
+		if ("serviceWorker" in navigator) {
+			window.onload = () => {
+				navigator.serviceWorker
+					.register("/static/service-worker.js", {
+						scope: "/"
+					})
+					.then(registration => {
+						console.info("Registered:", registration)
+					})
+					.catch(err => {
+						console.error("Registration failed: ", err)
+					})
+			}
+		}
+	}, [])
 
 	useEffect(() => {
 		let deferSearch = searchPlaceholder
@@ -67,12 +83,16 @@ const Maidreamin = () => {
 	let { data, loading, error } =
 		search === ""
 			? useQuery(GET_MENU)
+			: typeof search === "number"
+			? useQuery(SEARCH_PRICE, {
+					variables: { price: search }
+			  })
 			: useQuery(SEARCH_MENU, {
 					variables: { name: search }
 			  })
 
 	let menus = []
-	if(typeof data !== "undefined"){
+	if (typeof data !== "undefined") {
 		menus = data.getMenu || data.getMenuBy
 	}
 
@@ -96,7 +116,19 @@ const Maidreamin = () => {
 				value={searchPlaceholder}
 				onChange={event => setSearchPlaceholder(event.target.value)}
 			>
-				<Card th="Something went wrong." en="มีข้อผิดพลาดบางอย่าง" />
+				<div className="card">
+					<div className="body">
+						<h2 className="name">Something went wrong.</h2>
+					</div>
+					<footer className="footer">
+						<button
+							className="other"
+							onClick={() => window.location.reload()}
+						>
+							Retry connection
+						</button>
+					</footer>
+				</div>
 				<Card preload />
 			</SearchLayout>
 		)
@@ -107,7 +139,7 @@ const Maidreamin = () => {
 			value={searchPlaceholder}
 			onChange={event => setSearchPlaceholder(event.target.value)}
 		>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js" />
 			{typeof menus !== "undefined" ? (
 				<Fragment>
 					{typeof menus[0] === "undefined" ? (
