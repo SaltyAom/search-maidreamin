@@ -50,7 +50,8 @@ const SEARCH_PRICE = gql`
 
 const Maidreamin = () => {
 	let [search, setSearch] = useState(""),
-		[searchPlaceholder, setSearchPlaceholder] = useState("")
+		[searchPlaceholder, setSearchPlaceholder] = useState(""),
+		[showLoading, setLoading] = useState(false)
 
 	let searchRef = useRef("")
 
@@ -77,40 +78,43 @@ const Maidreamin = () => {
 		setTimeout(() => {
 			if (deferSearch !== searchRef.current) return
 			setSearch(deferSearch)
-		}, 450)
+		}, 350)
 	}, [searchPlaceholder])
 
 	let { data, loading, error } =
 		search === ""
 			? useQuery(GET_MENU)
-			: typeof search === "number"
+			: !isNaN(parseInt(search), 10)
 			? useQuery(SEARCH_PRICE, {
-					variables: { price: search }
+					variables: { price: parseInt(search, 10) }
 			  })
 			: useQuery(SEARCH_MENU, {
 					variables: { name: search }
 			  })
 
 	let menus = []
-	if (typeof data !== "undefined") {
-		menus = data.getMenu || data.getMenuBy
-	}
+
+	if (typeof data !== "undefined") menus = data.getMenu || data.getMenuBy
 
 	if (loading && typeof data !== "undefined") {
 		setTimeout(() => {
-			if (loading && typeof data !== "undefined")
-				return (
-					<SearchLayout
-						value={searchPlaceholder}
-						onChange={event => setSearchPlaceholder(event.target.value)}
-					>
-						<Card preload />
-						<Card preload />
-						<Card preload />
-						<Card preload />
-					</SearchLayout>
-				)
+			if (loading && typeof data !== "undefined") setLoading(true)
 		}, 350)
+	}
+
+	if (showLoading) {
+		if (!loading) setLoading(false)
+		return (
+			<SearchLayout
+				value={searchPlaceholder}
+				onChange={event => setSearchPlaceholder(event.target.value)}
+			>
+				<Card preload />
+				<Card preload />
+				<Card preload />
+				<Card preload />
+			</SearchLayout>
+		)
 	}
 
 	if (error) {

@@ -59,6 +59,7 @@ class MaidreaminAPI extends RESTDataSource {
 			})
 			return matchMenu
 		} else {
+			console.log("USE GETPRICE")
 			await menu.map(data => {
 				if (typeof menu["sub menu"] !== "undefined" && data.price === price)
 					matchMenu.push({

@@ -3,7 +3,9 @@ const resolver = {
 		getMenu: (_, __, { dataSources }) => {
             return dataSources.MaidreaminAPI.getMenu()
         },
-        getMenuBy: (_, {name, price}, { dataSources }) => dataSources.MaidreaminAPI.getMenuBy({ name: name, price: price })
+        getMenuBy: (_, {name, price}, { dataSources }) => {
+            return dataSources.MaidreaminAPI.getMenuBy({ name: name, price: price })
+        }
 	}
 }
 
