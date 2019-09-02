@@ -32,22 +32,26 @@ const server = new ApolloServer({
 	engine: {
 		apiKey: "service:maidreamin-search:ItERbd2CFwr_jd3ADIXuqQ"
 	},
-	introspection: dev,
-	playground: dev,
-	tracing: !dev,
+	introspection: true, // dev
+	playground: true, // dev
+	tracing: true, // !dev
 	cacheControl: true
 })
 
 /* Server config */
-let corsOptions
+let corsOptions = { 
+	origin: "*" 
+}
 
+/*
 dev
 	? (corsOptions = {
 			origin: "*"
 	  })
 	: (corsOptions = {
-			origin: "https://search-maidreamin.now.sh"
+			// origin: "https://search-maidreamin.now.sh"
 	  })
+*/
 
 app.use(cors(corsOptions))
 server.applyMiddleware({

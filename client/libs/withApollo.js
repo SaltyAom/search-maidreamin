@@ -1,8 +1,7 @@
 import { ApolloClient } from "apollo-client"
 import { InMemoryCache } from "apollo-cache-inmemory"
 
-import { HttpLink, createHttpLink } from "apollo-link-http"
-import { createPersistedQueryLink } from "apollo-link-persisted-queries"
+import { HttpLink } from "apollo-link-http"
 
 import withApollo from "next-with-apollo"
 import fetch from "node-fetch"

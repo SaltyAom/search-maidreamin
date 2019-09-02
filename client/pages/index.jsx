@@ -146,7 +146,6 @@ const Maidreamin = () => {
 			value={searchPlaceholder}
 			onChange={event => setSearchPlaceholder(event.target.value)}
 		>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js" />
 			{typeof menus !== "undefined" ? (
 				<Fragment>
 					{typeof menus[0] === "undefined" ? (

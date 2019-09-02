@@ -34,38 +34,49 @@ class MaidreaminAPI extends RESTDataSource {
 			[].concat(...Object.values(d.data).map(Object.values))
 		)
 		let matchMenu = []
-		if (name){
+
+		if (name) {
 			await menu.map(data => {
 				if (
-					typeof menu["sub menu"] !== "undefined" &&
-					menu["sub menu"].includes(name)
+					typeof data["sub menu"] !== "undefined" &&
+					(data["sub menu"][0]
+						.toLocaleLowerCase()
+						.includes(name.toLocaleLowerCase()) ||
+						data["sub menu"][1]
+							.toLocaleLowerCase()
+							.includes(name.toLocaleLowerCase()))
 				)
 					matchMenu.push({
-						name: {
-							th: undefined,
-							en: name,
-							jp: undefined
-						},
-						price: menu.price
+						subMenu: data["sub menu"],
+						price: data.price
 					})
+
 				if (
 					typeof data.name !== "undefined" &&
-					(data.name.th.toLocaleLowerCase().includes(name.toLocaleLowerCase()) ||
-						data.name.en.toLocaleLowerCase().includes(name.toLocaleLowerCase()) ||
-						data.name.jp.toLocaleLowerCase().includes(name.toLocaleLowerCase()))
-				) {
+					(data.name.th
+						.toLocaleLowerCase()
+						.includes(name.toLocaleLowerCase()) ||
+						data.name.en
+							.toLocaleLowerCase()
+							.includes(name.toLocaleLowerCase()) ||
+						data.name.jp
+							.toLocaleLowerCase()
+							.includes(name.toLocaleLowerCase()))
+				)
 					matchMenu.push(data)
-				}
 			})
 			return matchMenu
 		} else {
-			console.log("USE GETPRICE")
 			await menu.map(data => {
-				if (typeof menu["sub menu"] !== "undefined" && data.price === price)
+				if (
+					typeof data["sub menu"] !== "undefined" &&
+					data.price === price
+				)
 					matchMenu.push({
-						subMenu: menu["sub menu"],
-						price: menu.price
+						subMenu: data["sub menu"],
+						price: data.price
 					})
+
 				if (typeof data.name !== "undefined" && data.price === price) {
 					matchMenu.push(data)
 				}
