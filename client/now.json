@@ -27,8 +27,8 @@
                 "Access-Control-Allow-Methods": "GET",
                 "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept",
                 "cache-control": "public,max-age=31536000",
-                "Accept-Encoding": "br",
-            } 
+                "Accept-Encoding": "br"
+            }
         }
     ],
     "regions": ["all"]
