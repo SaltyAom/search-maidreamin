@@ -25,7 +25,7 @@ const Maidreamin = ({ initMenu }) => {
 	let searchSubject$ = useContext(search$)
 
 	/* Apollo Query */
-	let [ requestSearch, { data, loading, error }] =
+	let [ requestSearch, { data, loading, error } ] =
 		!isNaN(parseInt(search), 10)
 			? useLazyQuery(SEARCH_PRICE, {
 					variables: { price: parseInt(search, 10) }

@@ -9,6 +9,10 @@ import ErrorBoundary from "components/ErrorBoundary"
 import "stylus/init.styl"
 
 class MaidreaminSearch extends App {
+	componentDidMount(){
+		document.addEventListener("touchstart", () => null)
+	}
+
 	render() {
 		const { Component, pageProps, apollo } = this.props
 

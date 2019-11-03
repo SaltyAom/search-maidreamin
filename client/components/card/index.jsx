@@ -12,7 +12,7 @@ const Card = props => {
 		preload = false
 	} = props
 
-	if (preload) {
+	if (preload)
 		return (
 			<div className="card">
 				<div className="body">
@@ -25,6 +25,7 @@ const Card = props => {
 				</div>
 				<footer className="footer">
 					<button
+						aria-label="Switch to English"
 						className="other preload-other"
 						name="loading-1"
 						onClick={() => setLanguage("en")}
@@ -32,6 +33,7 @@ const Card = props => {
 						<div className="preload small" />
 					</button>
 					<button
+						aria-label="Switch to Japanese"
 						className="other preload-other"
 						name="loading-2"
 						onClick={() => setLanguage("jp")}
@@ -41,7 +43,6 @@ const Card = props => {
 				</footer>
 			</div>
 		)
-	}
 
 	if (subMenu === null) {
 		let [language, setLanguage] = useState("th")
@@ -57,20 +58,26 @@ const Card = props => {
 							) : null}
 						</div>
 						<footer className="footer">
-							<button
-								className="other"
-								name={en}
-								onClick={() => setLanguage("en")}
-							>
-								{en}
-							</button>
-							<button
-								className="other"
-								name={jp}
-								onClick={() => setLanguage("jp")}
-							>
-								{jp}
-							</button>
+							{typeof en !== "undefined" && en !== "" ?
+								<button
+									className="other"
+									name={en}
+									aria-label={en}
+									onClick={() => setLanguage("en")}
+								>
+									{en}
+								</button>
+							: null }
+							{typeof jp !== "undefined" && jp !== "" ?
+								<button
+									className="other"
+									name={jp}
+									aria-label={jp}
+									onClick={() => setLanguage("jp")}
+								>
+									{jp}
+								</button>
+							: null}
 						</footer>
 					</div>
 				)
@@ -84,20 +91,26 @@ const Card = props => {
 							) : null}
 						</div>
 						<footer className="footer">
-							<button
-								className="other"
-								name={th}
-								onClick={() => setLanguage("th")}
-							>
-								{th}
-							</button>
-							<button
-								className="other"
-								name={jp}
-								onClick={() => setLanguage("jp")}
-							>
-								{jp}
-							</button>
+							{typeof th !== "undefined" && th !== "" ?
+								<button
+									className="other"
+									name={th}
+									aria-label={th}
+									onClick={() => setLanguage("th")}
+								>
+									{th}
+								</button>
+							: null }
+							{typeof jp !== "undefined" && jp !== "" ?
+								<button
+									className="other"
+									name={jp}
+									aria-label={jp}
+									onClick={() => setLanguage("jp")}
+								>
+									{jp}
+								</button>
+							: null }
 						</footer>
 					</div>
 				)
@@ -111,20 +124,26 @@ const Card = props => {
 							) : null}
 						</div>
 						<footer className="footer">
-							<button
-								className="other"
-								name={th}
-								onClick={() => setLanguage("th")}
-							>
-								{th}
-							</button>
-							<button
-								className="other"
-								name={en}
-								onClick={() => setLanguage("en")}
-							>
-								{en}
-							</button>
+							{typeof th !== "undefined" && th !== "" ?
+								<button
+									className="other"
+									name={th}
+									aria-label={th}
+									onClick={() => setLanguage("th")}
+								>
+									{th}
+								</button>
+							: null }
+							{typeof en !== "undefined" && en !== "" ?
+								<button
+									className="other"
+									name={en}
+									aria-label={en}
+									onClick={() => setLanguage("en")}
+								>
+									{en}
+								</button>
+							: null }
 						</footer>
 					</div>
 				)
@@ -136,20 +155,26 @@ const Card = props => {
 							<p className="price">฿{price}</p>
 						</div>
 						<footer className="footer">
-							<button
-								className="other"
-								name={en}
-								onClick={() => setLanguage("en")}
-							>
-								{en}
-							</button>
-							<button
-								className="other"
-								name={jp}
-								onClick={() => setLanguage("jp")}
-							>
-								{jp}
-							</button>
+							{typeof en !== "undefined" && en !== "" ?
+								<button
+									className="other"
+									name={en}
+									aria-label={en}
+									onClick={() => setLanguage("en")}
+								>
+									{en}
+								</button>
+							: null }
+							{typeof jp !== "undefined" && jp !== "" ?
+								<button
+									className="other"
+									name={jp}
+									aria-label={jp}
+									onClick={() => setLanguage("jp")}
+								>
+									{jp}
+								</button>
+							: null }
 						</footer>
 					</div>
 				)
@@ -169,6 +194,7 @@ const Card = props => {
 					<button
 						className="other"
 						name={subMenu[1]}
+						aria-label={subMenu[1]}
 						onClick={() => setSelected(1)}
 					>
 						{subMenu[1]}
@@ -186,6 +212,7 @@ const Card = props => {
 				<button
 					className="other"
 					name={subMenu[0]}
+					aria-label={subMenu[0]}
 					onClick={() => setSelected(0)}
 				>
 					{subMenu[0]}

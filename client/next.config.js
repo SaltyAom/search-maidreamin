@@ -33,8 +33,8 @@ module.exports = withMinify(
 					config.optimization.minimizer.push(
 						new OptimizeCSSAssetsPlugin({})
 					)
-					config.resolve.alias["react"] = "preact/compat"
-					config.resolve.alias["react-dom"] = "preact/compat"
+//					config.resolve.alias["react"] = "preact/compat"
+//					config.resolve.alias["react-dom"] = "preact/compat"
 					config.resolve.alias["react-render-to-string"] = "preact-render-to-string"
 
 					config.resolve.alias["stylus"] = path.join(
