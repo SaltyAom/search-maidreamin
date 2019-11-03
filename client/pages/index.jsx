@@ -1,181 +1,122 @@
-import { Fragment, useState, useEffect, useRef } from "react"
+import { Fragment, useState, useEffect, useContext, useLayoutEffect } from "react"
 
-import { useQuery } from "@apollo/react-hooks"
-import gql from "graphql-tag"
+import dynamic from 'next/dynamic'
+
+import { useLazyQuery } from "@apollo/react-hooks"
+
+import { Subject } from 'rxjs'
+import { debounceTime, map } from 'rxjs/operators'
 
 import SearchLayout from "components/searchLayout"
 import Card from "components/card"
 
-const GET_MENU = gql`
-	query getMenu {
-		getMenu {
-			name {
-				th
-				en
-				jp
-			}
-			subMenu
-			price
-		}
-	}
-`
+import { GET_MENU, SEARCH_MENU, SEARCH_PRICE } from 'libs/query'
+import { isServer, search$, isBlank } from 'libs/helpers'
 
-const SEARCH_MENU = gql`
-	query getMenuBy($name: String) {
-		getMenuBy(name: $name) {
-			name {
-				th
-				en
-				jp
-			}
-			subMenu
-			price
-		}
-	}
-`
+const Error = dynamic(() => import("components/error"))
+const Loading = dynamic(() => import("components/loading"))
 
-const SEARCH_PRICE = gql`
-	query getMenuBy($price: Int) {
-		getMenuBy(price: $price) {
-			name {
-				th
-				en
-				jp
-			}
-			subMenu
-			price
-		}
-	}
-`
-
-const Maidreamin = () => {
+const Maidreamin = ({ initMenu }) => {
+	/* Setup */
 	let [search, setSearch] = useState(""),
-		[searchPlaceholder, setSearchPlaceholder] = useState(""),
-		[showLoading, setLoading] = useState(false)
+		[isLoading, setLoading] = useState(false),
+		[menus, setMenus] = useState(initMenu)
 
-	let searchRef = useRef("")
+	let searchSubject$ = useContext(search$)
 
+	/* Apollo Query */
+	let [ requestSearch, { data, loading, error }] =
+		!isNaN(parseInt(search), 10)
+			? useLazyQuery(SEARCH_PRICE, {
+					variables: { price: parseInt(search, 10) }
+				})
+			: useLazyQuery(SEARCH_MENU, {
+					variables: { name: search }
+				})
+
+	/* Side effect */
 	useEffect(() => {
-		if ("serviceWorker" in navigator) {
-			window.onload = () => {
-				navigator.serviceWorker
-					.register("/static/service-worker.js", {
-						scope: "/"
-					})
-					.then(registration => {
-						console.info("Registered:", registration)
-					})
-					.catch(err => {
-						console.error("Registration failed: ", err)
-					})
-			}
-		}
+		let debouncedSearch = searchSubject$
+			.pipe(
+				debounceTime(350),
+				map(async debounced => {
+					setSearch(debounced)
+				})
+			)
+
+		debouncedSearch
+			.subscribe(async (debounced) => await requestSearch(debounced))
+
+		return () => debouncedSearch.unsubscribe()
 	}, [])
 
-	useEffect(() => {
-		let deferSearch = searchPlaceholder
-		searchRef.current = deferSearch
-		setTimeout(() => {
-			if (deferSearch !== searchRef.current) return
-			setSearch(deferSearch)
-		}, 350)
-	}, [searchPlaceholder])
+	if(!isServer){
+		useLayoutEffect(() => {
+			if (typeof data !== "undefined") setMenus(data.getMenu || data.getMenuBy)
+			if (search === "") setMenus(initMenu)
+		}, [data])
 
-	let { data, loading, error } =
-		search === ""
-			? useQuery(GET_MENU)
-			: !isNaN(parseInt(search), 10)
-			? useQuery(SEARCH_PRICE, {
-					variables: { price: parseInt(search, 10) }
-			  })
-			: useQuery(SEARCH_MENU, {
-					variables: { name: search }
-			  })
-
-	let menus = []
-
-	if (typeof data !== "undefined") menus = data.getMenu || data.getMenuBy
-
-	if (loading && typeof data !== "undefined") {
-		setTimeout(() => {
-			if (loading && typeof data !== "undefined") setLoading(true)
-		}, 350)
+		useLayoutEffect(() => {
+			if (loading && typeof data !== "undefined")
+				setTimeout(() => {
+					if (loading && typeof data !== "undefined") setLoading(true)
+				}, 350)
+		}, [loading])
 	}
 
-	if (showLoading) {
-		if (!loading) setLoading(false)
+	/* Component */
+	if (isLoading) {
+		if(!loading) return setLoading(false)
+		return <Loading />
+	}
+
+	if (error) return <Error />
+
+	if(isBlank(menus))
 		return (
 			<SearchLayout
-				value={searchPlaceholder}
-				onChange={event => setSearchPlaceholder(event.target.value)}
+				onChange={event => searchSubject$.next(event.target.value)}
 			>
-				<Card preload />
-				<Card preload />
-				<Card preload />
-				<Card preload />
+				<Card th="Menu not found." en="ไม่พบเมนูนี้" />
 			</SearchLayout>
 		)
-	}
-
-	if (error) {
-		return (
-			<SearchLayout
-				value={searchPlaceholder}
-				onChange={event => setSearchPlaceholder(event.target.value)}
-			>
-				<div className="card">
-					<div className="body">
-						<h2 className="name">Something went wrong.</h2>
-					</div>
-					<footer className="footer">
-						<button
-							className="other"
-							onClick={() => window.location.reload()}
-						>
-							Retry connection
-						</button>
-					</footer>
-				</div>
-				<Card preload />
-			</SearchLayout>
-		)
-	}
 
 	return (
 		<SearchLayout
-			value={searchPlaceholder}
-			onChange={event => setSearchPlaceholder(event.target.value)}
+			onChange={event => searchSubject$.next(event.target.value)}
 		>
-			{typeof menus !== "undefined" ? (
-				<Fragment>
-					{typeof menus[0] === "undefined" ? (
-						<Card th="Menu not found." en="ไม่พบเมนูนี้" />
-					) : null}
-					{menus.map((menu, index) => {
-						if (menu.subMenu !== null) {
-							return (
-								<Card
-									key={index}
-									subMenu={menu.subMenu}
-									price={menu.price}
-								/>
-							)
-						} else {
-							return (
-								<Card
-									key={index}
-									th={menu.name.th}
-									en={menu.name.en}
-									jp={menu.name.jp}
-									price={menu.price}
-								/>
-							)
-						}
-					})}
-				</Fragment>
-			) : null}
+			{menus.map((menu, index) => {
+				if (menu.subMenu !== null)
+					return (
+						<Card
+							key={index}
+							subMenu={menu.subMenu}
+							price={menu.price}
+						/>
+					)
+				else
+					return (
+						<Card
+							key={index}
+							th={menu.name.th}
+							en={menu.name.en}
+							jp={menu.name.jp}
+							price={menu.price}
+						/>
+					)
+			})}
 		</SearchLayout>
 	)
+}
+
+/* SSR Request */
+Maidreamin.getInitialProps = async (ctx) => {
+	const apolloClient = ctx.apolloClient
+	let initMenu = await apolloClient.query({
+		query: GET_MENU
+	})
+
+	return { initMenu: initMenu.data.getMenu }
 }
 
 export default Maidreamin

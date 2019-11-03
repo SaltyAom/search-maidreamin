@@ -7,7 +7,7 @@ const Fab = () => {
 		<button id="fab" onClick={() => window.scrollTo(0, 0)}>
 			<img
 				id="fab-icon"
-				src="/static/img/expand_less.svg"
+				src="/img/expand_less.svg"
 				alt="Back to top"
 				aria-label="Back to top"
 			/>

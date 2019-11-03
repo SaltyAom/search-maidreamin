@@ -3,12 +3,12 @@
     "name": "Search Maidreamin Menu",
     "icons": [
       {
-        "src": "/static/app/icon/iconX192.png",
+        "src": "/app/icon/iconX192.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "/static/app/icon/icon.png",
+        "src": "/app/icon/icon.png",
         "type": "image/png",
         "sizes": "512x512"
       }

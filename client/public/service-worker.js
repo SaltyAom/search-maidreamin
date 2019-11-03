@@ -37,9 +37,6 @@ self.addEventListener("fetch", event => {
 			.catch(err => {
 				// Fallback to cache
 				return caches.match(event.request).then(res => {
-					if (res === undefined) {
-						// get and return the offline page
-					}
 					return res
 				})
 			})

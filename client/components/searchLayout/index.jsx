@@ -18,7 +18,7 @@ const SearchLayout = props => {
 				<div id="search">
 					<img
 						id="search-icon"
-						src="/static/img/search.svg"
+						src="/img/search.svg"
 						alt="Search Icon"
 					/>
 					<input

@@ -6,6 +6,10 @@ const { MemcachedCache } = require("apollo-server-cache-memcached")
 const express = require("express")
 const app = express()
 const cors = require("cors")
+const apicache = require("apicache")
+const bodyparser = require("body-parser")
+
+const cache = apicache.middleware
 
 /* Apollo config */
 const typeDefs = require("./graphql/schema")
@@ -16,6 +20,12 @@ const MaidreaminAPI = require("./graphql/dataSources/maidreamin.js")
 /* Config */
 const dev = process.env.NODE_ENV !== "production"
 
+app.use(bodyparser.json({ limit: '1mb' }))
+app.use(cache('5 minutes'))
+apicache.options({
+	appendKey: (req, res) => req.body.operationName + JSON.stringify(req.body.variables)
+})
+
 /* Apollo */
 const server = new ApolloServer({
 	typeDefs,
@@ -23,12 +33,6 @@ const server = new ApolloServer({
 	dataSources: () => ({
 		MaidreaminAPI: new MaidreaminAPI()
 	}),
-	persistedQueries: {
-		cache: new MemcachedCache(
-			["memcached-server-1", "memcached-server-2", "memcached-server-3"],
-			{ retries: 10, retry: 10000 }
-		)
-	},
 	engine: {
 		apiKey: "service:maidreamin-search:ItERbd2CFwr_jd3ADIXuqQ"
 	},
@@ -42,16 +46,6 @@ const server = new ApolloServer({
 let corsOptions = { 
 	origin: "*" 
 }
-
-/*
-dev
-	? (corsOptions = {
-			origin: "*"
-	  })
-	: (corsOptions = {
-			// origin: "https://search-maidreamin.now.sh"
-	  })
-*/
 
 app.use(cors(corsOptions))
 server.applyMiddleware({

@@ -6,10 +6,6 @@
         { 
             "src": "next.config.js", 
             "use": "@now/next"
-        },
-        {
-            "src": "static/**/*", 
-            "use": "@now/static" 
         }
     ],
     "routes": [
@@ -19,8 +15,7 @@
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET",
                 "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept",
-                "x-now-cache": "HIT",
-                "cache-control": "immutable,max-age=31536000",
+                "cache-control": "public,max-age=3600",
                 "Accept-Encoding": "br",
                 "Service-Worker-Allowed": "/"
             } 
@@ -31,19 +26,9 @@
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET",
                 "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept",
-                "x-now-cache": "HIT",
-                "cache-control": "immutable,max-age=31536000",
+                "cache-control": "public,max-age=31536000",
                 "Accept-Encoding": "br",
-                "Service-Worker-Allowed": "/"
             } 
-        },
-        {	
-            "src": "^/service-worker.js$",	
-            "dest": "/_next/static/service-worker.js",
-            "headers": {
-                "cache-control": "public, max-age=43200, immutable",
-                "Service-Worker-Allowed": "/"
-            }
         }
     ],
     "regions": ["all"]

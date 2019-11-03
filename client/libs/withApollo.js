@@ -6,9 +6,9 @@ import { HttpLink } from "apollo-link-http"
 import withApollo from "next-with-apollo"
 import fetch from "node-fetch"
 
-const dev = process.env.NODE_ENV !== "production"
+import { isDev } from 'libs/helpers'
 
-let link = dev
+let link = isDev
 	? new HttpLink({
 			uri: "http://localhost:8080",
 			fetch: fetch

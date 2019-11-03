@@ -8,15 +8,17 @@
     "start": "cross-env NODE_ENV=production node index.js"
   },
   "dependencies": {
-    "apollo-datasource-rest": "^0.6.1",
-    "apollo-server-cache-memcached": "^0.6.1",
-    "apollo-server-express": "^2.8.2",
+    "apicache": "^1.5.2",
+    "apollo-datasource-rest": "^0.6.6",
+    "apollo-server-cache-memcached": "^0.6.3",
+    "apollo-server-express": "^2.9.7",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "cross-env": "^5.2.0",
+    "cross-env": "^6.0.3",
     "express": "^4.17.1",
-    "graphql": "^14.5.0"
+    "graphql": "^14.5.8"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.4"
   }
 }

@@ -42,21 +42,6 @@ const Maidreamin = () => {
 	let searchRef = useRef("")
 
 	useEffect(() => {
-        if ('serviceWorker' in navigator) {
-            window.onload = () => {
-                navigator.serviceWorker.register('/static/service-worker.js', {
-                    scope: "/"
-                })
-                .then(registration => {
-                    console.info('Registered:', registration);
-                }).catch(err => {
-                    console.error('Registration failed: ', err);
-                });
-            }
-        }
-    }, []);
-
-	useEffect(() => {
 		let deferSearch = searchPlaceholder
 		searchRef.current = deferSearch
 		setTimeout(() => {

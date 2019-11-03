@@ -1,20 +1,25 @@
-import App, { Container } from "next/app"
+import App from "next/app"
+import dynamic from 'next/dynamic'
+
 import { ApolloProvider } from "@apollo/react-hooks"
-import withApollo from 'libs/withApollo'
+import withApollo from "libs/withApollo"
+
+import ErrorBoundary from "components/ErrorBoundary"
 
 import "stylus/init.styl"
-class MyApp extends App {
+
+class MaidreaminSearch extends App {
 	render() {
-		const { Component, pageProps, apollo } = this.props;
+		const { Component, pageProps, apollo } = this.props
 
 		return (
-			<Container>
-				<ApolloProvider client={apollo}>
+			<ApolloProvider client={apollo}>
+				<ErrorBoundary>
 					<Component {...pageProps} />
-				</ApolloProvider>
-			</Container>
+				</ErrorBoundary>
+			</ApolloProvider>
 		)
 	}
 }
 
-export default withApollo(MyApp)
+export default withApollo(MaidreaminSearch)
