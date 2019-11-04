@@ -11,11 +11,14 @@ import { isDev } from 'libs/helpers'
 let link = isDev
 	? new HttpLink({
 			uri: "http://localhost:8080",
-			fetch: fetch
+			fetch: fetch,
+			fetchPolicy: 'cache-and-network'
 	  })
 	: new HttpLink({
 			uri: "https://apollo-search-maidreamin.now.sh",
-			fetch: fetch
+			fetch: fetch,
+			fetchPolicy: 'cache-and-network'
+
 	  })
 
 export default withApollo(
@@ -24,6 +27,13 @@ export default withApollo(
 			link,
 			cache: new InMemoryCache().restore(initialState || {}),
 			ssrMode: true,
+			queryDeduplication: true,
+			defaultOptions: {
+				watchQuery: {
+					fetchPolicy: "cache-and-network"
+				}
+			},
+			ssrForceFetchDelay: 300,
 			cacheRedirects: {
 				Query: {
 					getMenu: (_, args, { getCacheKey }) =>
@@ -54,5 +64,8 @@ export default withApollo(
 						)
 				}
 			}
+		},
+		{
+			getDataFromTree: "ssr"
 		})
 )

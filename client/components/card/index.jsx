@@ -28,7 +28,6 @@ const Card = props => {
 						aria-label="Switch to English"
 						className="other preload-other"
 						name="loading-1"
-						onClick={() => setLanguage("en")}
 					>
 						<div className="preload small" />
 					</button>
@@ -36,7 +35,6 @@ const Card = props => {
 						aria-label="Switch to Japanese"
 						className="other preload-other"
 						name="loading-2"
-						onClick={() => setLanguage("jp")}
 					>
 						<div className="preload small" />
 					</button>

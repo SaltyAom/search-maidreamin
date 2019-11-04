@@ -1,0 +1,24 @@
+{
+    "presets": [
+        [
+            "next/babel", {
+                "transform-runtime": {
+                    "corejs": false
+                }
+            }
+        ]
+    ],
+    "plugins": [
+        ["module-resolver", {
+            "root": ["."],
+            "alias": {
+                "pages": "./pages",
+                "stylus": "./public/stylus",
+                "components": "./components",
+                "~": "public",
+                "libs": "./libs"
+            }
+        }],
+        "babel-plugin-dynamic-import-node"
+    ],
+}

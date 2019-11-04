@@ -1,6 +1,6 @@
 /* Apollo */
 const { ApolloServer } = require("apollo-server-express")
-const { MemcachedCache } = require("apollo-server-cache-memcached")
+const responseCachePlugin = require("apollo-server-plugin-response-cache")
 
 /* Server */
 const express = require("express")
@@ -8,6 +8,11 @@ const app = express()
 const cors = require("cors")
 const apicache = require("apicache")
 const bodyparser = require("body-parser")
+const compression = require("compression")
+
+apicache.options({
+	appendKey: (req, res) => req.body.operationName + JSON.stringify(req.body.variables)
+})
 
 const cache = apicache.middleware
 
@@ -21,10 +26,8 @@ const MaidreaminAPI = require("./graphql/dataSources/maidreamin.js")
 const dev = process.env.NODE_ENV !== "production"
 
 app.use(bodyparser.json({ limit: '1mb' }))
-app.use(cache('5 minutes'))
-apicache.options({
-	appendKey: (req, res) => req.body.operationName + JSON.stringify(req.body.variables)
-})
+app.use(cache('6 hours'))
+app.use(compression())
 
 /* Apollo */
 const server = new ApolloServer({
@@ -36,10 +39,16 @@ const server = new ApolloServer({
 	engine: {
 		apiKey: "service:maidreamin-search:ItERbd2CFwr_jd3ADIXuqQ"
 	},
+	plugins: [responseCachePlugin()],
 	introspection: true, // dev
 	playground: true, // dev
 	tracing: true, // !dev
-	cacheControl: true
+	introspection: true,
+	cacheControl: {
+		defaultMaxAge: 86400,
+		stripFormattedExtensions: false,
+		calculateCacheControlHeaders: false
+	}
 })
 
 /* Server config */
