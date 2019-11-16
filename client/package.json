@@ -49,5 +49,8 @@
 		"stylus": "^0.54.7",
 		"typescript": "^3.7.2",
 		"why-did-you-update": "^1.0.6"
+	},
+	"engine": {
+		"node": "10.x"
 	}
 }

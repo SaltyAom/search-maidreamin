@@ -12,13 +12,21 @@ import Card from "components/card"
 import { GET_MENU, SEARCH_MENU, SEARCH_PRICE } from "libs/query"
 import { isServer, search$, isBlank } from "libs/helpers"
 
-import { IMaidreamin, IMaidreaminProps, ISearch, IMenu, ISearchData } from "pageTypes"
+import {
+	IMaidreamin,
+	IMaidreaminProps,
+	ISearch,
+	IMenu,
+	ISearchData
+} from "pageTypes"
 
 const Error = dynamic(() => import("components/error"))
 const Loading = dynamic(() => import("components/loading"))
 
-const Maidreamin: IMaidreamin<IMaidreaminProps> = ({ initMenu }: IMaidreaminProps) => {
-	/** 
+const Maidreamin: IMaidreamin<IMaidreaminProps> = ({
+	initMenu
+}: IMaidreaminProps) => {
+	/**
 	 * * Setup
 	 * */
 	let [search, setSearch] = useState<ISearch>(""),
@@ -28,7 +36,7 @@ const Maidreamin: IMaidreamin<IMaidreaminProps> = ({ initMenu }: IMaidreaminProp
 	let searchSubject$ = useContext(search$)
 
 	/**
-	 * * Apollo Query 
+	 * * Apollo Query
 	 * */
 	let [requestSearch, searchData] =
 		typeof search === "number"
@@ -42,20 +50,20 @@ const Maidreamin: IMaidreamin<IMaidreaminProps> = ({ initMenu }: IMaidreaminProp
 	let { data, loading, error }: ISearchData = searchData
 
 	/**
-	 * * Side effect 
+	 * * Side effect
 	 * */
 	useEffect(() => {
 		let debouncedSearch = searchSubject$.pipe(
 			debounceTime(350),
-			map(async (debounced: ISearch) => setSearch(debounced)),
+			map(async (debounced: ISearch) => setSearch(debounced))
 		)
 
 		debouncedSearch.subscribe(
 			async (debounced: any) => await requestSearch(debounced)
 		)
 
-		/** 
-		 * ? Unsubscribe on unmount 
+		/**
+		 * ? Unsubscribe on unmount
 		 * */
 		return () => debouncedSearch.subscribe()
 	}, [])
@@ -76,35 +84,33 @@ const Maidreamin: IMaidreamin<IMaidreaminProps> = ({ initMenu }: IMaidreaminProp
 		}, [loading])
 	}
 
-	/** 
-	 * * Component 
+	/**
+	 * * Component
 	 * */
 	if (isFetching) {
 		if (!loading) setFetching(false)
-		return(
+		return (
 			<SearchLayout
-			onChange={event => searchSubject$.next(event.target.value)}
-			value={search}
-		>
-			<Loading />
-		</SearchLayout>
+				onChange={event => searchSubject$.next(event.target.value)}
+			>
+				<Loading />
+			</SearchLayout>
 		)
 	}
 
-	if (error) return(
-		<SearchLayout
-			onChange={event => searchSubject$.next(event.target.value)}
-			value={search}
-		>
-			<Error />
-		</SearchLayout>
-	)
+	if (error)
+		return (
+			<SearchLayout
+				onChange={event => searchSubject$.next(event.target.value)}
+			>
+				<Error />
+			</SearchLayout>
+		)
 
 	if (isBlank(menus))
 		return (
 			<SearchLayout
 				onChange={event => searchSubject$.next(event.target.value)}
-				value={search}
 			>
 				<Card th="Menu not found." en="ไม่พบเมนูนี้" />
 			</SearchLayout>
@@ -112,7 +118,6 @@ const Maidreamin: IMaidreamin<IMaidreaminProps> = ({ initMenu }: IMaidreaminProp
 
 	return (
 		<SearchLayout
-			value={search}
 			onChange={event => searchSubject$.next(event.target.value)}
 		>
 			{menus.map((menu, index) => {

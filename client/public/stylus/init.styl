@@ -1,24 +1,36 @@
-@import '~stylus/colors'
+:root
+	--primary: #006bff
+	--primary-text: #000
+	--secondary-text: #757575
+	--background: #f5f9fa
+	--root: #ffffff
+	--border: #ceced2
+	--preload: #efeff4
 
 html
-  scroll-behavior smooth
+	scroll-behavior smooth
 
 body
-  margin 0
-  background-color background
+	margin 0
+	background-color var(--background)
 
 * 
-  font-family Helvetica, Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif 
-  font-weight 400
-  box-sizing border-box
+	font-family Helvetica, Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif 
+	font-weight 400
+	box-sizing border-box
 
 ::selection, ::-webkit-selection
-  background-color rgba(0,123,255,.25)
+	background-color rgba(0,123,255,.25)
 
 @media screen and (prefers-color-scheme: dark)
-  body
-    background-color dark-background
+	:root
+		--root: #333333
+		--border: #515151
+		--background: #212121
+		--preload: #ceced2
+		--primary-text: #f1f1f1
 
-  @supports (-webkit-overflow-scrolling touch)
-    body
-      background-color dark-ios-background
+	@supports (-webkit-overflow-scrolling touch)
+		:root
+			--background: #000000
+			--card: #1c1c1e

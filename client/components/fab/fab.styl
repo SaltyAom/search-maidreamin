@@ -1,5 +1,3 @@
-@import '~stylus/colors'
-
 #fab
     appearance none
     -webkit-appearance none
@@ -14,7 +12,7 @@
     width 56px
     height 56px
     border 0
-    background-color primary
+    background-color var(--primary)
     border-radius 28px
     box-shadow 0 2px 4px rgba(0,0,0,.375)
     transition box-shadow .25s ease-out
@@ -33,7 +31,3 @@
     #fab
         bottom 30px
         right 20px
-
-@media screen and (prefers-color-scheme: dark)
-    #fab
-        background-color dark-primary
