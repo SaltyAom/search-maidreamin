@@ -5,6 +5,8 @@ import * as Sentry from "@sentry/browser"
 import { ApolloProvider } from "@apollo/react-hooks"
 import withApollo from "libs/withApollo"
 
+import { isServer } from 'libs/helpers'
+
 import ErrorBoundary from "components/ErrorBoundary"
 
 Sentry.init({
@@ -16,6 +18,19 @@ import "stylus/init.styl"
 class MaidreaminSearch extends App<any, {}> {
 	componentDidMount() {
 		document.addEventListener("touchstart", () => null)
+
+		if (
+			"serviceWorker" in navigator &&
+			process.env.NODE_ENV === "production" &&
+			!isServer
+		) {
+			window.addEventListener("load", () => {
+				navigator.serviceWorker.register(
+					"/_next/static/service-worker.js",
+					{ scope: "/" }
+				)
+			})
+		}
 	}
 
 	componentDidCatch(error, errorInfo) {

@@ -16,7 +16,6 @@ module.exports = withAnalyze(
 					target: "serverless",
 					dontAutoRegisterSw: true,
 					workboxOpts: {
-						swDest: "static/service-worker.js",
 						runtimeCaching: [
 							{
 								urlPattern: /.js$|.ttf$|.otf$|.css$/,
