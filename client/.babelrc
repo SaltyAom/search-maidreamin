@@ -15,7 +15,7 @@
                 "pages": "./pages",
                 "stylus": "./public/stylus",
                 "components": "./components",
-                "~": "public",
+                "~": "./public",
                 "libs": "./libs"
             }
         }],

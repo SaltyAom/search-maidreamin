@@ -11,7 +11,7 @@
     "apicache": "^1.5.2",
     "apollo-datasource-rest": "^0.6.6",
     "apollo-server-cache-memcached": "^0.6.3",
-    "apollo-server-express": "^2.9.7",
+    "apollo-server-express": "^2.9.9",
     "apollo-server-plugin-response-cache": "^0.3.5",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",

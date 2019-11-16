@@ -1,11 +1,13 @@
-import React, { Fragment } from "react"
+import React, { Fragment, memo, SFC } from "react"
 import Head from "next/head"
 
 import Fab from "components/fab"
 
+import ISearchLayout from "./types"
+
 import "./search-layout.styl"
 
-const SearchLayout = props => {
+const SearchLayout: SFC<ISearchLayout> = memo((props: ISearchLayout) => {
 	let { onChange, value, children } = props
 
 	return (
@@ -35,6 +37,6 @@ const SearchLayout = props => {
 			</div>
 		</Fragment>
 	)
-}
+})
 
 export default SearchLayout

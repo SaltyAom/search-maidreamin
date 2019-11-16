@@ -1,7 +1,7 @@
-import { ApolloClient } from "apollo-client"
+import { ApolloClient } from "@apollo/client"
 import { InMemoryCache } from "apollo-cache-inmemory"
 
-import { HttpLink } from "apollo-link-http"
+import { createHttpLink } from "apollo-link-http"
 
 import withApollo from "next-with-apollo"
 import fetch from "node-fetch"
@@ -9,21 +9,20 @@ import fetch from "node-fetch"
 import { isDev } from 'libs/helpers'
 
 let link = isDev
-	? new HttpLink({
+	? createHttpLink({
 			uri: "http://localhost:8080",
-			fetch: fetch,
-			fetchPolicy: 'cache-and-network'
+			fetch: fetch
 	  })
-	: new HttpLink({
+	: createHttpLink({
 			uri: "https://apollo-search-maidreamin.now.sh",
 			fetch: fetch,
-			fetchPolicy: 'cache-and-network'
-
 	  })
+
+let ApolloClientBase:any = ApolloClient
 
 export default withApollo(
 	({ ctx, headers, initialState }) =>
-		new ApolloClient({
+		new ApolloClientBase({
 			link,
 			cache: new InMemoryCache().restore(initialState || {}),
 			ssrMode: true,
@@ -64,8 +63,6 @@ export default withApollo(
 						)
 				}
 			}
-		},
-		{
-			getDataFromTree: "ssr"
-		})
+		}
+	)
 )

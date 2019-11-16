@@ -2,11 +2,13 @@ import { Component } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { search$ } from 'libs/helpers'
-
 const Error = dynamic(() => import("components/error"))
 
-class ErrorBoundary extends Component {
+interface IErrorState {
+    isError: boolean
+}
+
+class ErrorBoundary extends Component<{}, IErrorState> {
     constructor(props){
         super(props)
         this.state = {

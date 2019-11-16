@@ -1,8 +1,8 @@
-import React from "react"
+import React, { SFC, memo } from "react"
 
 import "./fab.styl"
 
-const Fab = () => {
+const Fab: SFC<{}> = memo(() => {
 	return (
 		<button id="fab" onClick={() => window.scrollTo(0, 0)}>
 			<img
@@ -13,6 +13,6 @@ const Fab = () => {
 			/>
 		</button>
 	)
-}
+})
 
 export default Fab

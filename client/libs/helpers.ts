@@ -4,7 +4,7 @@ import { Subject } from 'rxjs'
 export const isServer = typeof window === "undefined"
 export const isDev = process.env.NODE_ENV !== "production"
 
-export const isBlank = (value) => {
+export const isBlank = (value: object) => {
     if(typeof value === "undefined")
         return true
 
