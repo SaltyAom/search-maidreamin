@@ -1,12 +1,6 @@
 {
     "presets": [
-        [
-            "next/babel", {
-                "transform-runtime": {
-                    "corejs": false
-                }
-            }
-        ]
+        ["next/babel"]
     ],
     "plugins": [
         ["module-resolver", {

@@ -8,7 +8,20 @@ import ISearchLayout from "./types"
 import "./search-layout.styl"
 
 const SearchLayout: SFC<ISearchLayout> = memo((props: ISearchLayout) => {
-	let { onChange, value, children } = props
+	let { onChange, children } = props
+
+	let emptySearchInput = () => {
+		let search = document.getElementById("search-input") as HTMLInputElement
+		search.value = null
+
+		let event = {
+			target: {
+				value: ""
+			}
+		}
+		
+		return onChange(event)
+	}
 
 	return (
 		<Fragment>
@@ -29,8 +42,15 @@ const SearchLayout: SFC<ISearchLayout> = memo((props: ISearchLayout) => {
 						aria-label="Search"
 						placeholder="Search menu"
 						onChange={event => onChange(event)}
-						value={value}
 						autoComplete="off"
+						required
+					/>
+					<img
+						id="search-remove"
+						src="/img/highlight_off.svg"
+						alt="Remove Search"
+						onClick={() => emptySearchInput()}
+						role="submit"
 					/>
 				</div>
 				{children}
