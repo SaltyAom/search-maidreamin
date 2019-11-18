@@ -57,6 +57,8 @@ module.exports = withAnalyze(
 						config.resolve.alias["libs"] = path.join(__dirname, "libs")
 						config.resolve.alias["pageTypes"] = path.join(__dirname, "pageTypes")
 
+						config.resolve.alias["stores"] = path.join(__dirname, "stores")
+
 						return config
 					}
 				})

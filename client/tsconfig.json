@@ -23,7 +23,8 @@
 			"components": ["components"],
 			"stylus": ["public/stylus"],
 			"libs": ["libs"],
-			"pageTypes": ["pageTypes"]
+			"pageTypes": ["pageTypes"],
+			"stores": ["stores"]
 		}
 	},
 	"exclude": ["node_modules"],

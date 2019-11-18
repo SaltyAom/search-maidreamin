@@ -19,7 +19,7 @@
     align-items center
     width 100%
     font-size 28px
-    margin 5vh 0 80px 0
+    margin 5vh 0 40px 0
     padding 0 0 0 16px
     color var(--primary-text)
     background-color var(--root)
@@ -68,6 +68,20 @@
     &::selection,
     &::-webkit-selection
         background-color transparent
+
+#search-tools
+    display flex
+    flex-direction row
+    justify-content flex-start
+    align-items center
+    width 100%
+
+#search-sort
+    color var(--secondary-text)
+
+    &::before,
+    &::after
+        background-color var(--secondary-text)
 
 @media screen and (max-width 767.9px)
     #landing

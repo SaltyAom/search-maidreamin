@@ -1,5 +1,8 @@
 import App from "next/app"
 
+import { Provider } from 'react-redux'
+import store from 'stores'
+
 import * as Sentry from "@sentry/browser"
 
 import { ApolloProvider } from "@apollo/react-hooks"
@@ -50,9 +53,11 @@ class MaidreaminSearch extends App<any, {}> {
 
 		return (
 			<ApolloProvider client={apollo}>
-				<ErrorBoundary>
-					<Component {...pageProps} />
-				</ErrorBoundary>
+				<Provider store={store}>
+					<ErrorBoundary>
+						<Component {...pageProps} />
+					</ErrorBoundary>
+				</Provider>
 			</ApolloProvider>
 		)
 	}

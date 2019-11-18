@@ -1,14 +1,36 @@
 import React, { Fragment, memo, SFC } from "react"
+
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
+
 import Head from "next/head"
 
-import Fab from "components/fab"
+import MaterialButton from "@material/react-button"
 
-import ISearchLayout from "./types"
+import Fab from "components/fab"
+import Filter from "components/filter"
+
+import ISearchLayout, { ISearchLayoutProps } from "./types"
+import { IToggleFilter } from "stores/types/action"
 
 import "./search-layout.styl"
+import "@material/react-button/dist/button.css"
 
-const SearchLayout: SFC<ISearchLayout> = memo((props: ISearchLayout) => {
-	let { onChange, children } = props
+const mapStateToProps = (state, ownProps: ISearchLayoutProps) => ({
+	props: ownProps
+})
+
+const mapDispatchToProps = (dispatch: Dispatch<IToggleFilter>) => ({
+	dispatch: {
+		toggleFilter: () => dispatch({
+			type: "TOGGLE_FILTER"
+		})
+	}
+})
+
+const SearchLayout: SFC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout) => {
+	let { onChange, children } = props,
+		{ toggleFilter } = dispatch
 
 	let emptySearchInput = () => {
 		let search = document.getElementById("search-input") as HTMLInputElement
@@ -19,7 +41,7 @@ const SearchLayout: SFC<ISearchLayout> = memo((props: ISearchLayout) => {
 				value: ""
 			}
 		}
-		
+
 		return onChange(event)
 	}
 
@@ -53,10 +75,29 @@ const SearchLayout: SFC<ISearchLayout> = memo((props: ISearchLayout) => {
 						role="submit"
 					/>
 				</div>
+				<header id="search-tools">
+					<MaterialButton
+						id="search-sort"
+						onClick={() => toggleFilter()}
+						icon={
+							<img
+								id="search-sort-icon"
+								src="/img/notes.svg"
+								alt="Sort"
+							/>
+						}
+					>
+						Sort
+					</MaterialButton>
+				</header>
+				<Filter />
 				{children}
 			</div>
 		</Fragment>
 	)
 })
 
-export default SearchLayout
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SearchLayout)

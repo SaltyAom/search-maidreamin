@@ -1,16 +1,29 @@
 import { NextPage, NextPageContext } from 'next'
 import { ApolloError } from '@apollo/react-hooks'
+import { ISortByOptions, IOrderOptions } from 'stores/types/initState'
 
-export interface IMaidreaminProps {
-	initMenu: Array<IMenu>
+export interface IMaidreamin<P = {}, IP = P> extends NextPage {
+	getInitialProps(ctx: IMaidreaminContext): Promise<IP>
 }
 
 export interface IMaidreaminContext extends NextPageContext {
 	apolloClient: any
 }
 
-export interface IMaidreamin<P = {}, IP = P> extends NextPage {
-	getInitialProps(ctx: IMaidreaminContext): Promise<IP>
+export interface IMaidreaminProps {
+	store: IMaidreaminStore
+	props: IMaidreaminOwnProps
+}
+
+export interface IMaidreaminOwnProps {
+	initMenu: Array<IMenu>
+}
+
+export interface IMaidreaminStore {
+	filter: {
+		sortBy: ISortByOptions,
+		orderBy: IOrderOptions
+	}
 }
 
 export interface IMenu {

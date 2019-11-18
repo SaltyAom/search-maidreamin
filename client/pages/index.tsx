@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useContext, useLayoutEffect } from "react"
 
+import { connect } from "react-redux"
+
 import dynamic from "next/dynamic"
 
 import { useLazyQuery } from "@apollo/react-hooks"
 
+import { orderBy } from "lodash"
 import { debounceTime, map } from "rxjs/operators"
 
 import SearchLayout from "components/searchLayout"
@@ -23,9 +26,43 @@ import {
 const Error = dynamic(() => import("components/error"))
 const Loading = dynamic(() => import("components/loading"))
 
-const Maidreamin: IMaidreamin<IMaidreaminProps> = ({
-	initMenu
-}: IMaidreaminProps) => {
+const mapStateToProps = (state, ownProps) => ({
+	store: {
+		filter: {
+			sortBy: state.filter.sortBy,
+			orderBy: state.filter.orderBy
+		}
+	},
+	props: ownProps
+})
+
+const mapDispatchToProps = null
+
+const orderWith = (value, { sort, order }) => {
+	let orderOptions = {
+		ascending: "asc",
+		descending: "desc"
+	}
+
+	if (sort === "group")
+		return value
+
+	let sortOptions = {
+		name: "name.th",
+		price: "price"
+	}
+
+	return orderBy(value, sortOptions[sort], orderOptions[order])
+}
+
+const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
+	/**
+	 * * Destructing
+	 */
+	let { initMenu } = props,
+		{ filter } = store,
+		{ sortBy, orderBy } = filter
+
 	/**
 	 * * Setup
 	 * */
@@ -63,7 +100,7 @@ const Maidreamin: IMaidreamin<IMaidreaminProps> = ({
 		)
 
 		/**
-		 * ? Unsubscribe on unmount
+		 * * Unsubscribe on unmount
 		 * */
 		return () => debouncedSearch.subscribe()
 	}, [])
@@ -71,8 +108,20 @@ const Maidreamin: IMaidreamin<IMaidreaminProps> = ({
 	if (!isServer) {
 		useLayoutEffect(() => {
 			if (typeof data !== "undefined")
-				setMenus(data.getMenu || data.getMenuBy)
-			if (search === "") setMenus(initMenu)
+				setMenus(
+					orderWith(data.getMenu || data.getMenuBy, {
+						sort: sortBy,
+						order: orderBy
+					})
+				)
+
+			if (search === "")
+				setMenus(
+					orderWith(initMenu, {
+						sort: sortBy,
+						order: orderBy
+					})
+				)
 		}, [data])
 
 		useLayoutEffect(() => {
@@ -82,6 +131,20 @@ const Maidreamin: IMaidreamin<IMaidreaminProps> = ({
 						setFetching(true)
 				}, 350)
 		}, [loading])
+
+		useLayoutEffect(() => {
+			setMenus(
+				orderWith(
+					typeof data !== "undefined"
+						? data.getMenu || data.getMenuBy
+						: initMenu,
+					{
+						sort: sortBy,
+						order: orderBy
+					}
+				)
+			)
+		}, [sortBy, orderBy])
 	}
 
 	/**
@@ -145,7 +208,7 @@ const Maidreamin: IMaidreamin<IMaidreaminProps> = ({
 }
 
 /**
- * ? SSR Request
+ * * SSR Request
  * */
 Maidreamin.getInitialProps = async ctx => {
 	const apolloClient = ctx.apolloClient
@@ -156,4 +219,4 @@ Maidreamin.getInitialProps = async ctx => {
 	return { initMenu: initMenu.data.getMenu }
 }
 
-export default Maidreamin
+export default connect(mapStateToProps, mapDispatchToProps)(Maidreamin)
