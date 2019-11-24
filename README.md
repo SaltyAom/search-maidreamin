@@ -5,6 +5,8 @@
 ### Apollo GraphQL
 Using Apollo GraphQL to implement simple text search with [Maidreamin API](https://maidreamin.now.sh/menu).
 
+##### *Note: This is highly over-engineered. This is meant to be used as testing and playing area for new stack which I'm going to implement on other projects.
+
 ### Serverless on now
 With serverless architecture deploy on now.sh, divided into 2 part:
 * apollo
