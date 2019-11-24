@@ -1,11 +1,10 @@
 # Search Maidreamin Menu
 ## Search menu from Maidreamin MBK with Maidreamin API.
 ![Preview of Maidreamin Menu](https://search-maidreamin.now.sh/static/img/cover.jpg)
+##### *Note: This is highly over-engineered. This is meant to be used as testing and playing area for new stack which I'm going to implement on other projects.
   
 ### Apollo GraphQL
 Using Apollo GraphQL to implement simple text search with [Maidreamin API](https://maidreamin.now.sh/menu).
-
-##### *Note: This is highly over-engineered. This is meant to be used as testing and playing area for new stack which I'm going to implement on other projects.
 
 ### Serverless on now
 With serverless architecture deploy on now.sh, divided into 2 part:
