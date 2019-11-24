@@ -1,4 +1,4 @@
-import { memo, SFC } from "react"
+import { memo, FC } from "react"
 
 import MaterialButton from "@material/react-button"
 
@@ -8,7 +8,7 @@ interface IFilterSelect {
 	callback: Function
 }
 
-const FilterSelect: SFC<IFilterSelect> = memo(({ name, sortBy, callback }) =>
+const FilterSelect: FC<IFilterSelect> = memo(({ name, sortBy, callback }) =>
 	sortBy === name ? (
 		<MaterialButton
 			unelevated

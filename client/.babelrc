@@ -10,9 +10,10 @@
                 "stylus": "./public/stylus",
                 "components": "./components",
                 "~": "./public",
-                "libs": "./libs"
+                "libs": "./libs",
+                "workers": "./workers"
             }
         }],
         "babel-plugin-dynamic-import-node"
-    ],
+    ]
 }

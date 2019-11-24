@@ -1,8 +1,8 @@
-import { SFC, memo } from "react"
+import { FC, memo } from "react"
 
 import ILanguageProps from "./types"
 
-const languageButton: SFC<ILanguageProps> = memo(
+const languageButton: FC<ILanguageProps> = memo(
 	({ language, name, onClick = () => null }) => {
 		if (typeof name === "undefined" || name === "") return null
 

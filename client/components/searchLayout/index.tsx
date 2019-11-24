@@ -1,4 +1,4 @@
-import React, { Fragment, memo, SFC } from "react"
+import React, { Fragment, memo, FC } from "react"
 
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IToggleFilter>) => ({
 	}
 })
 
-const SearchLayout: SFC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout) => {
+const SearchLayout: FC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout) => {
 	let { onChange, children } = props,
 		{ toggleFilter } = dispatch
 

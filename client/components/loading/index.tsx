@@ -1,8 +1,8 @@
-import { Fragment, SFC, memo } from "react"
+import { Fragment, FC, memo } from "react"
 
 import Card from "components/card"
 
-const Loading: SFC<{}> = memo(() => (
+const Loading: FC<{}> = memo(() => (
 	<Fragment>
 		<Card preload />
 		<Card preload />

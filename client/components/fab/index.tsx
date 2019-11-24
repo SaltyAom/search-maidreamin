@@ -1,8 +1,8 @@
-import React, { SFC, memo } from "react"
+import React, { FC, memo } from "react"
 
 import "./fab.styl"
 
-const Fab: SFC<{}> = memo(() => {
+const Fab: FC<{}> = memo(() => {
 	return (
 		<button id="fab" onClick={() => window.scrollTo(0, 0)}>
 			<img

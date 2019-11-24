@@ -1,4 +1,4 @@
-import { memo, SFC } from "react"
+import { memo, FC } from "react"
 
 import { Dispatch } from "redux"
 import { connect } from "react-redux"
@@ -39,7 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch<TFilterDispatch>) => ({
 	}
 })
 
-const Filter: SFC<IFilter> = memo(({ store, dispatch }: IFilter) => {
+const Filter: FC<IFilter> = memo(({ store, dispatch }: IFilter) => {
 	let { filter } = store,
 		{ isOpen, sortBy, orderBy } = filter,
 		{ updateSortBy, updateOrderBy } = dispatch

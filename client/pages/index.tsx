@@ -6,7 +6,6 @@ import dynamic from "next/dynamic"
 
 import { useLazyQuery } from "@apollo/react-hooks"
 
-import { orderBy } from "lodash"
 import { debounceTime, map } from "rxjs/operators"
 
 import SearchLayout from "components/searchLayout"
@@ -37,23 +36,6 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = null
-
-const orderWith = (value, { sort, order }) => {
-	let orderOptions = {
-		ascending: "asc",
-		descending: "desc"
-	}
-
-	if (sort === "group")
-		return value
-
-	let sortOptions = {
-		name: "name.th",
-		price: "price"
-	}
-
-	return orderBy(value, sortOptions[sort], orderOptions[order])
-}
 
 const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 	/**
@@ -107,21 +89,31 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 
 	if (!isServer) {
 		useLayoutEffect(() => {
+			let worker = require("libs/worker").default
+
 			if (typeof data !== "undefined")
-				setMenus(
-					orderWith(data.getMenu || data.getMenuBy, {
-						sort: sortBy,
-						order: orderBy
-					})
-				)
+				worker
+					.sortWith(
+						typeof data !== "undefined"
+							? data.getMenu || data.getMenuBy
+							: initMenu,
+						{
+							sort: sortBy,
+							order: orderBy
+						}
+					).then(res => setMenus(res))
 
 			if (search === "")
-				setMenus(
-					orderWith(initMenu, {
-						sort: sortBy,
-						order: orderBy
-					})
-				)
+				worker
+					.sortWith(
+						typeof data !== "undefined"
+							? data.getMenu || data.getMenuBy
+							: initMenu,
+						{
+							sort: sortBy,
+							order: orderBy
+						}
+					).then(res => setMenus(res))
 		}, [data])
 
 		useLayoutEffect(() => {
@@ -133,8 +125,10 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 		}, [loading])
 
 		useLayoutEffect(() => {
-			setMenus(
-				orderWith(
+			let worker = require("libs/worker").default
+
+			worker
+				.sortWith(
 					typeof data !== "undefined"
 						? data.getMenu || data.getMenuBy
 						: initMenu,
@@ -142,8 +136,7 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 						sort: sortBy,
 						order: orderBy
 					}
-				)
-			)
+				).then(res => setMenus(res))
 		}, [sortBy, orderBy])
 	}
 
