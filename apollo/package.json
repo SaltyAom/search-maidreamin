@@ -1,26 +1,29 @@
 {
-  "name": "apollo",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "start": "cross-env NODE_ENV=production node index.js"
-  },
-  "dependencies": {
-    "apicache": "^1.5.2",
-    "apollo-datasource-rest": "^0.6.6",
-    "apollo-server-cache-memcached": "^0.6.3",
-    "apollo-server-express": "^2.9.9",
-    "apollo-server-plugin-response-cache": "^0.3.5",
-    "body-parser": "^1.19.0",
-    "compression": "^1.7.4",
-    "cors": "^2.8.5",
-    "cross-env": "^6.0.3",
-    "express": "^4.17.1",
-    "graphql": "^14.5.8"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.4"
-  }
+	"name": "apollo",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"dev": "cross-env NODE_ENV=development nodemon index.js",
+		"start": "cross-env NODE_ENV=production node index.js"
+	},
+	"dependencies": {
+		"apicache": "^1.5.2",
+		"apollo-datasource-rest": "^0.6.9",
+		"apollo-server-cache-memcached": "^0.6.3",
+		"apollo-server-express": "^2.9.12",
+		"apollo-server-plugin-response-cache": "^0.3.8",
+		"body-parser": "^1.19.0",
+		"compression": "^1.7.4",
+		"cors": "^2.8.5",
+		"cross-env": "^6.0.3",
+		"express": "^4.17.1",
+		"graphql": "^14.5.8"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.1"
+	},
+	"engines": {
+		"node": "12.x"
+	}
 }

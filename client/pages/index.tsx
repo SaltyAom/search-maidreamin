@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useLayoutEffect } from "react"
+import React, { useState, useRef, useEffect, useContext, useLayoutEffect } from "react"
 
 import { connect } from "react-redux"
 
@@ -48,7 +48,7 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 	/**
 	 * * Setup
 	 * */
-	let [search, setSearch] = useState<ISearch>(""),
+	let search = useRef<ISearch>(undefined),
 		[isFetching, setFetching] = useState(false),
 		[menus, setMenus] = useState<Array<IMenu>>(initMenu)
 
@@ -58,12 +58,12 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 	 * * Apollo Query
 	 * */
 	let [requestSearch, searchData] =
-		typeof search === "number"
+		typeof search.current === "number"
 			? useLazyQuery(SEARCH_PRICE, {
-					variables: { price: search }
+					variables: { price: search.current }
 			  })
 			: useLazyQuery(SEARCH_MENU, {
-					variables: { name: search }
+					variables: { name: search.current }
 			  })
 
 	let { data, loading, error }: ISearchData = searchData
@@ -74,11 +74,20 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 	useEffect(() => {
 		let debouncedSearch = searchSubject$.pipe(
 			debounceTime(350),
-			map(async (debounced: ISearch) => setSearch(debounced))
+			map(async (debounced: ISearch) => {
+				search.current = debounced.toString().length
+					? debounced
+					: undefined
+				return debounced
+			})
 		)
 
 		debouncedSearch.subscribe(
-			async (debounced: any) => await requestSearch(debounced)
+			async (debounced: any) => {
+				(await debounced !== "") 
+					? await requestSearch()
+					: setMenus(initMenu)
+			}
 		)
 
 		/**
@@ -89,6 +98,8 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 
 	if (!isServer) {
 		useLayoutEffect(() => {
+			if (typeof search.current === "undefined") return
+
 			let worker = require("libs/worker").default
 
 			if (typeof data !== "undefined")
@@ -103,26 +114,16 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 						}
 					).then(res => setMenus(res))
 
-			if (search === "")
+			if (search.current === "")
 				worker
 					.sortWith(
-						typeof data !== "undefined"
-							? data.getMenu || data.getMenuBy
-							: initMenu,
+						initMenu,
 						{
 							sort: sortBy,
 							order: orderBy
 						}
 					).then(res => setMenus(res))
 		}, [data])
-
-		useLayoutEffect(() => {
-			if (loading && typeof data !== "undefined")
-				setTimeout(() => {
-					if (loading && typeof data !== "undefined")
-						setFetching(true)
-				}, 350)
-		}, [loading])
 
 		useLayoutEffect(() => {
 			let worker = require("libs/worker").default
@@ -138,6 +139,15 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 					}
 				).then(res => setMenus(res))
 		}, [sortBy, orderBy])
+
+		// useLayoutEffect(() => {
+		// 	if (loading && typeof data !== "undefined")
+		// 		setTimeout(() => {
+		// 			if (loading && typeof data !== "undefined"){
+		// 				setFetching(true)
+		// 			}
+		// 		}, 350)
+		// }, [loading])
 	}
 
 	/**
@@ -163,6 +173,7 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 			</SearchLayout>
 		)
 
+	if (isBlank(menus)) console.log("Blank")
 	if (isBlank(menus))
 		return (
 			<SearchLayout
@@ -204,11 +215,17 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
  * * SSR Request
  * */
 Maidreamin.getInitialProps = async ctx => {
+	let cache
+
+	if(typeof cache !== "undefined")
+		return { initMenu: cache }
+
 	const apolloClient = ctx.apolloClient
 	let initMenu = await apolloClient.query({
 		query: GET_MENU
 	})
 
+	cache = initMenu
 	return { initMenu: initMenu.data.getMenu }
 }
 

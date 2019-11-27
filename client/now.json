@@ -1,7 +1,7 @@
 {
     "version": 2,
-    "name": "Search Maidreamin Menu",
-    "alias": "search-maidreamin.now.sh",
+    "name": "Search Dreamin",
+    "alias": "search-dreamin.now.sh",
     "builds": [
         { 
             "src": "next.config.js", 

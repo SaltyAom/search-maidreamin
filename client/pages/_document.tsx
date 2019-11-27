@@ -22,7 +22,7 @@ class MyDocument extends Document {
 					/>
 
 					{/* SEO */}
-					<meta name="title" content="Search Maidreamin Menu" />
+					<meta name="title" content="Search Dreamin" />
 					<meta
 						name="description"
 						content="Search menu from Maidreamin MBK with Maidreamin API"
@@ -37,7 +37,7 @@ class MyDocument extends Document {
 					{/* Open Graph */}
 					<meta
 						property="og:title"
-						content="Search Maidreamin Menu"
+						content="Search Dreamin"
 					/>
 					<meta
 						property="og:description"
@@ -50,7 +50,7 @@ class MyDocument extends Document {
 					<meta property="article:author" content="aomkirby123" />
 					<meta
 						property="og:site_name"
-						content="Search Maidreamin Menu"
+						content="Search Dreamin"
 					/>
 					<meta property="og:locale" content="en_US" />
 					<meta property="og:type" content="website" />
@@ -64,7 +64,7 @@ class MyDocument extends Document {
 					<meta name="twitter:card" content="summary_large_image" />
 					<meta
 						name="twitter:title"
-						content="Search Maidreamin Menu"
+						content="Search Dreamin"
 					/>
 					<meta
 						name="twitter:description"
@@ -83,7 +83,7 @@ class MyDocument extends Document {
 					<meta name="theme-color" content="#ffffff" />
 					<meta
 						name="application-name"
-						content="Search Maidreamin Menu"
+						content="Search Dreamin"
 					/>
 					<meta name="mssmarttagspreventparsing" content="true" />
 					<meta
