@@ -11,7 +11,8 @@
                 "components": "./components",
                 "~": "./public",
                 "libs": "./libs",
-                "workers": "./workers"
+                "workers": "./workers",
+                "stores": "./stores"
             }
         }],
         "babel-plugin-dynamic-import-node"

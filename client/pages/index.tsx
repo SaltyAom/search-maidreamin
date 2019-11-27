@@ -37,7 +37,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = null
 
-const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
+export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 	/**
 	 * * Destructing
 	 */
@@ -173,7 +173,6 @@ const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 			</SearchLayout>
 		)
 
-	if (isBlank(menus)) console.log("Blank")
 	if (isBlank(menus))
 		return (
 			<SearchLayout

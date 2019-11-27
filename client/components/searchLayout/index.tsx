@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IToggleFilter>) => ({
 	}
 })
 
-const SearchLayout: FC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout) => {
+export const SearchLayout: FC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout) => {
 	let { onChange, children } = props,
 		{ toggleFilter } = dispatch
 
@@ -72,7 +72,7 @@ const SearchLayout: FC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout
 						src="/img/highlight_off.svg"
 						alt="Remove Search"
 						onClick={() => emptySearchInput()}
-						role="submit"
+						role="button"
 					/>
 				</div>
 				<header id="search-tools">
