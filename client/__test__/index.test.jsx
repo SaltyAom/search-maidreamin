@@ -27,6 +27,11 @@ let SearchLayoutProps = {
     props: {
         onChange: () => null
     },
+    store: {
+        guide: {
+            isActive: false
+        }
+    },
     dispatch: {
         toggleFilter: () => null
     }
@@ -60,7 +65,7 @@ describe('Search Dreamin', () => {
         expect(app.find('#search-tools')).toBeTruthy()
     })
 
-    it('can be contained Error Boundary', () => {
+    it('can be contained in Error Boundary', () => {
         const app = shallow(
             <ErrorBoundary>
                 {SearchDreamin}

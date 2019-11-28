@@ -22,5 +22,14 @@ export interface IUpdateOrderBy {
     }
 }
 
-type TAction = IToggleFilter | IUpdateSortBy | IUpdateOrderBy
+export interface IUpdateGuide {
+    type: "UPDATE_GUIDE",
+    payload: {
+        guide: {
+            isActive: boolean
+        }
+    }
+}
+
+type TAction = IToggleFilter | IUpdateSortBy | IUpdateOrderBy | IUpdateSortBy | IUpdateGuide
 export default TAction

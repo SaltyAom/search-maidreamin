@@ -9,6 +9,7 @@ import MaterialButton from "@material/react-button"
 
 import Fab from "components/fab"
 import Filter from "components/filter"
+import Tab from "components/tab"
 
 import ISearchLayout, { ISearchLayoutProps } from "./types"
 import { IToggleFilter } from "stores/types/action"
@@ -17,6 +18,9 @@ import "./search-layout.styl"
 import "@material/react-button/dist/button.css"
 
 const mapStateToProps = (state, ownProps: ISearchLayoutProps) => ({
+	store: {
+		guide: state.guide
+	},
 	props: ownProps
 })
 
@@ -28,22 +32,25 @@ const mapDispatchToProps = (dispatch: Dispatch<IToggleFilter>) => ({
 	}
 })
 
-export const SearchLayout: FC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout) => {
+export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }: ISearchLayout) => {
 	let { onChange, children } = props,
-		{ toggleFilter } = dispatch
+		{ toggleFilter } = dispatch,
+		{ guide } = store,
+		{ isActive } = guide
 
 	let emptySearchInput = () => {
 		let search = document.getElementById("search-input") as HTMLInputElement
 		search.value = null
 
-		let event = {
+		return onChange({
 			target: {
 				value: ""
 			}
-		}
-
-		return onChange(event)
+		})
 	}
+
+	if(isActive)
+		return <Tab />
 
 	return (
 		<Fragment>

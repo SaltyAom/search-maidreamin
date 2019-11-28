@@ -1,7 +1,8 @@
 import App from "next/app"
 
 import { Provider } from 'react-redux'
-import store from 'stores'
+import { store, persistor } from 'stores'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import * as Sentry from "@sentry/browser"
 
@@ -53,13 +54,15 @@ class MaidreaminSearch extends App<any, {}> {
 
 	render() {
 		const { Component, pageProps, apollo } = this.props
-
-		return (
+		
+		return(
 			<ApolloProvider client={apollo}>
 				<Provider store={store}>
-					<ErrorBoundary>
-						<Component {...pageProps} />
-					</ErrorBoundary>
+					<PersistGate loading={null} persistor={persistor}>
+						<ErrorBoundary>
+							<Component {...pageProps} />
+						</ErrorBoundary>
+					</PersistGate>
 				</Provider>
 			</ApolloProvider>
 		)

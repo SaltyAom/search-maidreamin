@@ -30,6 +30,15 @@ const reducers = (state: IInitState, action: IAction): IInitState => {
                 }
             }
 
+        case "UPDATE_GUIDE":
+            return {
+                ...state,
+                guide: {
+                    ...state.guide,
+                    isActive: action.payload.guide.isActive
+                }
+            }
+
         default:
             return state
     }

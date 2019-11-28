@@ -3,9 +3,16 @@ import { Dispatch } from 'redux'
 import { IToggleFilter } from "stores/types/action"
 
 export interface ISearchLayoutProps {
-	onChange: (event: any) => any,
-	value?: string | number,
+	onChange: (event: any) => any
+	value?: string | number
 	children: any
+}
+
+export interface ISearchLayoutStore {
+    guide: {
+        version: boolean
+        isActive: boolean
+    }
 }
 
 export interface ISearchLayoutDispatch {
@@ -13,6 +20,7 @@ export interface ISearchLayoutDispatch {
 }
 
 export default interface ISearchLayout {
-	props: ISearchLayoutProps,
+	props: ISearchLayoutProps
+	store: ISearchLayoutStore
 	dispatch: ISearchLayoutDispatch
 }
