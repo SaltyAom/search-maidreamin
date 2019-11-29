@@ -6,13 +6,13 @@ import dynamic from "next/dynamic"
 
 import { useLazyQuery } from "@apollo/react-hooks"
 
-import { debounceTime, map } from "rxjs/operators"
+import { debounceTime, map, takeWhile } from "rxjs/operators"
 
 import SearchLayout from "components/searchLayout"
 import Card from "components/card"
 
 import { GET_MENU, SEARCH_MENU, SEARCH_PRICE } from "libs/query"
-import { isServer, search$, isBlank } from "libs/helpers"
+import { isServer, search$, loading$, isBlank } from "libs/helpers"
 
 import {
 	IMaidreamin,
@@ -52,7 +52,8 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 		[isFetching, setFetching] = useState(false),
 		[menus, setMenus] = useState<Array<IMenu>>(initMenu)
 
-	let searchSubject$ = useContext(search$)
+	let searchSubject$ = useContext(search$),
+		loadSubject$ = useContext(loading$)
 
 	/**
 	 * * Apollo Query
@@ -90,9 +91,14 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 			}
 		)
 
-		/**
-		 * * Unsubscribe on unmount
-		 * */
+		let debouncedLoad = loadSubject$.pipe(
+			debounceTime(1),
+			takeWhile(isLoading => (!isLoading && isFetching) || (isLoading && !isFetching))
+		)
+
+		debouncedLoad.subscribe((isLoading) => setFetching(!isFetching))
+
+		/* Unsubscribe on unmount */
 		return () => debouncedSearch.subscribe()
 	}, [])
 
@@ -140,14 +146,9 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 				).then(res => setMenus(res))
 		}, [sortBy, orderBy])
 
-		// useLayoutEffect(() => {
-		// 	if (loading && typeof data !== "undefined")
-		// 		setTimeout(() => {
-		// 			if (loading && typeof data !== "undefined"){
-		// 				setFetching(true)
-		// 			}
-		// 		}, 350)
-		// }, [loading])
+		useLayoutEffect(() => {
+			loadSubject$.next(loading)
+		}, [loading])
 	}
 
 	/**

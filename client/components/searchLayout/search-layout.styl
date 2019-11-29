@@ -5,9 +5,9 @@
     align-items center
     width 650px
     margin 0 auto
-    padding calc(50px + 5vh) calc(5% + 15px)
+    padding calc((50px + 5vh) + env(safe-area-inset-top)) calc((5% + 15px) + env(safe-area-inset-right)) calc((50px + 5vh) + env(safe-area-inset-bottom)) calc((5% + 15px) + env(safe-area-inset-left)) 
 
-#search 
+#search
     position sticky
     position -webkit-sticky
     z-index 1

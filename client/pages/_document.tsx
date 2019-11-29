@@ -14,7 +14,7 @@ class MyDocument extends Document {
 					/>
 					<meta
 						name="viewport"
-						content="width=device-width,initial-scale=1"
+						content="width=device-width,initial-scale=1, viewport-fit=cover"
 					/>
 					<meta
 						httpEquiv="X-UA-Compatible"

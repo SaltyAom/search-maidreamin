@@ -14,6 +14,5 @@ export const isBlank = (value: object) => {
     return false
 }
 
-export const search$ = createContext(new Subject())
-export const SearchProvider = search$.Provider
-export const SearchConsumer = search$.Consumer
+export const search$ = createContext(new Subject()),
+    loading$ = createContext(new Subject())

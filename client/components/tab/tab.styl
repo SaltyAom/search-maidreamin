@@ -1,8 +1,4 @@
 #tab
-    position fixed
-    z-index 10
-    top 0
-    left 0
     display flex
     flex-direction column
     justify-content center
@@ -11,6 +7,8 @@
     height 100vh
     padding env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
     background-color var(--background)
+    overflow-x hidden
+    overflow-y auto
 
 #tab-head
     display flex
@@ -34,13 +32,25 @@
     width 100%
     padding calc(56px + 16px) 24px 16px 24px
 
-    & > .image
-        flex 1
+    & > .figure
+        flex 3
+        display flex
+        flex-direction column
+        justify-content center
+        align-items center
         width 80%
         max-width 40vh
-        padding 24px
+        padding 18px
+
+        & > .image
+            display block
+            width 100%
+            user-select none
+            -webkit-user-select none
+            -webkit-user-drag none
 
     & > .content
+        flex 1
         display flex
         flex-direction column
         width 100%
@@ -82,10 +92,20 @@
         border 0
         border-radius 4px
         background-color var(--primary)
-        cursor pointer
+        box-shadow 0 3px 9px alpha(#000, .2)
+        transition box-shadow .2s ease-out, color .2s ease-out
+        user-select none
+        -webkit-user-select none
+        -webkit-user-drag none
         outline none
+        cursor pointer
 
-@media screen and (min-width 568px)
+        &:hover,
+        &:focus
+            color alpha(#fff, .85)
+            box-shadow 0 6px 18px alpha(#000, .25)
+
+@media screen and (min-width 568px) and (min-height 568px)
     #tab-body,
     #tab-footer
         width 410px
@@ -94,28 +114,18 @@
         flex 0
         padding-top 2vh
 
-        & > .image
-            width 90%
+        & > .figure
+            & > .image
+                width 214px
+                height 214px
 
-@media screen and (max-width 567.9px) and (orientation landscape)
-    #tab-body,
-    #tab-footer
-        width 100%
+        & > .content
+            margin-top 3.75vh
 
-    #tab-body
-        flex-direction row
-        padding-top 24px
-
-        & > .image
-            width 40%
-
-    #tab-footer
-        & > .button
-            width 260px
-
-@media screen and (max-height 567.9px)
+@media screen all and (max-width 567.9px), (max-height 567.9px) and (orientation landscape)
     #tab
         height 100vh
+        justify-content flex-start
 
     #tab-body,
     #tab-footer
@@ -126,10 +136,15 @@
         flex-direction row
         max-width 700px
         padding-top 24px
-
-        & > .image
+ 
+        & > .figure
+            flex 1
             max-width unset
             width 40%
+            max-width 40%
+            margin-top 0
+            margin-left 0
+            margin-bottom 0
 
     #tab-footer
         & > .button

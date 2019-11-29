@@ -13,7 +13,17 @@ module.exports = withPlugins(
 	[
 		[withAnalyze],
 		[withMinify],
-		[withCSS],
+		[
+			withCSS,
+			{
+				webpack(config, options){
+					config.optimization.minimizer = []
+					config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}))		
+
+					return config
+				}
+			}
+		],
 		[withStylus],
 		[
 			withOffline,
@@ -23,7 +33,7 @@ module.exports = withPlugins(
 					swDest: "static/service-worker.js",
 					runtimeCaching: [
 						{
-							urlPattern: /.js$|.ttf$|.otf$|.css$/,
+							urlPattern: /.js$|.ttf$|.otf$|.css$|.svg$|.jpg$|.png$/,
 							handler: "CacheFirst"
 						}
 					]
@@ -42,8 +52,6 @@ module.exports = withPlugins(
 		},
 		target: "serverless",
 		webpack(config, options) {
-			config.optimization.minimizer = []
-			config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}))
 			config.resolve.alias["react"] = "preact/compat"
 			config.resolve.alias["react-dom"] = "preact/compat"
 			config.resolve.alias["react-render-to-string"] =

@@ -55,7 +55,7 @@ export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }:
 	return (
 		<Fragment>
 			<Head>
-				<title>Search Maidreamin Menu</title>
+				<title>Search Dreamin</title>
 			</Head>
 			<div id="landing">
 				<Fab />

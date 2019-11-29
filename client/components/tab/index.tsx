@@ -1,6 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect, Fragment } from 'react'
+
+import Head from 'next/head'
 
 import { connect } from 'react-redux'
+
+import preImage from 'pre-image'
 
 import ITab from './types'
 
@@ -43,7 +47,7 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
             "Welcome to Search Dreamin", 
             "Search any menu", 
 //            "Add to Homescreen", 
-            "Done"
+            "Everything is now ready"
         ],
         detail: [
             "Hello and welcome to Search Dreamin! An unofficial web app for searching menu from Maidreamin MBK~", 
@@ -53,29 +57,41 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
         ]
     }
 
+    useEffect(() => {
+        context.image.forEach((guide) => preImage(guide));
+        ["/img/expand_less.svg", "/img/highlight_off.svg", "/img/notes.svg", "/img/search.svg"].forEach((icon) => preImage(icon))
+    }, [])
+
     return (
-        <article id="tab">
-            <section id="tab-body">
-                <img className="image" src={context.image[tab]} />
-                <div className="content">
-                    <h2 className="title">{context.title[tab]}</h2>
-                    <p className="detail">
-                        {context.detail[tab]}
-                    </p>
-                </div>
-            </section>
-            <footer id="tab-footer">
-                { tab < (context.title.length - 1) ?
-                    <button className="button" onClick={() => setTab(tab + 1)}>
-                        Next
-                    </button>
-                    : 
-                    <button className="button" onClick={() => updateGuide(false)}>
-                        Done
-                    </button>
-                }
-            </footer>
-        </article>
+        <Fragment>
+            <Head>
+                <title>Search Dreamin</title>
+            </Head>
+            <article id="tab">
+                <section id="tab-body">
+                    <figure className="figure">
+                        <img className="image" src={context.image[tab]} alt={context.title[tab]} />
+                    </figure>
+                    <div className="content">
+                        <h2 className="title">{context.title[tab]}</h2>
+                        <p className="detail">
+                            {context.detail[tab]}
+                        </p>
+                    </div>
+                </section>
+                <footer id="tab-footer">
+                    { tab < (context.title.length - 1) ?
+                        <button className="button" onClick={() => setTab(tab + 1)}>
+                            Next
+                        </button>
+                        : 
+                        <button className="button" onClick={() => updateGuide(false)}>
+                            Done
+                        </button>
+                    }
+                </footer>
+            </article>
+        </Fragment>
     )
 }
 

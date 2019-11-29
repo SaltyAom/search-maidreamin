@@ -7877,6 +7877,11 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.16, postcss@^7.0.1
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+pre-image@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/pre-image/-/pre-image-0.2.1.tgz#75ee032d373d7510189170e53178bc9db3c5a71e"
+  integrity sha512-6Sqj3fUyv97qW5IF1NHK0QqNV3qRSFi6WjCo6YRcYMlSRpKz+/J7rata6R6sXellBLrJO/44XyMsbwvK9Vd6fA==
+
 preact-compat@^3.19.0:
   version "3.19.0"
   resolved "https://registry.yarnpkg.com/preact-compat/-/preact-compat-3.19.0.tgz#a71457b6a3bf051690a4411603bc2085aa061c2f"
