@@ -10,6 +10,7 @@ import MaterialButton from "@material/react-button"
 import Fab from "components/fab"
 import Filter from "components/filter"
 import Tab from "components/tab"
+import Snackbar from "components/snackbar"
 
 import ISearchLayout, { ISearchLayoutProps } from "./types"
 import { IToggleFilter } from "stores/types/action"
@@ -59,6 +60,7 @@ export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }:
 			</Head>
 			<div id="landing">
 				<Fab />
+				<Snackbar />
 				<div id="search">
 					<img
 						id="search-icon"
@@ -98,7 +100,9 @@ export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }:
 					</MaterialButton>
 				</header>
 				<Filter />
-				{children}
+				<main id="result">
+					{children}
+				</main>
 			</div>
 		</Fragment>
 	)

@@ -1,12 +1,12 @@
 .card
+    position relative
     display flex
     flex-direction column
-    justify-content flex-start
+    justify-content center
     align-items flex-start
     width 100%
     margin 0 0 15px 0
-    padding 30px 30px 0 30px
-    background-color var(--root)
+    background linear-gradient(120deg, #7F7FD5 0%, #86A8E7 20%, #91EAE4 40%)
     border-radius 5px
     box-shadow  0 2px 5px rgba(0,0,0,.05),
                 0 6px 15px rgba(0,0,0,.025)
@@ -17,69 +17,84 @@
             opacity 0
             transform translateY(15px)
 
-    & > .body
-        display flex
-        flex-direction row
-        justify-content space-between
-        align-items center
-        width 100%
-        margin 0 0 15px 0
+    & > .card-paper
 
-        & > .name
+        & > .body
             display flex
-            flex 1
-            flex-direction column
-            justify-content flex-start
-            align-items flex-start
-            font-size 36px
-            text-align left
-            color var(--primary-text)
-            text-transform capitalize
-            margin 0
-            transition height .15s ease-in-out
-            padding 0 30px 0 0
-            cursor default
+            flex-direction row
+            justify-content space-between
+            align-items center
+            width 100%
+            margin 0 0 15px 0
+            padding 30px 30px 0 30px
 
-        & > .price
-            display inline-block
-            color var(--primary)
-            font-size 24px
-            margin 0
-            cursor default
+            & > .name
+                display flex
+                flex 1
+                flex-direction column
+                justify-content flex-start
+                align-items flex-start
+                font-size 36px
+                text-align left
+                color var(--primary-text)
+                text-transform capitalize
+                margin 0
+                transition height .15s ease-in-out
+                padding 0 30px 0 0
+                pointer-events none
+                user-select none
+                -webkit-user-select none
+                -webkit-user-drag none
+                cursor default
 
-    & > .footer
-        display block
-        width 100%
-        padding 10px 0 10px 0
-        font-size 16px
-        color var(--secondary-text)
-
-        & > .other
-            appearance none
-            -webkit-appearance none
-            -moz-appearance none
-            display inline-block
-            color var(--secondary-text)
-            border 0
-            background-color transparent
-            margin 5px 10px 5px 0
-            padding 3px 6px 3px 0
-            font-size 16px
-            text-align left
-            font-weight lighter
-            text-transform capitalize
-            transition color .15s ease-out
-            outline none
-            cursor pointer
-
-            &:hover
+            & > .price
+                display inline-block
                 color var(--primary)
+                font-size 24px
+                margin 0
+                pointer-events none
+                user-select none
+                -webkit-user-select none
+                -webkit-user-drag none
+                cursor default
+
+        & > .footer
+            display block
+            width 100%
+            padding 10px 0 10px 0
+            font-size 16px
+            color var(--secondary-text)
+            text-align left
+            padding 0 30px 10px 30px
+
+            & > .other
+                appearance none
+                -webkit-appearance none
+                -moz-appearance none
+                display inline-block
+                color var(--secondary-text)
+                border 0
+                background-color transparent
+                margin 5px 10px 5px 0
+                padding 3px 6px 3px 0
+                font-size 16px
+                text-align left
+                font-weight lighter
+                text-transform capitalize
+                transition color .15s ease-out
+                outline none
+                cursor pointer
+                user-select none
+                -webkit-user-select none
+                -webkit-user-drag none
+
+                &:hover
+                    color var(--primary)
 
     &:hover,
     &:focus
         box-shadow  0 6px 12px rgba(0,0,0,.0725),
             0 15px 35px rgba(0,0,0,.05)
-        transform: scale(1.05)
 
 .preload
     display block

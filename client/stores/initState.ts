@@ -9,7 +9,8 @@ const initState: IInitState = {
         isOpen: false,
         sortBy: "group",
         orderBy: "ascending"
-    }
+    },
+    order: []
 }
 
 export default initState

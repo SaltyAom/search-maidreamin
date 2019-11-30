@@ -1,3 +1,5 @@
+import { IMenu } from 'pageTypes/index'
+
 export type ISortByOptions = "group" | "name" | "price"
 export type IOrderOptions = "ascending" | "descending"
 
@@ -10,5 +12,6 @@ export default interface IInitState {
         isOpen: boolean,
         sortBy: ISortByOptions,
         orderBy: IOrderOptions
-    }
+    },
+    order: Array<IMenu>
 }
