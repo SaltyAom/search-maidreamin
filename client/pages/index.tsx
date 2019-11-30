@@ -92,7 +92,7 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 		)
 
 		let debouncedLoad = loadSubject$.pipe(
-			debounceTime(1),
+			debounceTime(400),
 			takeWhile(isLoading => (!isLoading && isFetching) || (isLoading && !isFetching))
 		)
 

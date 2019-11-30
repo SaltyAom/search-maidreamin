@@ -8,23 +8,14 @@ const withAnalyze = require("@next/bundle-analyzer")({
 	enabled: process.env.ANALYZE === "true"
 })
 const withPlugins = require("next-compose-plugins")
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = withPlugins(
 	[
 		[withAnalyze],
-		[withMinify],
-		[
-			withCSS,
-			{
-				webpack(config, options){
-					config.optimization.minimizer = []
-					config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}))		
-
-					return config
-				}
-			}
-		],
+		[withCSS],
 		[withStylus],
+		[withMinify],
 		[
 			withOffline,
 			{
@@ -52,6 +43,16 @@ module.exports = withPlugins(
 		},
 		target: "serverless",
 		webpack(config, options) {
+			config.optimization.minimize = true
+			config.optimization.minimizer = []
+			config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}))
+			config.optimization.minimizer.push(new TerserPlugin({
+				terserOptions: {
+					ecma: 7,
+					mangle: true
+				}
+			}))
+
 			config.resolve.alias["react"] = "preact/compat"
 			config.resolve.alias["react-dom"] = "preact/compat"
 			config.resolve.alias["react-render-to-string"] =

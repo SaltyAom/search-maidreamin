@@ -1,10 +1,12 @@
-import { FC, useState, useEffect, Fragment } from 'react'
+import { FC, useState, useEffect, useLayoutEffect, Fragment } from 'react'
 
 import Head from 'next/head'
 
 import { connect } from 'react-redux'
 
 import preImage from 'pre-image'
+
+import { isServer, scrollOf } from 'libs/helpers'
 
 import ITab from './types'
 
@@ -50,7 +52,7 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
             "Everything is now ready"
         ],
         detail: [
-            "Hello and welcome to Search Dreamin! An unofficial web app for searching menu from Maidreamin MBK~", 
+            "Search Dreamin is an unofficial web app for searching menu from Maidreamin MBK~",
             "With Search Dreamin you're freely to view and search menu anytime! There's no limit of menu now.",
 //           "Easily viewing menu like any other app you use! ",
             "Now you're ready to use Search Dreamin and prepare your menu from anywhere~ Let's start!"
@@ -58,9 +60,35 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
     }
 
     useEffect(() => {
-        context.image.forEach((guide) => preImage(guide));
-        ["/img/expand_less.svg", "/img/highlight_off.svg", "/img/notes.svg", "/img/search.svg"].forEach((icon) => preImage(icon))
+        if(isServer) return
+
+        window.addEventListener("load", () => {
+            context.image.forEach((guide) => preImage(guide));
+            ["/img/expand_less.svg", "/img/highlight_off.svg", "/img/notes.svg", "/img/search.svg"].forEach((icon) => preImage(icon))
+        })
     }, [])
+
+    if(!isServer)
+        useLayoutEffect(() => {            
+            let tabView = document.getElementById("tab-body") as HTMLElement
+
+            CSS.supports("scroll-behavior", "smmoth")
+                ? tabView.scrollTo({
+                    left: tabView.offsetWidth * tab,
+                    behavior: "smooth"
+                })
+                : scrollOf(tabView, {
+                    left: tabView.offsetWidth * tab,
+                    duration: 400
+                })
+
+            window.addEventListener("orientationchange", () =>
+                setTimeout(() => {
+                    let currentView = document.getElementById("tab-body") as HTMLElement
+                    tabView.scroll(currentView.offsetWidth * tab, 0)
+                }, 10)
+            )
+        }, [tab])
 
     return (
         <Fragment>
@@ -69,15 +97,19 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
             </Head>
             <article id="tab">
                 <section id="tab-body">
-                    <figure className="figure">
-                        <img className="image" src={context.image[tab]} alt={context.title[tab]} />
-                    </figure>
-                    <div className="content">
-                        <h2 className="title">{context.title[tab]}</h2>
-                        <p className="detail">
-                            {context.detail[tab]}
-                        </p>
-                    </div>
+                    { context.title.map((title, tab) =>
+                        <div className="page" key={tab}>
+                            <figure className="figure">
+                                <img className="image" src={context.image[tab]} alt={context.title[tab]} />
+                            </figure>
+                            <div className="content">
+                                <h2 className="title">{context.title[tab]}</h2>
+                                <p className="detail">
+                                    {context.detail[tab]}
+                                </p>
+                            </div>
+                        </div>
+                    )}
                 </section>
                 <footer id="tab-footer">
                     { tab < (context.title.length - 1) ?
