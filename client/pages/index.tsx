@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext, useLayoutEffect } from "react"
+import React, { useState, useRef, useEffect, useContext } from "react"
 
 import { connect } from "react-redux"
 
@@ -102,38 +102,12 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 		return () => debouncedSearch.subscribe()
 	}, [])
 
-	if (!isServer) {
-		useLayoutEffect(() => {
-			if (typeof search.current === "undefined") return
+	useEffect(() => {
+		if (typeof search.current === "undefined") return
 
-			let worker = require("libs/worker").default
+		let worker = require("libs/worker").default
 
-			if (typeof data !== "undefined")
-				worker
-					.sortWith(
-						typeof data !== "undefined"
-							? data.getMenu || data.getMenuBy
-							: initMenu,
-						{
-							sort: sortBy,
-							order: orderBy
-						}
-					).then(res => setMenus(res))
-
-			if (search.current === "")
-				worker
-					.sortWith(
-						initMenu,
-						{
-							sort: sortBy,
-							order: orderBy
-						}
-					).then(res => setMenus(res))
-		}, [data])
-
-		useLayoutEffect(() => {
-			let worker = require("libs/worker").default
-
+		if (typeof data !== "undefined")
 			worker
 				.sortWith(
 					typeof data !== "undefined"
@@ -144,12 +118,36 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 						order: orderBy
 					}
 				).then(res => setMenus(res))
-		}, [sortBy, orderBy])
 
-		useLayoutEffect(() => {
-			loadSubject$.next(loading)
-		}, [loading])
-	}
+		if (search.current === "")
+			worker
+				.sortWith(
+					initMenu,
+					{
+						sort: sortBy,
+						order: orderBy
+					}
+				).then(res => setMenus(res))
+	}, [data])
+
+	useEffect(() => {
+		let worker = require("libs/worker").default
+
+		worker
+			.sortWith(
+				typeof data !== "undefined"
+					? data.getMenu || data.getMenuBy
+					: initMenu,
+				{
+					sort: sortBy,
+					order: orderBy
+				}
+			).then(res => setMenus(res))
+	}, [sortBy, orderBy])
+
+	useEffect(() => {
+		loadSubject$.next(loading)
+	}, [loading])
 
 	/**
 	 * * Component

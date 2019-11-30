@@ -59,7 +59,7 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
         ]
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(isServer) return
 
         window.addEventListener("load", () => {
@@ -68,27 +68,26 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
         })
     }, [])
 
-    if(!isServer)
-        useLayoutEffect(() => {            
-            let tabView = document.getElementById("tab-body") as HTMLElement
+    useEffect(() => {            
+        let tabView = document.getElementById("tab-body") as HTMLElement
 
-            CSS.supports("scroll-behavior", "smmoth")
-                ? tabView.scrollTo({
-                    left: tabView.offsetWidth * tab,
-                    behavior: "smooth"
-                })
-                : scrollOf(tabView, {
-                    left: tabView.offsetWidth * tab,
-                    duration: 400
-                })
+        CSS.supports("scroll-behavior", "smooth")
+            ? tabView.scrollTo({
+                left: tabView.offsetWidth * tab,
+                behavior: "smooth"
+            })
+            : scrollOf(tabView, {
+                left: tabView.offsetWidth * tab,
+                duration: 300
+            })
 
-            window.addEventListener("orientationchange", () =>
-                setTimeout(() => {
-                    let currentView = document.getElementById("tab-body") as HTMLElement
-                    tabView.scroll(currentView.offsetWidth * tab, 0)
-                }, 10)
-            )
-        }, [tab])
+        window.addEventListener("orientationchange", () =>
+            setTimeout(() => {
+                let currentView = document.getElementById("tab-body") as HTMLElement
+                tabView.scroll(currentView.offsetWidth * tab, 0)
+            }, 10)
+        )
+    }, [tab])
 
     return (
         <Fragment>

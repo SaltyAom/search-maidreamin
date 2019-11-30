@@ -6,14 +6,14 @@ import "./fab.styl"
 
 const Fab: FC<{}> = memo(() => {
 	const backToTop = () => {
-		CSS.supports("scroll-behavior", "smmoth")
+		CSS.supports("scroll-behavior", "smooth")
 			? window.scrollTo({
 				top: 0,
 				behavior: "smooth"
 			})
 			: scrollWindow({
 				top: 0,
-				duration: 1000
+				duration: 700
 			})
 	}
 

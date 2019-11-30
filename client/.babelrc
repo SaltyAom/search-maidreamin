@@ -4,8 +4,7 @@
             "next/babel",
             {
                 "preset-env": {
-                    "targets": ">1% in US and not ie 11",
-                    "modules": false
+                    "targets": ">1% in US and not ie 11"
                 }
             }
         ]

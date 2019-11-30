@@ -26,7 +26,7 @@ export const move = ({
 }) =>
     from > to 
         ? from - (from * percent / 100) 
-        : from + (to * percent / 100)
+        : from + ((to - from) * percent / 100)
 
 export const scrollOf = (target: HTMLElement, {
     left = target.offsetLeft,
@@ -50,9 +50,7 @@ export const scrollOf = (target: HTMLElement, {
             percent: step 
         })
 
-        return setTimeout(() => {
-            return target.scroll(stepX, stepY)
-        }, fps(60) * counter)
+        return setTimeout(() => target.scroll(stepX, stepY), fps(60) * counter)
     })
 }
 
@@ -78,8 +76,6 @@ export const scrollWindow = ({
             percent: step 
         })
 
-        return setTimeout(() => {
-            return window.scroll(stepX, stepY)
-        }, fps(60) * counter)
+        return setTimeout(() => window.scroll(stepX, stepY), fps(60) * counter)
     })
 }

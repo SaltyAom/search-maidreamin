@@ -8,7 +8,6 @@ const withAnalyze = require("@next/bundle-analyzer")({
 	enabled: process.env.ANALYZE === "true"
 })
 const withPlugins = require("next-compose-plugins")
-const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = withPlugins(
 	[
@@ -45,13 +44,6 @@ module.exports = withPlugins(
 		webpack(config, options) {
 			config.optimization.minimize = true
 			config.optimization.minimizer = []
-			config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}))
-			config.optimization.minimizer.push(new TerserPlugin({
-				terserOptions: {
-					ecma: 7,
-					mangle: true
-				}
-			}))
 
 			config.resolve.alias["react"] = "preact/compat"
 			config.resolve.alias["react-dom"] = "preact/compat"
