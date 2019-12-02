@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 
 import MaterialButton from "@material/react-button"
 
-import Tab from "components/tab"
 import Filter from "components/filter"
 
 import ISearchLayout, { ISearchLayoutProps } from "./types"
@@ -31,11 +30,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IToggleFilter>) => ({
 	}
 })
 
-export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }: ISearchLayout) => {
+export const SearchLayout: FC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout) => {
 	let { onChange, children } = props,
-		{ toggleFilter } = dispatch,
-		{ guide } = store,
-		{ isActive } = guide
+		{ toggleFilter } = dispatch
 
 	let emptySearchInput = () => {
 		let search = document.getElementById("search-input") as HTMLInputElement
@@ -47,16 +44,6 @@ export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }:
 			}
 		})
 	}
-
-	if(isActive)
-		return (
-			<Fragment>
-				<Head>
-					<title>Search Dreamin</title>
-				</Head>
-				<Tab />
-			</Fragment>
-		)
 
 	return (
 		<Fragment>
