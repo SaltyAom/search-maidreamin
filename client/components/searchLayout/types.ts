@@ -8,19 +8,11 @@ export interface ISearchLayoutProps {
 	children: any
 }
 
-export interface ISearchLayoutStore {
-    guide: {
-        version: boolean
-        isActive: boolean
-    }
-}
-
 export interface ISearchLayoutDispatch {
 	toggleFilter(): Dispatch<IToggleFilter>
 }
 
 export default interface ISearchLayout {
 	props: ISearchLayoutProps
-	store: ISearchLayoutStore
 	dispatch: ISearchLayoutDispatch
 }

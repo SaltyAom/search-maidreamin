@@ -1,13 +1,14 @@
-import React, { useState, FC } from "react"
+import React, { useState, FC, memo } from "react"
 
+import CardContainer from "components/cardContainer"
 import CardTitle from "components/cardTitle"
 import CardLanguage from "components/cardLanguage"
 
-import ICard from './types'
+import ICard from "./types"
 
 import "./card.styl"
 
-const Card: FC<ICard> = props => {
+const Card: FC<ICard> = memo(props => {
 	let {
 		th = "",
 		en = "",
@@ -15,11 +16,20 @@ const Card: FC<ICard> = props => {
 		price,
 		subMenu = null,
 		preload = false
-	} = props
+	} = props,
+		data = {
+			name: {
+				th: th,
+				en: en,
+				jp: jp,
+			},
+			price: price,
+			subMenu: subMenu
+		}
 
 	if (preload)
 		return (
-			<div className="card">
+			<CardContainer disabled>
 				<div className="body">
 					<h2 className="name">
 						<p className="preload" />
@@ -44,7 +54,7 @@ const Card: FC<ICard> = props => {
 						<div className="preload small" />
 					</button>
 				</footer>
-			</div>
+			</CardContainer>
 		)
 
 	if (subMenu === null) {
@@ -53,7 +63,7 @@ const Card: FC<ICard> = props => {
 		switch (language) {
 			case "th":
 				return (
-					<div className="card">
+					<CardContainer data={data}>
 						<CardTitle name={th} price={price} />
 						<footer className="footer">
 							<CardLanguage
@@ -67,12 +77,12 @@ const Card: FC<ICard> = props => {
 								onClick={() => setLanguage("jp")}
 							/>
 						</footer>
-					</div>
+					</CardContainer>
 				)
 
 			case "en":
 				return (
-					<div className="card">
+					<CardContainer data={data}>
 						<CardTitle name={en} price={price} />
 						<footer className="footer">
 							<CardLanguage
@@ -86,12 +96,12 @@ const Card: FC<ICard> = props => {
 								onClick={() => setLanguage("jp")}
 							/>
 						</footer>
-					</div>
+					</CardContainer>
 				)
 
 			case "jp":
 				return (
-					<div className="card">
+					<CardContainer data={data}>
 						<CardTitle name={jp} price={price} />
 						<footer className="footer">
 							<CardLanguage
@@ -105,12 +115,12 @@ const Card: FC<ICard> = props => {
 								onClick={() => setLanguage("en")}
 							/>
 						</footer>
-					</div>
+					</CardContainer>
 				)
 
 			default:
 				return (
-					<div className="card">
+					<CardContainer data={data}>
 						<CardTitle name={th} price={price} />
 						<footer className="footer">
 							<CardLanguage
@@ -124,7 +134,7 @@ const Card: FC<ICard> = props => {
 								onClick={() => setLanguage("en")}
 							/>
 						</footer>
-					</div>
+					</CardContainer>
 				)
 		}
 	}
@@ -133,7 +143,7 @@ const Card: FC<ICard> = props => {
 
 	if (selected === 0)
 		return (
-			<div className="card">
+			<CardContainer data={data}>
 				<CardTitle name={subMenu[0]} price={price} />
 				<footer className="footer">
 					<button
@@ -145,11 +155,11 @@ const Card: FC<ICard> = props => {
 						{subMenu[1]}
 					</button>
 				</footer>
-			</div>
+			</CardContainer>
 		)
 
 	return (
-		<div className="card">
+		<CardContainer data={data}>
 			<CardTitle name={subMenu[1]} price={price} />
 			<footer className="footer">
 				<button
@@ -161,8 +171,8 @@ const Card: FC<ICard> = props => {
 					{subMenu[0]}
 				</button>
 			</footer>
-		</div>
+		</CardContainer>
 	)
-}
+})
 
 export default Card

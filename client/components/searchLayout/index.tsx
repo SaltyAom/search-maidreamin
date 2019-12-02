@@ -1,15 +1,13 @@
 import React, { Fragment, memo, FC } from "react"
 
+import Head from "next/head"
+
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import Head from "next/head"
-
 import MaterialButton from "@material/react-button"
 
-import Fab from "components/fab"
 import Filter from "components/filter"
-import Tab from "components/tab"
 
 import ISearchLayout, { ISearchLayoutProps } from "./types"
 import { IToggleFilter } from "stores/types/action"
@@ -32,11 +30,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IToggleFilter>) => ({
 	}
 })
 
-export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }: ISearchLayout) => {
+export const SearchLayout: FC<ISearchLayout> = memo(({ props, dispatch }: ISearchLayout) => {
 	let { onChange, children } = props,
-		{ toggleFilter } = dispatch,
-		{ guide } = store,
-		{ isActive } = guide
+		{ toggleFilter } = dispatch
 
 	let emptySearchInput = () => {
 		let search = document.getElementById("search-input") as HTMLInputElement
@@ -49,16 +45,12 @@ export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }:
 		})
 	}
 
-	if(isActive)
-		return <Tab />
-
 	return (
 		<Fragment>
 			<Head>
 				<title>Search Dreamin</title>
 			</Head>
 			<div id="landing">
-				<Fab />
 				<div id="search">
 					<img
 						id="search-icon"
@@ -98,7 +90,9 @@ export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }:
 					</MaterialButton>
 				</header>
 				<Filter />
-				{children}
+				<main id="result">
+					{children}
+				</main>
 			</div>
 		</Fragment>
 	)

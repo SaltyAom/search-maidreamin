@@ -1,3 +1,4 @@
+import { IMenu } from 'pageTypes/index'
 import { ISortByOptions, IOrderOptions } from "./initState"
 
 export interface IToggleFilter {
@@ -31,5 +32,12 @@ export interface IUpdateGuide {
     }
 }
 
-type TAction = IToggleFilter | IUpdateSortBy | IUpdateOrderBy | IUpdateSortBy | IUpdateGuide
+export interface IAddOrder {
+    type: "ADD_ORDER",
+    payload: {
+        order: IMenu
+    }
+}
+
+type TAction = IToggleFilter | IUpdateSortBy | IUpdateOrderBy | IUpdateSortBy | IUpdateGuide | IAddOrder
 export default TAction

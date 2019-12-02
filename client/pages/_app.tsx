@@ -12,6 +12,7 @@ import withApollo from "libs/withApollo"
 import { isServer, isDev } from 'libs/helpers'
 
 import ErrorBoundary from "components/ErrorBoundary"
+import UtilityLayout from "components/utilityLayout"
 
 import "stylus/init.styl"
 
@@ -22,7 +23,7 @@ if(!isDev)
 
 class MaidreaminSearch extends App<any, {}> {
 	componentDidMount() {
-		document.addEventListener("touchstart", () => null)
+		document.addEventListener("touchstart", () => null, false)
 
 		if (
 			"serviceWorker" in navigator &&
@@ -60,7 +61,9 @@ class MaidreaminSearch extends App<any, {}> {
 				<Provider store={store}>
 					<PersistGate loading={null} persistor={persistor}>
 						<ErrorBoundary>
-							<Component {...pageProps} />
+							<UtilityLayout>
+								<Component {...pageProps} />
+							</UtilityLayout>
 						</ErrorBoundary>
 					</PersistGate>
 				</Provider>

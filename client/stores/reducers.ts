@@ -39,6 +39,12 @@ const reducers = (state: IInitState, action: IAction): IInitState => {
                 }
             }
 
+        case "ADD_ORDER":
+            return {
+                ...state,
+                order: [...state.order, action.payload.order]
+            }
+
         default:
             return state
     }

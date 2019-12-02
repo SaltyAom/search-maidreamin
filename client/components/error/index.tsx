@@ -1,10 +1,11 @@
 import { Fragment, FC, memo } from "react"
 
 import Card from "components/card"
+import CardContainer from "components/cardContainer"
 
 const Loading: FC<{}> = memo(() => (
 	<Fragment>
-		<div className="card">
+		<CardContainer>
 			<div className="body">
 				<h2 className="name">Something went wrong.</h2>
 			</div>
@@ -16,7 +17,7 @@ const Loading: FC<{}> = memo(() => (
 					Retry connection
 				</button>
 			</footer>
-		</div>
+		</CardContainer>
 		<Card preload />
 	</Fragment>
 ))

@@ -5,6 +5,9 @@ export const isServer = typeof window === "undefined"
 export const isDev = process.env.NODE_ENV !== "production"
 
 export const isBlank = (value: object) => {
+    if(typeof value === "object")
+        return Object.entries(value).length === 0 && value.constructor === Object
+
     if(typeof value === "undefined")
         return true
 
