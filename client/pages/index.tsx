@@ -12,7 +12,7 @@ import SearchLayout from "components/searchLayout"
 import Card from "components/card"
 
 import { GET_MENU, SEARCH_MENU, SEARCH_PRICE } from "libs/query"
-import { isServer, search$, loading$, isBlank } from "libs/helpers"
+import { search$, loading$, isBlank } from "libs/helpers"
 
 import {
 	IMaidreamin,

@@ -1,16 +1,14 @@
 import React, { Fragment, memo, FC } from "react"
 
+import Head from "next/head"
+
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import Head from "next/head"
-
 import MaterialButton from "@material/react-button"
 
-import Fab from "components/fab"
-import Filter from "components/filter"
 import Tab from "components/tab"
-import Snackbar from "components/snackbar"
+import Filter from "components/filter"
 
 import ISearchLayout, { ISearchLayoutProps } from "./types"
 import { IToggleFilter } from "stores/types/action"
@@ -51,7 +49,14 @@ export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }:
 	}
 
 	if(isActive)
-		return <Tab />
+		return (
+			<Fragment>
+				<Head>
+					<title>Search Dreamin</title>
+				</Head>
+				<Tab />
+			</Fragment>
+		)
 
 	return (
 		<Fragment>
@@ -59,8 +64,6 @@ export const SearchLayout: FC<ISearchLayout> = memo(({ props, store, dispatch }:
 				<title>Search Dreamin</title>
 			</Head>
 			<div id="landing">
-				<Fab />
-				<Snackbar />
 				<div id="search">
 					<img
 						id="search-icon"

@@ -3,9 +3,9 @@
     flex-direction column
     justify-content flex-start
     align-items center
-    width 650px
+    width 100%
     margin 0 auto
-    padding calc((50px + 5vh) + env(safe-area-inset-top)) calc((5% + 15px) + env(safe-area-inset-right)) calc((50px + 5vh) + env(safe-area-inset-bottom)) calc((5% + 15px) + env(safe-area-inset-left)) 
+    padding calc(5vh + env(safe-area-inset-top)) 0 calc((25px + 5vh) + env(safe-area-inset-bottom)) 0
 
 #search
     position sticky
@@ -17,9 +17,9 @@
     flex-direction row
     justify-content flex-start
     align-items center
-    width 100%
+    width calc(100% - (5% + env(safe-area-inset-right) + 5% + env(safe-area-inset-left)))
     font-size 28px
-    margin 5vh 0 40px 0
+    margin 5vh calc(5% + env(safe-area-inset-right)) 40px calc(5% + env(safe-area-inset-left))
     padding 0 0 0 16px
     color var(--primary-text)
     background-color var(--root)
@@ -89,8 +89,28 @@
     justify-content flex-start
     align-items flex-start
     width 100%
-@media screen and (max-width 767.9px)
+    overflow-x hidden
+
+#search-tools,
+#result,
+#filter
+    padding 0 calc(5% + env(safe-area-inset-right)) 0 calc(5% + env(safe-area-inset-left))
+
+#result
+    padding-bottom 25px
+
+@media screen and (min-width 768px)
     #landing
-        width 100%
-        padding-left 5% 
-        padding-right 5%
+        width 650px
+
+    #search
+        width calc(100% - ((5% + 15px) + env(safe-area-inset-right) + (5% + 15px) + env(safe-area-inset-left)))
+        margin 5vh calc((5% + 15px) + env(safe-area-inset-right)) 40px calc((5% + 15px) + env(safe-area-inset-left))
+
+    #search-tools,
+    #result,
+    #filter
+        padding 0 calc((5% + 15px) + env(safe-area-inset-right)) 0 calc((5% + 15px) + env(safe-area-inset-left))
+
+    #result
+        overflow-x unset

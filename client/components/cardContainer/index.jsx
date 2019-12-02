@@ -44,7 +44,7 @@ const CardContainer = ({ props, dispatch }) => {
 				: 120 
 			: 0,
 		size: down ? 1.05 : 1,
-		immediate: name => down && name === "x"
+		immediate: name => down && name === "x",
 	})
 
 	let avSize = x.interpolate({
@@ -74,7 +74,7 @@ const CardContainer = ({ props, dispatch }) => {
 				style={{
 					transform: interpolate(
 						[x, size],
-						(x, s) => `translate3d(${x}px,0,0) scale(${s})`
+						(x, s) => `translateX(${x}px) scale(${s})`
 					)
 				}}
 			>

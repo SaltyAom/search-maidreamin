@@ -1,0 +1,46 @@
+#tab-bar
+    display flex
+    flex-direction row
+    justify-content space-between
+    align-items center
+    width 100%
+    height 58px
+    background-color var(--root)
+    box-shadow 0 3px 9px alpha(#000, .0875)
+
+    & > .tab
+        display flex
+        flex-direction row
+        justify-content center
+        align-items center
+        flex 1
+        height 100%
+        font-size 18px
+        color var(--primary-text)
+        text-decoration none
+        border-radius 0
+        box-sizing unset
+        transition color .2s ease-out
+
+        &:hover,
+        &:focus
+            color var(--primary)
+
+        &.active
+            color var(--primary)
+            border-top 3px solid transparent
+            border-bottom 3px solid var(--primary)
+
+        &::before,
+        &::after
+            background-color var(--primary)
+
+@media screen and (min-width 768px)
+    #tab-bar
+        justify-content flex-start
+        padding 0 calc(50px + env(safe-area-inset-right)) 0 calc(50px + env(safe-area-inset-left))
+
+        & > .tab
+            flex 0
+            width auto
+            padding 0 35px

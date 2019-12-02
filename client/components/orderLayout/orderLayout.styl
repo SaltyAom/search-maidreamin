@@ -1,0 +1,14 @@
+#layout
+    display flex
+    flex-direction column
+    justify-content flex-start
+    align-items center
+    width 100%
+    min-height calc(100vh - 58px)
+    margin 0 auto
+    padding 5vh calc(5% + env(safe-area-inset-right)) 0 calc(5% + env(safe-area-inset-left))
+
+@media screen and (min-width 768px)
+    #layout
+        width 650px
+        padding 5vh calc((5% + 15px) + env(safe-area-inset-right)) 0 calc((5% + 15px) + env(safe-area-inset-left))

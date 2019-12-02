@@ -12,9 +12,8 @@ html
 
 body
 	margin 0
-	background-color var(--background)
+	background-color var(--root)
 	overflow-x hidden
-
 
 * 
 	font-family Helvetica, Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif 
@@ -23,6 +22,9 @@ body
 
 ::selection, ::-webkit-selection
 	background-color rgba(0,123,255,.25)
+
+#__next
+	background-color var(--background)
 
 @media screen and (prefers-color-scheme: dark)
 	:root
