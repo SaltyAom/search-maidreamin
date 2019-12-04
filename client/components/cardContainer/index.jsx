@@ -55,13 +55,13 @@ const CardContainer = ({ props, dispatch }) => {
 
 	useEffect(() => {
 		if(!down && delta[0] >= 90)
-			return addOrder(data)
+			addOrder(data)
 	}, [down])
 
 	return (
-		<animated.div {...bind()} class="card">
+		<animated.div {...bind()} className="card">
 			<animated.div
-				class="av"
+				className="av"
 				style={{
 					transform: avSize,
 					justifySelf: delta[0] < 0 ? "end" : "start"
@@ -70,7 +70,7 @@ const CardContainer = ({ props, dispatch }) => {
 				<img src="/img/add.svg" alt="Add to cart" />
 			</animated.div>
 			<animated.div
-				class="card-paper"
+				className="card-paper"
 				style={{
 					transform: interpolate(
 						[x, size],

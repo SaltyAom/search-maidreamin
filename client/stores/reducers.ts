@@ -45,6 +45,15 @@ const reducers = (state: IInitState, action: IAction): IInitState => {
                 order: [...state.order, action.payload.order]
             }
 
+        case "REMOVE_ORDER":
+            let order = [...state.order]
+            order.splice(action.payload.index, 1)
+
+            return {
+                ...state,
+                order: order
+            }
+
         default:
             return state
     }

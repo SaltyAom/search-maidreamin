@@ -45,10 +45,10 @@ module.exports = withPlugins(
 			config.optimization.minimize = true
 			config.optimization.minimizer = []
 
-			config.resolve.alias["react"] = "preact/compat"
-			config.resolve.alias["react-dom"] = "preact/compat"
-			config.resolve.alias["react-render-to-string"] =
-				"preact-render-to-string"
+			// config.resolve.alias["react"] = "preact/compat"
+			// config.resolve.alias["react-dom"] = "preact/compat"
+			// config.resolve.alias["react-render-to-string"] =
+			// 	"preact-render-to-string"
 
 			config.resolve.alias["pages"] = path.join(__dirname, "pages")
 			config.resolve.alias["stylus"] = path.join(

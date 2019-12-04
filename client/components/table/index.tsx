@@ -1,5 +1,7 @@
 import { FC, memo } from "react"
 
+import SlidableRow from "components/slidableRow"
+
 import ITable from "./types"
 
 import "./table.styl"
@@ -13,15 +15,14 @@ const Table: FC<ITable> = memo(({ data }) => (
 			</tr>
 		</thead>
 		<tbody id="order-table-body">
-			{data.map(dataSet => (
-				<tr className="row">
-					<td className="data">
-						{dataSet.name.th || dataSet.subMenu[0]}
-					</td>
-					<td className="data price">
-						{dataSet.price.toLocaleString()}
-					</td>
-				</tr>
+			{data.map((dataSet, index) => (
+				<SlidableRow
+					key={index}
+					price={dataSet.price.toLocaleString()}
+					index={index}
+				>
+					{dataSet.name.th || dataSet.subMenu[0]}
+				</SlidableRow>
 			))}
 			<tr className="row total">
 				<td className="data">Total</td>

@@ -96,7 +96,7 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 			takeWhile(isLoading => (!isLoading && isFetching) || (isLoading && !isFetching))
 		)
 
-		debouncedLoad.subscribe((isLoading) => setFetching(!isFetching))
+		debouncedLoad.subscribe(() => setFetching(!isFetching))
 
 		/* Unsubscribe on unmount */
 		return () => debouncedSearch.subscribe()

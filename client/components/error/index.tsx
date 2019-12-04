@@ -5,7 +5,7 @@ import CardContainer from "components/cardContainer"
 
 const Loading: FC<{}> = memo(() => (
 	<Fragment>
-		<CardContainer>
+		<CardContainer disabled>
 			<div className="body">
 				<h2 className="name">Something went wrong.</h2>
 			</div>

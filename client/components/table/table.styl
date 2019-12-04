@@ -4,6 +4,7 @@
     justify-content flex-start
     align-items flex-start
     width 100%
+    margin-bottom 100px
     color var(--primary-text)
     border-spacing 0
 
@@ -24,23 +25,58 @@
         &.name
             flex 1
             
-#order-table-body
+#order-table-body,
     display flex
     flex-direction column
     width 100%
 
-    & > .row
+    & > .container
+        position relative
         display flex
         width 100%
+        margin-bottom 10px
+        background-image linear-gradient(45deg, #ED213A 75%, #93291E 100%)
         border-radius 4px
-        transition background-color .15s ease-out, box-shadow .15s ease-out
+
+        &.is-removing
+            max-height 0
+            margin-bottom 0
+            overflow hidden
+            animation removing .4s ease-out 0s 1
+            -webkit-animation removing .4s ease-out 0s 1
+
+            @keyframes removing
+                from
+                    max-height 100px
+
+                to
+                    max-height 0
+                    margin-bottom 0
+
+    & > .row,
+    & > .container > .row
+        display flex
+        width 100%
+        padding 0
+        border-radius 4px
+        background-color var(--root)
+        box-shadow 0 3px 9px alpha(#000, .0425)
+        transition height .25s ease-out, box-shadow .25s ease-out
+
+        &:hover,
+        &:focus
+            box-shadow 0 3px 9px alpha(#000, .1)
 
         & > .data
             flex 1
             font-size 18px
             text-transform capitalize
             line-height 1.325em
+            margin 0
             padding 15px
+            user-select none
+            -webkit-user-select none
+            -webkit-user-drag none
 
             &.price
                 flex 0
@@ -51,11 +87,6 @@
                 text-align right
                 width 80px
 
-        &:hover,
-        &:focus
-            background-color var(--root)
-            box-shadow 0 3px 9px alpha(#000, .075)
-
     & > .row.total
-        margin-top 10px
         color var(--primary)
+        box-shadow 0 3px 9px alpha(#000, .0625)
