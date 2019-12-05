@@ -1,6 +1,7 @@
 import { Fragment } from "react"
 
 import { connect } from "react-redux"
+import { orderSelector } from 'stores/selectors'
 
 import Head from "next/head"
 
@@ -10,7 +11,7 @@ import Table from "components/table"
 
 const mapStateToProps = state => ({
 	store: {
-		order: state.order
+		order: orderSelector(state)
 	}
 })
 

@@ -36,6 +36,7 @@
 		"react-with-gesture": "^4.0.8",
 		"redux": "^4.0.4",
 		"redux-persist": "^6.0.0",
+		"reselect": "^4.0.0",
 		"rxjs": "^6.5.3",
 		"workerize": "^0.1.7"
 	},

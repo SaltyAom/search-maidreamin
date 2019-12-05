@@ -1,6 +1,7 @@
 import { FC, useState, useEffect, useRef } from "react"
 
 import { connect } from "react-redux"
+import { orderSelector } from 'stores/selectors'
 
 import { isBlank } from "libs/helpers"
 
@@ -11,7 +12,7 @@ import "./snackbar.styl"
 
 const mapStateToProps = state => ({
 	store: {
-		order: state.order
+		order: orderSelector(state)
 	}
 })
 

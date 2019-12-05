@@ -12,12 +12,6 @@ import ITab from './types'
 
 import './tab.styl'
 
-// const mapStateToProps = (props) => ({
-//     store: {
-//         guide: props.guide
-//     }
-// })
-
 const mapStateToProps = null
 
 const mapDispatchToProps = (dispatch) => ({

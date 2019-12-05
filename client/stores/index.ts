@@ -3,8 +3,7 @@ import { createStore, compose } from "redux"
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import reducers from "stores/reducers"
-import initState from "stores/initState"
+import rootReducer from "stores/reducers"
 
 const composeEnhancers =
 	(typeof window !== "undefined" &&
@@ -16,9 +15,9 @@ const persistConfig = {
 	storage,
 	whitelist: ['guide']
 },
-	persistedReducers = persistReducer(persistConfig, reducers)
+	persistedReducers = persistReducer(persistConfig, rootReducer)
 
-export const store = createStore(persistedReducers, initState, composeEnhancers()),
+export const store = createStore(persistedReducers, composeEnhancers()),
 	persistor = persistStore(store)
 
 export default store

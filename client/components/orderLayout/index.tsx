@@ -4,8 +4,7 @@ import Head from "next/head"
 
 import './orderLayout.styl'
 
-const OrderLayout = memo(({ children }) => {
-    return (
+const OrderLayout = memo(({ children }) => (
         <Fragment>
             <Head>
                 <title>Order</title>
@@ -15,6 +14,6 @@ const OrderLayout = memo(({ children }) => {
             </main>
         </Fragment>
     )
-})
+)
 
 export default OrderLayout

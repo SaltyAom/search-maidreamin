@@ -1,6 +1,7 @@
 import { Fragment, FC, memo } from "react"
 
 import { connect } from 'react-redux'
+import { guideSelector } from 'stores/selectors'
 
 import Tab from "components/tab"
 import Tabbar from "components/tabbar"
@@ -11,7 +12,7 @@ import IUtility, { IUtilityStore } from './types'
 
 const mapStateToProps = (state, ownProps: IUtilityStore) => ({
     store: {
-        guide: state.guide
+        guide: guideSelector(state)
     },
     props: ownProps
 })

@@ -2,6 +2,7 @@ import { memo, FC } from "react"
 
 import { Dispatch } from "redux"
 import { connect } from "react-redux"
+import { filterSelector } from 'stores/selectors'
 
 import FilterSelect from "components/filterSelect"
 
@@ -12,7 +13,7 @@ import "./filter.styl"
 
 const mapStateToProps = (state: IInitState): IFilterStore => ({
 	store: {
-		filter: state.filter
+		filter: filterSelector(state)
 	}
 })
 

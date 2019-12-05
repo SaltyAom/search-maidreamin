@@ -49,12 +49,13 @@ const SlideableRow = ({ props, dispatch }) => {
 
 	useEffect(() => {
 		if (isRemoving)
-			setTimeout(() => removeOrder(index), 500)
+			setTimeout(() => handleRemoveOrder(), 500)
 	}, [isRemoving])
 
-	useEffect(() => {
-		return () => setRemoving(false)
-	}, [])
+	let handleRemoveOrder = () => {
+		setRemoving(false)
+		removeOrder(index)
+	}
 
 	return (
 		<animated.tr

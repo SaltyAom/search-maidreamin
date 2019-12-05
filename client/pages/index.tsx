@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from "react"
 
 import { connect } from "react-redux"
+import { filterSelector } from 'stores/selectors'
 
 import dynamic from "next/dynamic"
 
@@ -27,10 +28,7 @@ const Loading = dynamic(() => import("components/loading"))
 
 const mapStateToProps = (state, ownProps) => ({
 	store: {
-		filter: {
-			sortBy: state.filter.sortBy,
-			orderBy: state.filter.orderBy
-		}
+		filter: filterSelector(state)
 	},
 	props: ownProps
 })

@@ -4,6 +4,7 @@ import Head from "next/head"
 
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import { guideSelector } from 'stores/selectors'
 
 import MaterialButton from "@material/react-button"
 
@@ -17,7 +18,7 @@ import "@material/react-button/dist/button.css"
 
 const mapStateToProps = (state, ownProps: ISearchLayoutProps) => ({
 	store: {
-		guide: state.guide
+		guide: guideSelector(state)
 	},
 	props: ownProps
 })
