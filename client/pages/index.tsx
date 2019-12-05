@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, { useState, useRef, useEffect, useLayoutEffect, useContext } from "react"
 
 import { connect } from "react-redux"
-import { filterSelector } from 'stores/selectors'
+import { filterSelector, menuSelector } from 'stores/selectors'
 
 import dynamic from "next/dynamic"
 
@@ -13,11 +13,13 @@ import SearchLayout from "components/searchLayout"
 import Card from "components/card"
 
 import { GET_MENU, SEARCH_MENU, SEARCH_PRICE } from "libs/query"
-import { search$, loading$, isBlank } from "libs/helpers"
+import { search$, loading$, isBlank, isServer } from "libs/helpers"
 
 import {
 	IMaidreamin,
 	IMaidreaminProps,
+	IMaidreaminConnectProps,
+	IMaidreaminConnectDispatch,
 	ISearch,
 	IMenu,
 	ISearchData
@@ -26,29 +28,40 @@ import {
 const Error = dynamic(() => import("components/error"))
 const Loading = dynamic(() => import("components/loading"))
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps): IMaidreaminConnectProps => ({
 	store: {
-		filter: filterSelector(state)
+		filter: filterSelector(state),
+		menuStore: menuSelector(state)
 	},
 	props: ownProps
 })
 
-const mapDispatchToProps = null
+const mapDispatchToProps = (dispatch): IMaidreaminConnectDispatch => ({
+	dispatch: {
+		updateMenu: (menu) => dispatch({
+			type: "UPDATE_MENU",
+			payload: {
+				menu: menu
+			}
+		})
+	}
+})
 
-export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
+export const Maidreamin: IMaidreamin = ({ props, dispatch, store }: IMaidreaminProps) => {
 	/**
 	 * * Destructing
 	 */
 	let { initMenu } = props,
-		{ filter } = store,
-		{ sortBy, orderBy } = filter
+		{ filter, menuStore } = store,
+		{ sortBy, orderBy } = filter,
+		{ updateMenu } = dispatch
 
 	/**
 	 * * Setup
 	 * */
 	let search = useRef<ISearch>(undefined),
 		[isFetching, setFetching] = useState(false),
-		[menus, setMenus] = useState<Array<IMenu>>(initMenu)
+		[menus, setMenus] = useState<Array<IMenu>>(!isBlank(menuStore) ? menuStore : initMenu)
 
 	let searchSubject$ = useContext(search$),
 		loadSubject$ = useContext(loading$)
@@ -146,6 +159,11 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 	useEffect(() => {
 		loadSubject$.next(loading)
 	}, [loading])
+
+	if(!isServer)
+		useLayoutEffect(() => {
+			updateMenu(menus)
+		}, [menus])
 
 	/**
 	 * * Component

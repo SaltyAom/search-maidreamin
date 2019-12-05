@@ -5,8 +5,7 @@ import { orderSelector } from 'stores/selectors'
 
 import { isBlank } from "libs/helpers"
 
-import ISnackbar from "./types"
-import { IMenu } from "pageTypes/index"
+import ISnackbar, { ISnackbarInfo } from "./types"
 
 import "./snackbar.styl"
 
@@ -20,33 +19,39 @@ const mapDispatchToProps = null
 
 const Snackbar: FC<ISnackbar> = ({ store }) => {
 	let { order } = store,
-		[totalOrder, setTotalOrder] = useState(0),
-		[isIncrease, setIncrease] = useState(false)
+		[totalOrder, setTotalOrder] = useState(0)
 
-	let [currentOrder, setOrder] = useState<IMenu>(undefined),
+	let [currentOrder, setOrder] = useState<ISnackbarInfo>(undefined),
 		queue = useRef([])
 
 	useEffect(() => {
-		totalOrder < order.length ? setIncrease(true) : setIncrease(false)
 		setTotalOrder(order.length)
 
 		if (isBlank(order[0])) return
 
-		queue.current.push(order[order.length - 1])
+		queue.current.push(
+			Object.assign(
+				order[order.length - 1],
+				totalOrder < order.length
+					? { type: "added" }
+					: { type: "removed" }
+			)
+		)
 
 		if (isBlank(queue[1])) invokeSnackbar()
 	}, [order])
 
 	let invokeSnackbar = () => {
-		if (typeof currentOrder !== "undefined") return
+		if (typeof currentOrder !== "undefined" || isBlank(queue.current[0])) return
 
 		setOrder(queue.current[0])
 
-		setTimeout(() => {
+		return setTimeout(() => {
 			queue.current.shift()
 			setOrder(undefined)
 
-			setTimeout(() => invokeSnackbar(), 100)
+			if(!isBlank(queue.current[0]))
+				setTimeout(() => invokeSnackbar(), 100)
 		}, 4500)
 	}
 	
@@ -55,8 +60,7 @@ const Snackbar: FC<ISnackbar> = ({ store }) => {
 	return (
 		<div id="snackbar">
 			<p>
-				{currentOrder.name.th || currentOrder.subMenu[0]} is{" "}
-				{isIncrease ? "added" : "removed"}
+				{currentOrder.name.th || currentOrder.subMenu[0]} is {currentOrder.type}
 			</p>
 		</div>
 	)

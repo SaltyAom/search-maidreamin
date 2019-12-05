@@ -2,7 +2,8 @@ import { createSelector } from 'reselect'
 
 export const rootFilterSelector = state => state.filter,
     rootGuideSelector = state => state.guide,
-    rootOrderSelector = state => state.order
+    rootOrderSelector = state => state.order,
+    rootMenuSelector = state => state.menu
 
 export const filterSelector = createSelector(
     rootFilterSelector,
@@ -15,4 +16,8 @@ guideSelector = createSelector(
 orderSelector = createSelector(
     rootOrderSelector,
     order => order
+),
+menuSelector = createSelector(
+    rootMenuSelector,
+    menu => menu
 )

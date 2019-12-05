@@ -7,3 +7,7 @@ export interface ISnackbarStore {
 export default interface ISnackbar {
 	store: ISnackbarStore
 }
+
+export interface ISnackbarInfo extends IMenu {
+    type: "added" | "removed"
+}
