@@ -71,9 +71,9 @@
 
 #search-tools
     display flex
-    flex-direction row
+    flex-direction column
     justify-content flex-start
-    align-items center
+    align-items flex-start 
     width 100%
 
 #search-sort
@@ -92,8 +92,7 @@
     overflow-x hidden
 
 #search-tools,
-#result,
-#filter
+#result
     padding 0 calc(5% + env(safe-area-inset-right)) 0 calc(5% + env(safe-area-inset-left))
 
 #result
@@ -108,8 +107,7 @@
         margin 5vh calc(120px + env(safe-area-inset-right)) 40px calc(120px + env(safe-area-inset-left))
 
     #search-tools,
-    #result,
-    #filter
+    #result
         padding 0 calc(120px + env(safe-area-inset-right)) 0 calc(120px + env(safe-area-inset-left))
 
 @media screen and (min-width 968px)

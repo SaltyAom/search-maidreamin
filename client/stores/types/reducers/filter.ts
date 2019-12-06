@@ -1,10 +1,6 @@
 export type ISortByOptions = "group" | "name" | "price"
 export type IOrderOptions = "ascending" | "descending"
 
-export interface IToggleFilter {
-	type: "TOGGLE_FILTER"
-}
-
 export interface IUpdateSortBy {
 	type: "UPDATE_SORT_BY"
 	payload: {
@@ -23,9 +19,8 @@ export interface IUpdateOrderBy {
 	}
 }
 
-export type TFilterAction = IToggleFilter | IUpdateSortBy | IUpdateOrderBy
+export type TFilterAction = IUpdateSortBy | IUpdateOrderBy
 export default interface IFilterState {
-    isOpen: boolean
     sortBy: ISortByOptions
     orderBy: IOrderOptions
 }

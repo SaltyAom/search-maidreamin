@@ -162,7 +162,7 @@ export const Maidreamin: IMaidreamin = ({ props, dispatch, store }: IMaidreaminP
 
 	if(!isServer)
 		useLayoutEffect(() => {
-			updateMenu(menus)
+			setTimeout(() => updateMenu(menus), 500)
 		}, [menus])
 
 	/**

@@ -1,4 +1,4 @@
-import { memo, FC } from "react"
+import { Fragment, FC, useState } from "react"
 
 import { Dispatch } from "redux"
 import { connect } from "react-redux"
@@ -8,6 +8,8 @@ import FilterSelect from "components/filterSelect"
 
 import IInitState from "stores/types/initState"
 import IFilter, { IFilterStore, TFilterDispatch } from "./types"
+
+import MaterialButton from '@material/react-button'
 
 import "./filter.styl"
 
@@ -40,40 +42,74 @@ const mapDispatchToProps = (dispatch: Dispatch<TFilterDispatch>) => ({
 	}
 })
 
-const Filter: FC<IFilter> = memo(({ store, dispatch }: IFilter) => {
+const Filter: FC<IFilter> = ({ store, dispatch }: IFilter) => {
 	let { filter } = store,
-		{ isOpen, sortBy, orderBy } = filter,
+		{ sortBy, orderBy } = filter,
 		{ updateSortBy, updateOrderBy } = dispatch
 
-	if (!isOpen) return <form id="filter" className="hidden" />
+	let [ isOpen, setOpen ] = useState(false)
+
+	if (!isOpen) return (
+		<Fragment>
+			<MaterialButton
+				id="search-sort"
+				onClick={() => setOpen(!isOpen)}
+				icon={
+					<img
+						id="search-sort-icon"
+						src="/img/notes.svg"
+						alt="Sort"
+					/>
+				}
+			>
+				Sort
+			</MaterialButton>
+			<form id="filter" className="hidden" />
+		</Fragment>
+	)
 
 	let sortOptions = ["group", "name", "price"],
 		orderOptions = ["ascending", "descending"]
 
 	return (
-		<form id="filter" onSubmit={event => event.preventDefault()}>
-			<div className="sort">
-				{sortOptions.map(option => (
-					<FilterSelect
-					key={option}
-					name={option}
-					sortBy={sortBy}
-					callback={(newSort) => updateSortBy(newSort)}
+		<Fragment>
+			<MaterialButton
+				id="search-sort"
+				onClick={() => setOpen(!isOpen)}
+				icon={
+					<img
+						id="search-sort-icon"
+						src="/img/notes.svg"
+						alt="Sort"
 					/>
-				))}
-			</div>
-			<div className="order">
-				{orderOptions.map(option => (
-					<FilterSelect
+				}
+			>
+				Sort
+			</MaterialButton>
+			<form id="filter" onSubmit={event => event.preventDefault()}>
+				<div className="sort">
+					{sortOptions.map(option => (
+						<FilterSelect
 						key={option}
 						name={option}
-						sortBy={orderBy}
-						callback={(newOrder) => updateOrderBy(newOrder)}
-					/>
-				))}
-			</div>
-		</form>
+						sortBy={sortBy}
+						callback={(newSort) => updateSortBy(newSort)}
+						/>
+					))}
+				</div>
+				<div className="order">
+					{orderOptions.map(option => (
+						<FilterSelect
+							key={option}
+							name={option}
+							sortBy={orderBy}
+							callback={(newOrder) => updateOrderBy(newOrder)}
+						/>
+					))}
+				</div>
+			</form>
+		</Fragment>
 	)
-})
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter)

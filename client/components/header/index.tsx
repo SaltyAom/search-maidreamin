@@ -1,10 +1,25 @@
-import './header.styl'
+import { FC, memo } from "react"
 
-const Header = ({ children, title }) => (
-    <header id="header">
-        <h1 className="title">{title}</h1>
-        <h2 className="detail">{children}</h2>
-    </header>
+import IHeader from "./types"
+
+import "./header.styl"
+
+const Header: FC<IHeader> = memo(
+	({ children, title, dense = false, contained = true }) => {
+        if (!contained) 
+            return (
+                <header className={`component-header ${dense ? "dense" : ""}`}>
+                    {children}
+                </header>
+            )
+
+		return (
+			<header className={`component-header ${dense ? "dense" : ""}`}>
+				<h1 className="title">{title}</h1>
+				<h2 className="detail">{children}</h2>
+			</header>
+		)
+	}
 )
 
 export default Header

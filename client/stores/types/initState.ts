@@ -17,5 +17,8 @@ export default interface IInitState {
         orderBy: IOrderOptions
     }
     order: Array<IMenu>
-    menu: Array<IMenu>
+    menu: Array<IMenu>,
+    exchange: {
+        serviceCharge: boolean
+    }
 }

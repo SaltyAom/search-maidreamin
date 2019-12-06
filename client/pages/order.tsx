@@ -8,6 +8,7 @@ import Head from "next/head"
 import OrderLayout from "components/orderLayout"
 import Header from "components/header"
 import Table from "components/table"
+import Exchange from "components/exchange"
 
 const mapStateToProps = state => ({
 	store: {
@@ -18,7 +19,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = null
 
 const Order = ({ store }) => {
-	let { order } = store
+	let { order, exchange } = store
 
 	return (
 		<Fragment>
@@ -30,7 +31,10 @@ const Order = ({ store }) => {
 					Total: {order.length}{" "}
 					{order.length >= 2 ? "orders" : "order"}
 				</Header>
-				<Table data={order}></Table>
+				<Header title="" contained={false} dense>
+					<Exchange />
+				</Header>
+				<Table data={order} />
 			</OrderLayout>
 		</Fragment>
 	)

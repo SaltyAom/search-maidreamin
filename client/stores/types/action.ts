@@ -1,10 +1,6 @@
 import { IMenu } from "pageTypes/index"
 import { ISortByOptions, IOrderOptions } from "./initState"
 
-export interface IToggleFilter {
-	type: "TOGGLE_FILTER"
-}
-
 export interface IUpdateSortBy {
 	type: "UPDATE_SORT_BY"
 	payload: {
@@ -47,7 +43,6 @@ export interface IRemoveOrder {
 }
 
 type TAction =
-	| IToggleFilter
 	| IUpdateSortBy
 	| IUpdateOrderBy
 	| IUpdateSortBy
