@@ -14,7 +14,7 @@ export interface IUpdateOrderBy {
 	type: "UPDATE_ORDER_BY"
 	payload: {
 		filter: {
-			orderBy: TOrderOptions
+			orderBy: TOrderByOptions
 		}
 	}
 }

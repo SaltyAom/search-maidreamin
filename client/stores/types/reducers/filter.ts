@@ -22,5 +22,5 @@ export interface IUpdateOrderBy {
 export type TFilterAction = IUpdateSortBy | IUpdateOrderBy
 export default interface IFilterState {
     sortBy: TSortByOptions
-    orderBy: TOrderOptions
+    orderBy: TOrderByOptions
 }
