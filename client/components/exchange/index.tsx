@@ -1,24 +1,24 @@
 import { Fragment, FC, useState } from "react"
 
-import { Dispatch } from "redux"
 import { connect } from "react-redux"
 import { exchangeSelector } from 'stores/selectors'
 
+import MaterialButton from '@material/react-button'
+
 import ExchangeSelect from "components/exchangeSelect"
 
-import IExchange, { IExchangeStoreAsComponent, TExchangeDispatch } from "./types"
-
-import MaterialButton from '@material/react-button'
+import IInitState from "stores/types/initState"
+import IExchange, { IExchangeStoreAsComponent, IExchangeDispatchConnect } from "./types"
 
 import "./exchange.styl"
 
-const mapStateToProps = (state): IExchangeStoreAsComponent => ({
+const mapStateToProps = (state: IInitState): IExchangeStoreAsComponent => ({
 	store: {
 		exchange: exchangeSelector(state)
 	}
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<TExchangeDispatch>) => ({
+const mapDispatchToProps = (dispatch): IExchangeDispatchConnect => ({
 	dispatch: {
 		updateServiceCharge: (serviceCharge) =>
 			dispatch({
@@ -28,11 +28,11 @@ const mapDispatchToProps = (dispatch: Dispatch<TExchangeDispatch>) => ({
 						serviceCharge: serviceCharge
 					}
 				}
-			}),
+			})
 	}
 })
 
-const Exchange: FC<IExchange> = ({ store, dispatch }: IExchange) => {
+const Exchange: FC<IExchange> = ({ store, dispatch }) => {
 	let { exchange } = store,
 		{ serviceCharge } = exchange,
 		{ updateServiceCharge } = dispatch

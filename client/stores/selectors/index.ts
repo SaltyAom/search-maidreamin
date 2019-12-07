@@ -1,10 +1,13 @@
 import { createSelector } from 'reselect'
 
-export const rootFilterSelector = state => state.filter,
-    rootGuideSelector = state => state.guide,
-    rootOrderSelector = state => state.order,
-    rootMenuSelector = state => state.menu,
-    rootExchangeSelector = state => state.exchange
+import IInitState from 'stores/types/initState'
+import IFilterState from 'stores/types/reducers/filter'
+
+export const rootFilterSelector = (state: IInitState):IFilterState => state.filter,
+    rootGuideSelector = (state: IInitState) => state.guide,
+    rootOrderSelector = (state: IInitState) => state.order,
+    rootMenuSelector = (state: IInitState) => state.menu,
+    rootExchangeSelector = (state: IInitState) => state.exchange
 
 export const filterSelector = createSelector(
     rootFilterSelector,

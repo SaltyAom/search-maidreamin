@@ -1,13 +1,12 @@
 import { Fragment, FC, useState } from "react"
 
-import { Dispatch } from "redux"
 import { connect } from "react-redux"
 import { filterSelector } from 'stores/selectors'
 
 import FilterSelect from "components/filterSelect"
 
 import IInitState from "stores/types/initState"
-import IFilter, { IFilterStore, TFilterDispatch } from "./types"
+import IFilter, { IFilterStore, IFilterDispatchConnect } from "./types"
 
 import MaterialButton from '@material/react-button'
 
@@ -19,7 +18,7 @@ const mapStateToProps = (state: IInitState): IFilterStore => ({
 	}
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<TFilterDispatch>) => ({
+const mapDispatchToProps = (dispatch): IFilterDispatchConnect => ({
 	dispatch: {
 		updateSortBy: nextSort =>
 			dispatch({
@@ -42,7 +41,7 @@ const mapDispatchToProps = (dispatch: Dispatch<TFilterDispatch>) => ({
 	}
 })
 
-const Filter: FC<IFilter> = ({ store, dispatch }: IFilter) => {
+const Filter: FC<IFilter> = ({ store, dispatch }) => {
 	let { filter } = store,
 		{ sortBy, orderBy } = filter,
 		{ updateSortBy, updateOrderBy } = dispatch

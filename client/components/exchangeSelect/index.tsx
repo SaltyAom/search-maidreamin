@@ -2,11 +2,7 @@ import { memo, FC } from "react"
 
 import MaterialButton from "@material/react-button"
 
-interface IExchangeSelect {
-	name: string
-	selected: boolean
-	callback: Function
-}
+import IExchangeSelect from './types'
 
 const ExchangeSelect: FC<IExchangeSelect> = memo(({ name, selected, callback }) =>
 	selected ? (

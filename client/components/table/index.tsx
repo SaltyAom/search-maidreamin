@@ -5,11 +5,12 @@ import { exchangeSelector } from 'stores/selectors'
 
 import SlidableRow from "components/slidableRow"
 
-import ITable from "./types"
+import IInitState from "stores/types/initState"
+import ITable, { ITableStoreConnect, ITableOwnProps } from "./types"
 
 import "./table.styl"
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IInitState, ownProps: ITableOwnProps): ITableStoreConnect => ({
 	store: {
 		exchange: exchangeSelector(state)
 	},

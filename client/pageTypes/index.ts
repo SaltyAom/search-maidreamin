@@ -3,12 +3,8 @@ import { Dispatch } from 'redux'
 
 import { ApolloError } from '@apollo/react-hooks'
 
-import { ISortByOptions, IOrderOptions } from 'stores/types/initState'
+import { TSortByOptions, TOrderByOptions } from 'stores/types/initState'
 import { TMenuAction } from "stores/types/reducers/menu"
-
-export interface IMaidreamin<P = {}, IP = P> extends NextPage {
-	getInitialProps(ctx: IMaidreaminContext): Promise<IP>
-}
 
 export interface IMaidreaminContext extends NextPageContext {
 	apolloClient: any
@@ -35,8 +31,8 @@ export interface IMaidreaminOwnProps {
 
 export interface IMaidreaminStore {
 	filter: {
-		sortBy: ISortByOptions,
-		orderBy: IOrderOptions
+		sortBy: TSortByOptions,
+		orderBy: TOrderByOptions
 	},
 	menuStore: Array<IMenu>
 }
@@ -64,4 +60,8 @@ export interface ISearchData {
 	error?: ApolloError
 }
 
-export type ISearch = string | number
+export type TSearch = string | number
+
+export default interface IMaidreamin<P = {}, IP = P> extends NextPage {
+	getInitialProps(ctx: IMaidreaminContext): Promise<IP>
+}

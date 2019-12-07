@@ -1,22 +1,22 @@
 import App from "next/app"
 
-import { Provider } from 'react-redux'
-import { store, persistor } from 'stores'
-import { PersistGate } from 'redux-persist/integration/react'
+import { Provider } from "react-redux"
+import { store, persistor } from "stores"
+import { PersistGate } from "redux-persist/integration/react"
 
 import * as Sentry from "@sentry/browser"
 
 import { ApolloProvider } from "@apollo/react-hooks"
 import withApollo from "libs/withApollo"
 
-import { isServer, isDev } from 'libs/helpers'
+import { isServer, isDev } from "libs/helpers"
 
 import ErrorBoundary from "components/ErrorBoundary"
-import UtilityLayout from "components/utilityLayout"
+import UtilityLayout from "layouts/utilityLayout"
 
 import "stylus/init.styl"
 
-if(!isDev)
+if (!isDev)
 	Sentry.init({
 		dsn: "https://e1604c844b8d49c7a052c426ac77ab8b@sentry.io/1806051"
 	})
@@ -40,7 +40,7 @@ class MaidreaminSearch extends App<any, {}> {
 	}
 
 	componentDidCatch(error, errorInfo) {
-		if(isDev) return
+		if (isDev) return
 
 		Sentry.withScope(scope => {
 			Object.keys(errorInfo).forEach(key => {
@@ -55,16 +55,16 @@ class MaidreaminSearch extends App<any, {}> {
 
 	render() {
 		const { Component, pageProps, apollo } = this.props
-		
-		return(
+
+		return (
 			<ApolloProvider client={apollo}>
 				<Provider store={store}>
 					<PersistGate loading={null} persistor={persistor}>
-						<ErrorBoundary>
-							<UtilityLayout>
+						<UtilityLayout>
+							<ErrorBoundary>
 								<Component {...pageProps} />
-							</UtilityLayout>
-						</ErrorBoundary>
+							</ErrorBoundary>
+						</UtilityLayout>
 					</PersistGate>
 				</Provider>
 			</ApolloProvider>

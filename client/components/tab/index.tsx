@@ -8,13 +8,13 @@ import preImage from 'pre-image'
 
 import { isServer, scrollOf } from 'libs/helpers'
 
-import ITab from './types'
+import ITab, { ITabDispatchConnect } from './types'
 
 import './tab.styl'
 
 const mapStateToProps = null
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch): ITabDispatchConnect => ({
     dispatch: {
         updateGuide: (active) => dispatch({
             type: "UPDATE_GUIDE",
@@ -53,15 +53,6 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
         ]
     }
 
-    useLayoutEffect(() => {
-        if(isServer) return
-
-        window.addEventListener("load", () => {
-            context.image.forEach((guide) => preImage(guide));
-            ["/img/expand_less.svg", "/img/highlight_off.svg", "/img/notes.svg", "/img/search.svg"].forEach((icon) => preImage(icon))
-        })
-    }, [])
-
     useEffect(() => {            
         let tabView = document.getElementById("tab-body") as HTMLElement
 
@@ -82,6 +73,16 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
             }, 10)
         )
     }, [tab])
+
+    if(!isServer)
+        useLayoutEffect(() => {
+            if(isServer) return
+
+            window.addEventListener("load", () => {
+                context.image.forEach((guide) => preImage(guide));
+                ["/img/expand_less.svg", "/img/highlight_off.svg", "/img/notes.svg", "/img/search.svg"].forEach((icon) => preImage(icon))
+            })
+        }, [])
 
     return (
         <Fragment>

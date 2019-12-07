@@ -1,12 +1,8 @@
 import { memo, FC } from "react"
 
-import MaterialButton from "@material/react-button"
+import IFilterSelect from './types'
 
-interface IFilterSelect {
-	name: string
-	sortBy: string
-	callback: Function
-}
+import MaterialButton from "@material/react-button"
 
 const FilterSelect: FC<IFilterSelect> = memo(({ name, sortBy, callback }) =>
 	sortBy === name ? (

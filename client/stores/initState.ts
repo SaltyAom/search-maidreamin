@@ -6,7 +6,6 @@ const initState: IInitState = {
         version: 1
     },
     filter: {
-        isOpen: false,
         sortBy: "group",
         orderBy: "ascending"
     },

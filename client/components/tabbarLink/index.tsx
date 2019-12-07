@@ -1,28 +1,27 @@
-import { useRouter } from 'next/router'
+import { FC, memo } from "react"
 
-import Link from 'next/link'
+import { useRouter } from "next/router"
 
-import Button from '@material/react-button'
+import Link from "next/link"
 
-const TabbarLink = ({ href, children }) => {
-    let { route } = useRouter()
+import Button from "@material/react-button"
 
-    if(route === href)
-        return(
-            <Link href={href}>
-                <Button className="tab active" href={href}>
-                    {children}
-                </Button>
-            </Link>
-        )
+import ITabbarLink from "./types"
 
-    return(
-        <Link href={href}>
-            <Button className="tab" href={href}>
-                {children}
-            </Button>
-        </Link>
-    )
-}
+const TabbarLink: FC<ITabbarLink> = memo(({ href, children }) =>
+	useRouter().route === href ? (
+		<Link href={href}>
+			<Button className="tab active" href={href}>
+				{children}
+			</Button>
+		</Link>
+	) : (
+		<Link href={href}>
+			<Button className="tab" href={href}>
+				{children}
+			</Button>
+		</Link>
+	)
+)
 
 export default TabbarLink

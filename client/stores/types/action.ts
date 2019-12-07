@@ -1,11 +1,11 @@
 import { IMenu } from "pageTypes/index"
-import { ISortByOptions, IOrderOptions } from "./initState"
+import { TSortByOptions, TOrderByOptions } from "./initState"
 
 export interface IUpdateSortBy {
 	type: "UPDATE_SORT_BY"
 	payload: {
 		filter: {
-			sortBy: ISortByOptions
+			sortBy: TSortByOptions
 		}
 	}
 }
@@ -14,7 +14,7 @@ export interface IUpdateOrderBy {
 	type: "UPDATE_ORDER_BY"
 	payload: {
 		filter: {
-			orderBy: IOrderOptions
+			orderBy: TOrderOptions
 		}
 	}
 }

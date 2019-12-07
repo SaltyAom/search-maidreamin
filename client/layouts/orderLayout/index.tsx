@@ -1,10 +1,10 @@
-import { Fragment, memo } from 'react'
+import { FC, Fragment, memo } from 'react'
 
 import Head from "next/head"
 
 import './orderLayout.styl'
 
-const OrderLayout = memo(({ children }) => (
+const OrderLayout:FC<{}> = memo(({ children }) => (
         <Fragment>
             <Head>
                 <title>Order</title>

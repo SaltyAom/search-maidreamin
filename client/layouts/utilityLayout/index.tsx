@@ -8,9 +8,10 @@ import Tabbar from "components/tabbar"
 import Fab from "components/fab"
 import Snackbar from "components/snackbar"
 
-import IUtility, { IUtilityStore } from './types'
+import IInitState from "stores/types/initState"
+import IUtility, { IUtilityStoreConnect, IUtilityOwnProps } from './types'
 
-const mapStateToProps = (state, ownProps: IUtilityStore) => ({
+const mapStateToProps = (state: IInitState, ownProps: IUtilityOwnProps): IUtilityStoreConnect => ({
     store: {
         guide: guideSelector(state)
     },

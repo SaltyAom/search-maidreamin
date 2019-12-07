@@ -1,3 +1,7 @@
+/**
+ * ? For some weird reason, I can't get React Spring to use with TypeScript.
+ */
+
 import { useState, useEffect } from "react"
 
 import { connect } from "react-redux"

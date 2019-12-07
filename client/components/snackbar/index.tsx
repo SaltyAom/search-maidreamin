@@ -5,11 +5,11 @@ import { orderSelector } from 'stores/selectors'
 
 import { isBlank } from "libs/helpers"
 
-import ISnackbar, { ISnackbarInfo } from "./types"
+import ISnackbar, { ISnackbarInfo, ISnackbarStore } from "./types"
 
 import "./snackbar.styl"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state): ISnackbarStore => ({
 	store: {
 		order: orderSelector(state)
 	}
@@ -59,9 +59,7 @@ const Snackbar: FC<ISnackbar> = ({ store }) => {
 
 	return (
 		<div id="snackbar">
-			<p>
-				{currentOrder.name.th || currentOrder.subMenu[0]} is {currentOrder.type}
-			</p>
+			{currentOrder.name.th || currentOrder.subMenu[0]} is {currentOrder.type}
 		</div>
 	)
 }

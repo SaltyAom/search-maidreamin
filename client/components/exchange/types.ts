@@ -10,6 +10,12 @@ export interface IExchangeStoreAsProps {
     exchange: IExchangeStore
 }
 
+export interface IExchangeDispatchConnect {
+    dispatch: {
+        updateServiceCharge(serviceCharge: boolean): Dispatch<IUpdateServiceCharge>,
+    }
+}
+
 export interface IExchangeDispatch {
     updateServiceCharge: Dispatch<IUpdateServiceCharge>,
 }

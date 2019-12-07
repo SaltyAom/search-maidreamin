@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 
-import { ISortByOptions, IOrderOptions } from "stores/types/initState"
+import { TSortByOptions, TOrderByOptions } from "stores/types/initState"
 import  { IUpdateSortBy, IUpdateOrderBy } from "stores/types/action"
 
 export interface IFilterStore {
@@ -9,9 +9,15 @@ export interface IFilterStore {
 
 export interface IFilterStoreAsProps {
     filter: {
-        isOpen: boolean,
-        sortBy: ISortByOptions,
-        orderBy: IOrderOptions
+        sortBy: TSortByOptions,
+        orderBy: TOrderByOptions
+    }
+}
+
+export interface IFilterDispatchConnect {
+    dispatch: {
+        updateSortBy(nextSort: TSortByOptions): Dispatch<IUpdateSortBy>
+        updateOrderBy(next: TOrderByOptions): Dispatch<IUpdateOrderBy>
     }
 }
 

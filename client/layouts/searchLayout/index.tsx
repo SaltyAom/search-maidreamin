@@ -8,12 +8,13 @@ import { guideSelector } from 'stores/selectors'
 
 import Filter from "components/filter"
 
+import IInitState from "stores/types/initState"
 import ISearchLayout, { ISearchLayoutProps } from "./types"
 
 import "./search-layout.styl"
 import "@material/react-button/dist/button.css"
 
-const mapStateToProps = (state, ownProps: ISearchLayoutProps) => ({
+const mapStateToProps = (state: IInitState, ownProps: ISearchLayoutProps) => ({
 	store: {
 		guide: guideSelector(state)
 	},
@@ -22,7 +23,7 @@ const mapStateToProps = (state, ownProps: ISearchLayoutProps) => ({
 
 const mapDispatchToProps = null
 
-export const SearchLayout: FC<ISearchLayout> = memo(({ props }: ISearchLayout) => {
+export const SearchLayout: FC<ISearchLayout> = memo(({ props }) => {
 	let { onChange, children } = props
 
 	let emptySearchInput = () => {

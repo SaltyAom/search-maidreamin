@@ -5,12 +5,16 @@ import { orderSelector } from 'stores/selectors'
 
 import Head from "next/head"
 
-import OrderLayout from "components/orderLayout"
+import OrderLayout from "layouts/orderLayout"
 import Header from "components/header"
 import Table from "components/table"
 import Exchange from "components/exchange"
 
-const mapStateToProps = state => ({
+import IInitState from 'stores/types/initState'
+import { IOrderProps, IOrderStoreConnect } from 'pageTypes/order'
+import { NextPage } from "next"
+
+const mapStateToProps = (state: IInitState): IOrderStoreConnect => ({
 	store: {
 		order: orderSelector(state)
 	}
@@ -18,8 +22,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = null
 
-const Order = ({ store }) => {
-	let { order, exchange } = store
+const Order: NextPage<IOrderProps> = ({ store }) => {
+	let { order } = store
 
 	return (
 		<Fragment>

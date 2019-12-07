@@ -10,6 +10,11 @@ export interface ITableOwnProps {
     data: Array<IMenu>
 }
 
+export interface ITableStoreConnect {
+    store: ITableStore
+    props: ITableOwnProps
+}
+
 export default interface ITable {
     store: ITableStore
     props: ITableOwnProps

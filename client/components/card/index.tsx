@@ -10,18 +10,18 @@ import "./card.styl"
 
 const Card: FC<ICard> = memo(props => {
 	let {
-		th = "",
-		en = "",
-		jp = "",
-		price,
-		subMenu = null,
-		preload = false
-	} = props,
+			th = "",
+			en = "",
+			jp = "",
+			price,
+			subMenu = null,
+			preload = false
+		} = props,
 		data = {
 			name: {
 				th: th,
 				en: en,
-				jp: jp,
+				jp: jp
 			},
 			price: price,
 			subMenu: subMenu

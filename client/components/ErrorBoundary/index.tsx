@@ -2,12 +2,10 @@ import { Component } from 'react'
 
 import dynamic from 'next/dynamic'
 
-const Error = dynamic(() => import("components/error")),
-    SearchLayout = dynamic(() => import("components/searchLayout"))
+import IErrorState from './types'
 
-interface IErrorState {
-    isError: boolean
-}
+const Error = dynamic(() => import("components/error")),
+    SearchLayout = dynamic(() => import("layouts/searchLayout"))
 
 class ErrorBoundary extends Component<{}, IErrorState> {
     constructor(props){
@@ -22,8 +20,8 @@ class ErrorBoundary extends Component<{}, IErrorState> {
     }
 
     componentDidCatch(error, errorInfo){
-        console.log(error)
-        console.log(errorInfo)
+        // console.log(error)
+        // console.log(errorInfo)
     }
 
     render(){

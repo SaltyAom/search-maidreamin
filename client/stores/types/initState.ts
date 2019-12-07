@@ -3,8 +3,8 @@
  */
 import { IMenu } from 'pageTypes/index'
 
-export type ISortByOptions = "group" | "name" | "price"
-export type IOrderOptions = "ascending" | "descending"
+export type TSortByOptions = "group" | "name" | "price"
+export type TOrderByOptions = "ascending" | "descending"
 
 export default interface IInitState {
     guide: {
@@ -12,9 +12,8 @@ export default interface IInitState {
         version: number
     }
     filter: {
-        isOpen: boolean
-        sortBy: ISortByOptions
-        orderBy: IOrderOptions
+        sortBy: TSortByOptions
+        orderBy: TOrderByOptions
     }
     order: Array<IMenu>
     menu: Array<IMenu>,

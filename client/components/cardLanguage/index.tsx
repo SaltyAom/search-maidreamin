@@ -3,10 +3,8 @@ import { FC, memo } from "react"
 import ILanguageProps from "./types"
 
 const languageButton: FC<ILanguageProps> = memo(
-	({ language, name, onClick = () => null }) => {
-		if (typeof name === "undefined" || name === "") return null
-
-		return (
+	({ language, name, onClick = () => null }) =>
+		typeof name === "undefined" || name === "" ? null : (
 			<button
 				className="other"
 				name={name}
@@ -16,7 +14,6 @@ const languageButton: FC<ILanguageProps> = memo(
 				{name}
 			</button>
 		)
-	}
 )
 
 export default languageButton
