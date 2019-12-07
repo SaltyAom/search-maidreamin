@@ -1,7 +1,7 @@
 import { FC, memo } from "react"
 
-import { connect } from 'react-redux'
-import { exchangeSelector } from 'stores/selectors'
+import { connect } from "react-redux"
+import { exchangeSelector } from "stores/selectors"
 
 import SlidableRow from "components/slidableRow"
 
@@ -10,7 +10,10 @@ import ITable, { ITableStoreConnect, ITableOwnProps } from "./types"
 
 import "./table.styl"
 
-const mapStateToProps = (state: IInitState, ownProps: ITableOwnProps): ITableStoreConnect => ({
+const mapStateToProps = (
+	state: IInitState,
+	ownProps: ITableOwnProps
+): ITableStoreConnect => ({
 	store: {
 		exchange: exchangeSelector(state)
 	},
@@ -24,7 +27,7 @@ const Table: FC<ITable> = memo(({ store, props }) => {
 		{ serviceCharge } = exchange,
 		{ data } = props
 
-	return(
+	return (
 		<table id="order-table">
 			<thead className="header">
 				<tr id="order-table-header">
@@ -36,7 +39,12 @@ const Table: FC<ITable> = memo(({ store, props }) => {
 				{data.map((dataSet, index) => (
 					<SlidableRow
 						key={index}
-						price={(serviceCharge ? dataSet.price * 1.1 : dataSet.price).toLocaleString()}
+						price={(serviceCharge
+							? dataSet.price * 1.1
+							: dataSet.price
+						).toLocaleString("th", {
+							maximumFractionDigits: 0
+						})}
 						index={index}
 					>
 						{dataSet.name.th || dataSet.subMenu[0]}
@@ -47,9 +55,15 @@ const Table: FC<ITable> = memo(({ store, props }) => {
 					<td className="data price">
 						{data.length > 0
 							? data
-									.map(menu => serviceCharge ? menu.price * 1.1 : menu.price)
+									.map(menu =>
+										serviceCharge
+											? menu.price * 1.1
+											: menu.price
+									)
 									.reduce((price, sum) => price + sum)
-									.toLocaleString()
+									.toLocaleString("th", {
+										maximumFractionDigits: 0
+									})
 							: 0}
 					</td>
 				</tr>
@@ -58,7 +72,4 @@ const Table: FC<ITable> = memo(({ store, props }) => {
 	)
 })
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Table)
+export default connect(mapStateToProps, mapDispatchToProps)(Table)

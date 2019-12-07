@@ -27,7 +27,7 @@ class MyDocument extends Document {
 						name="keywords"
 						content="Maidreamin, menu, search maidreamin, get maidreamin menu, search maidreamin menu"
 					/>
-					<meta name="author" content="aomkirby123" />
+					<meta name="author" content="SaltyAom" />
 					<link rel="icon" href="/app/icon/iconXDisplay.png" />
 
 					{/* Open Graph */}
@@ -43,7 +43,7 @@ class MyDocument extends Document {
 						property="og:tags"
 						content="Maidreamin, menu, search maidreamin, get maidreamin menu, search maidreamin menu"
 					/>
-					<meta property="article:author" content="aomkirby123" />
+					<meta property="article:author" content="SaltyAom" />
 					<meta
 						property="og:site_name"
 						content="Search Dreamin"
@@ -66,12 +66,12 @@ class MyDocument extends Document {
 						name="twitter:description"
 						content="Search menu from Maidreamin MBK with Maidreamin API"
 					/>
-					<meta name="twitter:site" content="@aomkirby1231" />
+					<meta name="twitter:site" content="@SaltyAom" />
 					<meta
 						name="twitter:image"
 						content="https://search-dreamin.now.sh/img/cover.jpg"
 					/>
-					<meta name="twitter:creator" content="@aomkirby1231" />
+					<meta name="twitter:creator" content="@SaltyAom" />
 
 					{/* Web App */}
 					<link rel="manifest" href="/app/manifest.json" />
@@ -99,7 +99,7 @@ class MyDocument extends Document {
 					<meta name="apple-mobile-web-app-capable" content="yes" />
 					<meta
 						name="apple-mobile-web-app-title"
-						content="Maidreamin Menu"
+						content="Dreamin"
 					/>
 					<link rel="apple-touch-icon" href="/app/icon/iconX256.jpg" />
 					<meta

@@ -62,6 +62,6 @@ export interface ISearchData {
 
 export type TSearch = string | number
 
-export default interface IMaidreamin<P = {} IP = P> extends NextPage {
+export default interface IMaidreamin<P = {}, IP = P> extends NextPage {
 	getInitialProps(ctx: IMaidreaminContext): Promise<IP>
 }

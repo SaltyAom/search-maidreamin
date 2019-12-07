@@ -2,13 +2,14 @@
  * ? For some weird reason, I can't get React Spring to use with TypeScript.
  */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, Fragment } from 'react'
 
 import { connect } from 'react-redux'
 
 import { useSpring, animated, interpolate } from "react-spring"
-
 import { useGesture } from "react-with-gesture"
+
+import Reward from 'react-rewards'
 
 import "./container.styl"
 
@@ -28,13 +29,15 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const CardContainer = ({ props, dispatch }) => {
-	let { children, data = {}, disabled = false } = props,
+	let { children, data = {}, disabled = false} = props,
 		{ addOrder } = dispatch
 
 	let [isApply, setApply] = useState(false)
 
+	let reward = useRef(undefined)
+
 	useEffect(() => {
-		setTimeout(() => setApply(true),500)
+		setTimeout(() => setApply(true), 500)
 	}, [])
 
 	if(disabled || !isApply)
@@ -64,33 +67,41 @@ const CardContainer = ({ props, dispatch }) => {
 	})
 
 	useEffect(() => {
-		if(!down && delta[0] >= 90)
+		if(!down && delta[0] >= 90){
 			addOrder(data)
+			reward.current.rewardMe()
+		}
 	}, [down])
 
 	return (
-		<animated.div {...bind()} className="card">
-			<animated.div
-				className="av"
-				style={{
-					transform: avSize,
-					justifySelf: delta[0] < 0 ? "end" : "start"
-				}}
-			>
-				<img src="/img/add.svg" alt="Add to cart" />
+		<Fragment>
+			<Reward
+				ref={(ref) => { reward.current = ref }}
+				type="confetti"
+			/>
+			<animated.div {...bind()} className="card">
+				<animated.div
+					className="av"
+					style={{
+						transform: avSize,
+						justifySelf: delta[0] < 0 ? "end" : "start"
+					}}
+				>
+					<img src="/img/add.svg" alt="Add to cart" />
+				</animated.div>
+				<animated.div
+					className="card-paper"
+					style={{
+						transform: interpolate(
+							[x, size],
+							(x, s) => `translateX(${x}px) scale(${s})`
+						)
+					}}
+				>
+					{children}
+				</animated.div>
 			</animated.div>
-			<animated.div
-				className="card-paper"
-				style={{
-					transform: interpolate(
-						[x, size],
-						(x, s) => `translateX(${x}px) scale(${s})`
-					)
-				}}
-			>
-				{children}
-			</animated.div>
-		</animated.div>
+		</Fragment>
 	)
 }
 

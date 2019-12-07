@@ -15,9 +15,6 @@ import withApollo from "libs/withApollo"
 
 import { isServer, isDev } from "libs/helpers"
 
-import Tabbar from "components/tabbar"
-import Fab from "components/fab"
-import Snackbar from "components/snackbar"
 import ErrorBoundary from "components/ErrorBoundary"
 import UtilityLayout from "layouts/utilityLayout"
 

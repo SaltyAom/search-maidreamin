@@ -1,8 +1,7 @@
-import React, { Fragment, memo, FC } from "react"
+import React, { Fragment, FC, memo } from "react"
 
 import Head from "next/head"
 
-import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { guideSelector } from 'stores/selectors'
 
