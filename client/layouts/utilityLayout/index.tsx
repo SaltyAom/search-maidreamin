@@ -23,9 +23,9 @@ const mapDispatchToProps = null
 const UtilityLayout:FC<IUtility> = memo(({ props, store }) => {
     let { guide } = store,
         { isActive } = guide,
-        { children } = props
+        { children, rehydrated = true } = props
 
-    if(isActive)
+    if(isActive && rehydrated)
         return <Tab />
 
     return (

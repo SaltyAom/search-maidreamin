@@ -9,6 +9,7 @@ export interface IUtilityStore {
 
 export interface IUtilityOwnProps {
     children: ReactNode
+    rehydrated?: boolean
 }
 
 export interface IUtilityStoreConnect {

@@ -7,6 +7,13 @@
     min-height calc(100vh - 58px)
     margin 0 auto
     padding 5vh calc(5% + env(safe-area-inset-right)) 0 calc(5% + env(safe-area-inset-left))
+    animation layout-appear .2s ease-out 0s 1
+    -webkit-animation layout-appear .2s ease-out 0s 1
+
+@keyframes layout-appear
+    from
+        transform translateY(50px)
+        opacity 0
 
 @media screen and (min-width 768px)
     #layout

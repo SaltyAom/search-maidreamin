@@ -54,6 +54,8 @@ export const Tab:FC<ITab> = ({ dispatch }) => {
     }
 
     useEffect(() => {            
+        if(isServer) return
+
         let tabView = document.getElementById("tab-body") as HTMLElement
 
         CSS.supports("scroll-behavior", "smooth")

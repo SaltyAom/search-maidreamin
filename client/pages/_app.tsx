@@ -1,3 +1,7 @@
+import { Fragment } from 'react'
+
+import Head from "next/head"
+
 import App from "next/app"
 
 import { Provider } from "react-redux"
@@ -11,6 +15,9 @@ import withApollo from "libs/withApollo"
 
 import { isServer, isDev } from "libs/helpers"
 
+import Tabbar from "components/tabbar"
+import Fab from "components/fab"
+import Snackbar from "components/snackbar"
 import ErrorBoundary from "components/ErrorBoundary"
 import UtilityLayout from "layouts/utilityLayout"
 
@@ -57,17 +64,32 @@ class MaidreaminSearch extends App<any, {}> {
 		const { Component, pageProps, apollo } = this.props
 
 		return (
-			<ApolloProvider client={apollo}>
-				<Provider store={store}>
-					<PersistGate loading={null} persistor={persistor}>
-						<UtilityLayout>
-							<ErrorBoundary>
-								<Component {...pageProps} />
-							</ErrorBoundary>
-						</UtilityLayout>
-					</PersistGate>
-				</Provider>
-			</ApolloProvider>
+			<Fragment>
+				<Head>
+					<meta
+						name="viewport"
+						key="viewport"
+						content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no"
+					/>
+				</Head>
+				<ApolloProvider client={apollo}>
+					<Provider store={store}>
+						<PersistGate loading={(
+							<UtilityLayout rehydrated={false}>
+								<ErrorBoundary>
+									<Component {...pageProps} />
+								</ErrorBoundary>
+							</UtilityLayout>
+						)} persistor={persistor}>
+							<UtilityLayout>
+								<ErrorBoundary>
+									<Component {...pageProps} />
+								</ErrorBoundary>
+							</UtilityLayout>
+						</PersistGate>
+					</Provider>
+				</ApolloProvider>
+			</Fragment>
 		)
 	}
 }

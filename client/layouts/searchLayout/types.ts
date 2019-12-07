@@ -1,7 +1,9 @@
+import { ReactNode } from 'react'
+
 export interface ISearchLayoutProps {
 	onChange: (event: any) => any
 	value?: string | number
-	children: any
+	children: ReactNode
 }
 
 export default interface ISearchLayout {

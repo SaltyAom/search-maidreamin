@@ -32,7 +32,25 @@ const SlideableRow = ({ props, dispatch }) => {
 	let { children, price, index } = props,
 		{ removeOrder } = dispatch
 
-	let [isRemoving, setRemoving] = useState(false)
+	let [isApply, setApply] = useState(false),
+		[isRemoving, setRemoving] = useState(false)
+
+	useEffect(() => {
+		setTimeout(() => setApply(true), 500)
+	}, [])
+
+	if (!isApply)
+		return (
+			<tr className={`container ${isRemoving ? "is-removing" : ""}`}>
+				<td className="table-backdrop">
+					<img src="/img/close.svg" alt="Add to cart" />
+				</td>
+				<td className="row">
+					<p className="data">{children}</p>
+					<p className="data price">{price}</p>
+				</td>
+			</tr>
+		)
 
 	let [bind, { delta, down }] = useGesture(),
 		{ x, size } = useSpring({
@@ -52,8 +70,7 @@ const SlideableRow = ({ props, dispatch }) => {
 	}, [down])
 
 	useEffect(() => {
-		if (isRemoving)
-			setTimeout(() => handleRemoveOrder(), 500)
+		if (isRemoving) setTimeout(() => handleRemoveOrder(), 500)
 	}, [isRemoving])
 
 	let handleRemoveOrder = () => {

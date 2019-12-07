@@ -31,9 +31,9 @@ export interface IMaidreaminOwnProps {
 
 export interface IMaidreaminStore {
 	filter: {
-		sortBy: TSortByOptions,
+		sortBy: TSortByOptions
 		orderBy: TOrderByOptions
-	},
+	}
 	menuStore: Array<IMenu>
 }
 
@@ -43,25 +43,25 @@ export interface IMaidreaminDispatch {
 
 export interface IMenu {
 	name?: {
-		th: string | null,
-		en: string | null,
+		th: string | null
+		en: string | null
 		jp: string | null
 	}
-	price: number,
+	price: number
 	subMenu?: Array<string>
 }
 
 export interface ISearchData {
 	data: {
-		getMenu?: Array<IMenu>,
+		getMenu?: Array<IMenu>
 		getMenuBy?: Array<IMenu>
-	},
-	loading: boolean,
+	}
+	loading: boolean
 	error?: ApolloError
 }
 
 export type TSearch = string | number
 
-export default interface IMaidreamin<P = {}, IP = P> extends NextPage {
+export default interface IMaidreamin<P = {} IP = P> extends NextPage {
 	getInitialProps(ctx: IMaidreaminContext): Promise<IP>
 }

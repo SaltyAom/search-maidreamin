@@ -2,7 +2,7 @@
  * ? For some weird reason, I can't get React Spring to use with TypeScript.
  */
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { connect } from 'react-redux'
 
@@ -31,7 +31,13 @@ const CardContainer = ({ props, dispatch }) => {
 	let { children, data = {}, disabled = false } = props,
 		{ addOrder } = dispatch
 
-	if(disabled)
+	let [isApply, setApply] = useState(false)
+
+	useEffect(() => {
+		setTimeout(() => setApply(true),500)
+	}, [])
+
+	if(disabled || !isApply)
 		return (
 			<div className="card">
 				<div className="card-paper">
