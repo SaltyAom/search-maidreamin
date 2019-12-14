@@ -10,7 +10,7 @@ jobs:
           command: 'sudo npm install -g yarn@latest'
       - run:
           name: install-package
-          command: yarn install
+          command: cd client && yarn install
       - run: # Test
           name: test
           command: yarn test
