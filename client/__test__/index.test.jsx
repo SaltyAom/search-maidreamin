@@ -1,128 +1,162 @@
-import React from 'react'
-import { shallow } from 'enzyme'
+import React from "react"
+import { shallow } from "enzyme"
 
-import { Maidreamin as SearchDreaminComponent } from 'pages/index'
-import { SearchLayout as SearchLayoutComponent } from 'components/searchLayout'
-import { UtilityLayout as UtilityLayoutComponent } from 'components/utilityLayout'
-import Card from 'components/card'
-import Fab from 'components/fab'
-import ErrorBoundary from 'components/ErrorBoundary'
+import { Maidreamin as SearchDreaminComponent } from "pages/index"
+import { SearchLayout as SearchLayoutComponent } from "layouts/searchLayout"
+import { UtilityLayout as UtilityLayoutComponent } from "layouts/utilityLayout"
+import Card from "components/card"
+import Fab from "components/fab"
+import ErrorBoundary from "components/ErrorBoundary"
 
-import initState from 'stores/initState'
-import reducers from 'stores/reducers'
+import initState from "stores/initState"
+import reducers from "stores/reducers"
 
 let SearchDreaminProps = {
-    props: {
-        name: {
-            th: "TH",
-            en: "EN",
-            jp: "JP"
-        },
-        price: 199,
-        subMenu: null
-    },
-    store: initState
+	props: {
+		name: {
+			th: "TH",
+			en: "EN",
+			jp: "JP"
+		},
+		price: 199,
+		subMenu: null
+	},
+	store: initState,
+	dispatch: {
+		updateMenu: () => null
+	}
 }
 
 let SearchLayoutProps = {
-    props: {
-        onChange: () => null
-    },
-    store: {
-        guide: {
-            isActive: false
-        }
-    },
-    dispatch: {
-        toggleFilter: () => null
-    }
+	props: {
+		onChange: () => null
+	},
+	store: {
+		guide: {
+			isActive: false
+		}
+	}
 }
 
 const SearchDreamin = <SearchDreaminComponent {...SearchDreaminProps} />
 const SearchLayout = <SearchLayoutComponent {...SearchLayoutProps} />
 
-describe('Search Dreamin', () => {
-    it('contains Search Layout', () => {
-        const app = shallow(SearchDreamin)
+describe("Search Dreamin", () => {
+	it("contains Search Layout", () => {
+		const app = shallow(SearchDreamin)
 
-        expect(app.find(SearchLayout)).toBeTruthy()
-    })
+		expect(app.find(SearchLayout)).toBeTruthy()
+	})
 
-    it('contains cards', () => {
-        const app = shallow(SearchDreamin)
+	it("contains cards", () => {
+		const app = shallow(SearchDreamin)
 
-        expect(app.find(<Card preload />)).toBeTruthy()
-    })
+		expect(app.find(<Card preload />)).toBeTruthy()
+	})
 
-    // it('contains Floating Action Button', () => {
-    //     const layout = shallow(<UtilityLayoutComponent />)
-        
-    //     expect(layout.contains(<Fab />)).toBeTruthy()
-    // })
+	// it('contains Floating Action Button', () => {
+	//     const layout = shallow(<UtilityLayoutComponent />)
 
-    it('contains sort', () => {
-        const app = shallow(SearchDreamin)
+	//     expect(layout.contains(<Fab />)).toBeTruthy()
+	// })
 
-        expect(app.find('#search-tools')).toBeTruthy()
-    })
+	it("contains sort", () => {
+		const app = shallow(SearchDreamin)
 
-    it('can be contained in Error Boundary', () => {
-        const app = shallow(
-            <ErrorBoundary>
-                {SearchDreamin}
-            </ErrorBoundary>
-        )
+		expect(app.find("#search-tools")).toBeTruthy()
+	})
 
-        expect(app.contains(SearchDreamin)).toBeTruthy()
-    })
+	it("can be contained in Error Boundary", () => {
+		const app = shallow(<ErrorBoundary>{SearchDreamin}</ErrorBoundary>)
 
-    it('can dispatch sortBy', () => {
-        let state = reducers({
-            filter: {
-                isOpen: true,
-                sortBy: 'group',
-                orderBy: 'ascending'
-            }
-        }, {
-            type:'UPDATE_SORT_BY',
-            payload: {
-                filter: {
-                    sortBy: 'name'
-                }
-            }
-        })
+		expect(app.contains(SearchDreamin)).toBeTruthy()
+	})
 
-        expect(state).toEqual({
-            filter:{
-                isOpen: true,
-                sortBy: 'name',
-                orderBy: 'ascending'
-            }
-        })
-    })
+	it("can dispatch sortBy", () => {
+		let state = reducers(
+			{
+				filter: {
+					sortBy: "group",
+					orderBy: "ascending"
+				},
+				guide: {
+					isActive: true,
+					version: 1
+				},
+				order: [],
+				menu: [],
+				exchange: {
+					serviceChange: false
+				}
+			},
+			{
+				type: "UPDATE_SORT_BY",
+				payload: {
+					filter: {
+						sortBy: "name"
+					}
+				}
+			}
+		)
 
-    it('can dispatch orderBy', () => {
-        let state = reducers({
-            filter: {
-                isOpen: true,
-                sortBy: 'name',
-                orderBy: 'ascending'
-            }
-        }, {
-            type:'UPDATE_ORDER_BY',
-            payload: {
-                filter: {
-                    orderBy: 'descending'
-                }
-            }
-        })
+		expect(state).toEqual({
+			filter: {
+				sortBy: "name",
+				orderBy: "ascending"
+			},
+			guide: {
+				isActive: true,
+				version: 1
+			},
+			order: [],
+			menu: [],
+			exchange: {
+				serviceChange: false
+			}
+		})
+	})
 
-        expect(state).toEqual({
-            filter: {
-                isOpen: true,
-                sortBy: 'name',
-                orderBy: 'descending'
-            }
-        })
-    })
+	it("can dispatch orderBy", () => {
+		let state = reducers(
+			{
+				filter: {
+					sortBy: "name",
+					orderBy: "ascending"
+				},
+				guide: {
+					isActive: true,
+					version: 1
+				},
+				order: [],
+				menu: [],
+				exchange: {
+					serviceChange: false
+				}
+			},
+			{
+				type: "UPDATE_ORDER_BY",
+				payload: {
+					filter: {
+						orderBy: "descending"
+					}
+				}
+			}
+		)
+
+		expect(state).toEqual({
+			filter: {
+				sortBy: "name",
+				orderBy: "descending"
+			},
+			guide: {
+				isActive: true,
+				version: 1
+			},
+			order: [],
+			menu: [],
+			exchange: {
+				serviceChange: false
+			}
+		})
+	})
 })

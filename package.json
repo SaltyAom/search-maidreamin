@@ -1,0 +1,11 @@
+{
+  "name": "search-maidreamin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SaltyAom/search-maidreamin",
+  "author": "SaltyAom <aomkirby@mystiar.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "cd client && yarn test"
+  }
+}
