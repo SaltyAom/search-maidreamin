@@ -1,6 +1,6 @@
 # Search Maidreamin Menu
 ## Search menu from Maidreamin MBK with Maidreamin API.
-![Preview of Maidreamin Menu](https://search-maidreamin.now.sh/static/img/cover.jpg)
+![Preview of Maidreamin Menu](https://search-dreamin.now.sh/img/cover.jpg)
 ##### *Note: This is highly over-engineered. This is meant to be used as testing and playing area for new stack which I'm going to implement on other projects.
   
 ### Apollo GraphQL
