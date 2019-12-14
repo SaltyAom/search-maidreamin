@@ -1,6 +1,13 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, {
+	useState,
+	useRef,
+	useEffect,
+	useLayoutEffect,
+	useContext
+} from "react"
 
 import { connect } from "react-redux"
+import { filterSelector, menuSelector } from "stores/selectors"
 
 import dynamic from "next/dynamic"
 
@@ -8,49 +15,65 @@ import { useLazyQuery } from "@apollo/react-hooks"
 
 import { debounceTime, map, takeWhile } from "rxjs/operators"
 
-import SearchLayout from "components/searchLayout"
+import SearchLayout from "layouts/searchLayout"
 import Card from "components/card"
 
 import { GET_MENU, SEARCH_MENU, SEARCH_PRICE } from "libs/query"
-import { search$, loading$, isBlank } from "libs/helpers"
+import { search$, loading$, isBlank, isServer } from "libs/helpers"
 
-import {
-	IMaidreamin,
+import IMaidreamin, {
 	IMaidreaminProps,
-	ISearch,
+	IMaidreaminConnectProps,
+	IMaidreaminConnectDispatch,
 	IMenu,
-	ISearchData
+	ISearchData,
+	TSearch
 } from "pageTypes"
 
 const Error = dynamic(() => import("components/error"))
 const Loading = dynamic(() => import("components/loading"))
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps): IMaidreaminConnectProps => ({
 	store: {
-		filter: {
-			sortBy: state.filter.sortBy,
-			orderBy: state.filter.orderBy
-		}
+		filter: filterSelector(state),
+		menuStore: menuSelector(state)
 	},
 	props: ownProps
 })
 
-const mapDispatchToProps = null
+const mapDispatchToProps = (dispatch): IMaidreaminConnectDispatch => ({
+	dispatch: {
+		updateMenu: menu =>
+			dispatch({
+				type: "UPDATE_MENU",
+				payload: {
+					menu: menu
+				}
+			})
+	}
+})
 
-export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
+export const Maidreamin: IMaidreamin = ({
+	props,
+	dispatch,
+	store
+}: IMaidreaminProps) => {
 	/**
 	 * * Destructing
 	 */
 	let { initMenu } = props,
-		{ filter } = store,
-		{ sortBy, orderBy } = filter
+		{ filter, menuStore } = store,
+		{ sortBy, orderBy } = filter,
+		{ updateMenu } = dispatch
 
 	/**
 	 * * Setup
 	 * */
-	let search = useRef<ISearch>(undefined),
+	let search = useRef<TSearch>(undefined),
 		[isFetching, setFetching] = useState(false),
-		[menus, setMenus] = useState<Array<IMenu>>(initMenu)
+		[menus, setMenus] = useState<Array<IMenu>>(
+			!isBlank(menuStore) ? menuStore : initMenu
+		)
 
 	let searchSubject$ = useContext(search$),
 		loadSubject$ = useContext(loading$)
@@ -75,7 +98,7 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 	useEffect(() => {
 		let debouncedSearch = searchSubject$.pipe(
 			debounceTime(350),
-			map(async (debounced: ISearch) => {
+			map(async (debounced: TSearch) => {
 				search.current = debounced.toString().length
 					? debounced
 					: undefined
@@ -83,20 +106,21 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 			})
 		)
 
-		debouncedSearch.subscribe(
-			async (debounced: any) => {
-				(await debounced !== "") 
-					? await requestSearch()
-					: setMenus(initMenu)
-			}
+		debouncedSearch.subscribe(async (debounced: any) =>
+			(await debounced) !== ""
+				? await requestSearch()
+				: setMenus(initMenu)
 		)
 
 		let debouncedLoad = loadSubject$.pipe(
 			debounceTime(400),
-			takeWhile(isLoading => (!isLoading && isFetching) || (isLoading && !isFetching))
+			takeWhile(
+				isLoading =>
+					(!isLoading && isFetching) || (isLoading && !isFetching)
+			)
 		)
 
-		debouncedLoad.subscribe((isLoading) => setFetching(!isFetching))
+		debouncedLoad.subscribe(() => setFetching(!isFetching))
 
 		/* Unsubscribe on unmount */
 		return () => debouncedSearch.subscribe()
@@ -105,49 +129,53 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 	useEffect(() => {
 		if (typeof search.current === "undefined") return
 
-		let worker = require("libs/worker").default
-
 		if (typeof data !== "undefined")
-			worker
-				.sortWith(
-					typeof data !== "undefined"
-						? data.getMenu || data.getMenuBy
-						: initMenu,
-					{
-						sort: sortBy,
-						order: orderBy
-					}
-				).then(res => setMenus(res))
+			sort(
+				typeof data !== "undefined"
+					? data.getMenu || data.getMenuBy
+					: initMenu
+			)
 
-		if (search.current === "")
-			worker
-				.sortWith(
-					initMenu,
-					{
-						sort: sortBy,
-						order: orderBy
-					}
-				).then(res => setMenus(res))
+		if (search.current === "") sort(initMenu)
 	}, [data])
 
 	useEffect(() => {
-		let worker = require("libs/worker").default
-
-		worker
-			.sortWith(
+		if (typeof search.current === "undefined") sort(initMenu)
+		else
+			sort(
 				typeof data !== "undefined"
 					? data.getMenu || data.getMenuBy
-					: initMenu,
-				{
-					sort: sortBy,
-					order: orderBy
-				}
-			).then(res => setMenus(res))
+					: initMenu
+			)
 	}, [sortBy, orderBy])
 
 	useEffect(() => {
 		loadSubject$.next(loading)
 	}, [loading])
+
+	useEffect(() => {
+		if (typeof search.current === "undefined")
+			sort(initMenu)
+	},[search.current])
+
+	if (!isServer)
+		useLayoutEffect(() => {
+			setTimeout(() => updateMenu(menus), 500)
+		}, [menus])
+
+	/**
+	 * * Functions
+	 */
+	let sort = menu => {
+		let worker = require("libs/worker").default
+
+		return worker
+			.sortWith(menu, {
+				sort: sortBy,
+				order: orderBy
+			})
+			.then(res => setMenus(res))
+	}
 
 	/**
 	 * * Component
@@ -215,8 +243,7 @@ export const Maidreamin: IMaidreamin = ({ props, store }: IMaidreaminProps) => {
 Maidreamin.getInitialProps = async ctx => {
 	let cache
 
-	if(typeof cache !== "undefined")
-		return { initMenu: cache }
+	if (typeof cache !== "undefined") return { initMenu: cache }
 
 	const apolloClient = ctx.apolloClient
 	let initMenu = await apolloClient.query({

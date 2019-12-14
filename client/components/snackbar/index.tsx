@@ -1,63 +1,67 @@
-import { FC, useState, useEffect, useRef } from 'react'
+import { FC, useState, useEffect, useRef } from "react"
 
-import { connect } from 'react-redux'
+import { connect } from "react-redux"
+import { orderSelector } from 'stores/selectors'
 
-import { isBlank } from 'libs/helpers'
+import { isBlank } from "libs/helpers"
 
-import ISnackbar from './types'
-import { IMenu } from 'pageTypes/index'
+import ISnackbar, { ISnackbarInfo, ISnackbarStore } from "./types"
 
-import './snackbar.styl'
+import "./snackbar.styl"
 
-const mapStateToProps = (state) => ({
-    store: {
-        order: state.order
-    }
+const mapStateToProps = (state): ISnackbarStore => ({
+	store: {
+		order: orderSelector(state)
+	}
 })
 
 const mapDispatchToProps = null
 
-const Snackbar:FC<ISnackbar> = ({ store }) => {
-    let { order } = store
+const Snackbar: FC<ISnackbar> = ({ store }) => {
+	let { order } = store,
+		[totalOrder, setTotalOrder] = useState(0)
 
-    let [currentOrder, setOrder] = useState<IMenu>(undefined),
-        queue = useRef([])
+	let [currentOrder, setOrder] = useState<ISnackbarInfo>(undefined),
+		queue = useRef([])
 
-    useEffect(() => {
-        if(isBlank(order[0])) return
+	useEffect(() => {
+		setTotalOrder(order.length)
 
-        queue.current.push(order[order.length - 1])
+		if (isBlank(order[0])) return
 
-        if(isBlank(queue[1]))
-            invokeSnackbar()
-    }, [order])
+		queue.current.push(
+			Object.assign(
+				order[order.length - 1],
+				totalOrder < order.length
+					? { type: "added" }
+					: { type: "removed" }
+			)
+		)
 
-    let invokeSnackbar = () => {
-        if(typeof currentOrder !== "undefined") return
+		if (isBlank(queue[1])) invokeSnackbar()
+	}, [order])
 
-        setOrder(queue.current[0])
+	let invokeSnackbar = () => {
+		if (typeof currentOrder !== "undefined" || isBlank(queue.current[0])) return
 
-        setTimeout(() => {
-            queue.current.shift()
-            setOrder(undefined)
+		setOrder(queue.current[0])
 
-            setTimeout(() => {
-                invokeSnackbar()
-            }, 100)
-        }, 4500)
-    }
+		return setTimeout(() => {
+			queue.current.shift()
+			setOrder(undefined)
 
-    if(typeof currentOrder === "undefined")
-        return null
+			if(!isBlank(queue.current[0]))
+				setTimeout(() => invokeSnackbar(), 100)
+		}, 4500)
+	}
+	
+	if (typeof currentOrder === "undefined") return null
 
-    return (
-        <div id="snackbar">
-            <p>{currentOrder.name.th || currentOrder.subMenu[0]} is added</p>
-        </div>
-    )
+	return (
+		<div id="snackbar">
+			{currentOrder.name.th || currentOrder.subMenu[0]} is {currentOrder.type}
+		</div>
+	)
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Snackbar)
+export default connect(mapStateToProps, mapDispatchToProps)(Snackbar)

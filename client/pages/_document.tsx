@@ -13,10 +13,6 @@ class MyDocument extends Document {
 						content="text/html, charset=utf8"
 					/>
 					<meta
-						name="viewport"
-						content="width=device-width,initial-scale=1, viewport-fit=cover"
-					/>
-					<meta
 						httpEquiv="X-UA-Compatible"
 						content="IE=edge,chrome=1"
 					/>
@@ -31,8 +27,8 @@ class MyDocument extends Document {
 						name="keywords"
 						content="Maidreamin, menu, search maidreamin, get maidreamin menu, search maidreamin menu"
 					/>
-					<meta name="author" content="aomkirby123" />
-					<link rel="icon" href="/app/icon/iconX192.png" />
+					<meta name="author" content="SaltyAom" />
+					<link rel="icon" href="/app/icon/iconXDisplay.png" />
 
 					{/* Open Graph */}
 					<meta
@@ -47,7 +43,7 @@ class MyDocument extends Document {
 						property="og:tags"
 						content="Maidreamin, menu, search maidreamin, get maidreamin menu, search maidreamin menu"
 					/>
-					<meta property="article:author" content="aomkirby123" />
+					<meta property="article:author" content="SaltyAom" />
 					<meta
 						property="og:site_name"
 						content="Search Dreamin"
@@ -56,7 +52,7 @@ class MyDocument extends Document {
 					<meta property="og:type" content="website" />
 					<meta
 						property="og:image"
-						content="https://search-maidreamin.now.sh/img/cover.jpg"
+						content="https://search-dreamin.now.sh/img/cover.jpg"
 					/>
 					<meta property="og:image:width" content="1920" />
 					<meta property="og:image:height" content="1080" />
@@ -70,12 +66,12 @@ class MyDocument extends Document {
 						name="twitter:description"
 						content="Search menu from Maidreamin MBK with Maidreamin API"
 					/>
-					<meta name="twitter:site" content="@aomkirby1231" />
+					<meta name="twitter:site" content="@SaltyAom" />
 					<meta
 						name="twitter:image"
-						content="https://search-maidreamin.now.sh/img/cover.jpg"
+						content="https://search-dreamin.now.sh/img/cover.jpg"
 					/>
-					<meta name="twitter:creator" content="@aomkirby1231" />
+					<meta name="twitter:creator" content="@SaltyAom" />
 
 					{/* Web App */}
 					<link rel="manifest" href="/app/manifest.json" />
@@ -103,9 +99,9 @@ class MyDocument extends Document {
 					<meta name="apple-mobile-web-app-capable" content="yes" />
 					<meta
 						name="apple-mobile-web-app-title"
-						content="Maidreamin Menu"
+						content="Dreamin"
 					/>
-					<link rel="apple-touch-icon" href="/app/icon/icon.jpg" />
+					<link rel="apple-touch-icon" href="/app/icon/iconX256.jpg" />
 					<meta
 						name="apple-mobile-web-app-status-bar-style"
 						content="default"

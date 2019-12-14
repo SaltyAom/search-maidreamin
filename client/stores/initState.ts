@@ -6,11 +6,14 @@ const initState: IInitState = {
         version: 1
     },
     filter: {
-        isOpen: false,
         sortBy: "group",
         orderBy: "ascending"
     },
-    order: []
+    order: [],
+    menu: [],
+    exchange: {
+        serviceCharge: false
+    }
 }
 
 export default initState

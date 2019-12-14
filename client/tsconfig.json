@@ -24,7 +24,8 @@
 			"stylus": ["public/stylus"],
 			"libs": ["libs"],
 			"pageTypes": ["pageTypes"],
-			"stores": ["stores"]
+			"stores": ["stores"],
+			"layouts": ["layouts"]
 		},
 	},
 	"exclude": ["node_modules"],

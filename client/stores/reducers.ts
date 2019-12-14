@@ -1,53 +1,17 @@
-import IInitState from "stores/types/initState"
-import IAction from "stores/types/action"
+import { combineReducers } from 'redux'
 
-const reducers = (state: IInitState, action: IAction): IInitState => {
-    switch(action.type){
-        case "TOGGLE_FILTER":
-            return {
-                ...state,
-                filter: {
-                    ...state.filter,
-                    isOpen: !state.filter.isOpen
-                }
-            }
+import filter from 'stores/reducers/filter'
+import guide from 'stores/reducers/guide'
+import order from 'stores/reducers/order'
+import menu from 'stores/reducers/menu'
+import exchange from 'stores/reducers/exchange'
 
-        case "UPDATE_SORT_BY":
-            return {
-                ...state,
-                filter: {
-                    ...state.filter,
-                    sortBy: action.payload.filter.sortBy
-                }
-            }
+const rootReducers = combineReducers({
+    filter,
+    guide,
+    order,
+    menu,
+    exchange
+})
 
-        case "UPDATE_ORDER_BY":
-            return {
-                ...state,
-                filter: {
-                    ...state.filter,
-                    orderBy: action.payload.filter.orderBy
-                }
-            }
-
-        case "UPDATE_GUIDE":
-            return {
-                ...state,
-                guide: {
-                    ...state.guide,
-                    isActive: action.payload.guide.isActive
-                }
-            }
-
-        case "ADD_ORDER":
-            return {
-                ...state,
-                order: [...state.order, action.payload.order]
-            }
-
-        default:
-            return state
-    }
-}
-
-export default reducers
+export default rootReducers

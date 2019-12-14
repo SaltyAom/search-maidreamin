@@ -1,22 +1,28 @@
 import { Fragment } from "react"
 
 import { connect } from "react-redux"
+import { orderSelector } from 'stores/selectors'
 
 import Head from "next/head"
 
-import OrderLayout from "components/orderLayout"
+import OrderLayout from "layouts/orderLayout"
 import Header from "components/header"
 import Table from "components/table"
+import Exchange from "components/exchange"
 
-const mapStateToProps = state => ({
+import IInitState from 'stores/types/initState'
+import { IOrderProps, IOrderStoreConnect } from 'pageTypes/order'
+import { NextPage } from "next"
+
+const mapStateToProps = (state: IInitState): IOrderStoreConnect => ({
 	store: {
-		order: state.order
+		order: orderSelector(state)
 	}
 })
 
 const mapDispatchToProps = null
 
-const Order = ({ store }) => {
+const Order: NextPage<IOrderProps> = ({ store }) => {
 	let { order } = store
 
 	return (
@@ -29,7 +35,10 @@ const Order = ({ store }) => {
 					Total: {order.length}{" "}
 					{order.length >= 2 ? "orders" : "order"}
 				</Header>
-				<Table data={order}></Table>
+				<Header title="" contained={false} dense>
+					<Exchange />
+				</Header>
+				<Table data={order} />
 			</OrderLayout>
 		</Fragment>
 	)
