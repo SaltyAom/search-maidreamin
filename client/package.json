@@ -24,7 +24,7 @@
 		"graphql-tag": "^2.10.1",
 		"next": "^9.1.4",
 		"next-with-apollo": "^4.3.0",
-		"node-fetch": "^2.6.0",
+		"node-fetch": "^2.6.1",
 		"pre-image": "^0.2.1",
 		"preact": "^10.0.5",
 		"preact-compat": "^3.19.0",
